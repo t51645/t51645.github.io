@@ -215,7 +215,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 817D Imbalanced Array /" data-id="cjttuf872001le8v3hp1ysubh" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 817D Imbalanced Array /" data-id="cjttw581r001lm4v370cqm0tx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -340,7 +340,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/hdu 2196 【树形DP】 /" data-id="cjttuf873001ne8v3f6mumdzh" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/hdu 2196 【树形DP】 /" data-id="cjttw581s001nm4v3n04lfgmd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -466,7 +466,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/hdu 4515 【树的直径】 /" data-id="cjttuf874001pe8v3ysvckyn0" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/hdu 4515 【树的直径】 /" data-id="cjttw581t001pm4v3q2hobtdw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -618,7 +618,133 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/14届浙江省acm总结 /" data-id="cjttuf85v0000e8v3w4jcg633" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/14届浙江省acm总结 /" data-id="cjttw580j0000m4v3rpyb6ex3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计蒜客第六场 微软大楼设计方案（困难） " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /">计蒜客第六场 微软大楼设计方案（困难）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：</p>
+<p><a href="https://nanti.jisuanke.com/t/15773" target="_blank" rel="noopener"> https://nanti.jisuanke.com/t/15773 </a></p>
+<p>题解：</p>
+<p>先对点按x排序  </p>
+<p>设Xa&lt;=Xb</p>
+<p>当k&lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为2<br>0所以最多计算20<em>20次（这里更正一下，应该是20</em>m次m具体为多少我也不知道，但肯定不超过40，望dalao指教）</p>
+<p>k&gt;40时，从枚举Xa，再对Xb进行二分，找到第一个Xb-<br>Xa&gt;=k-40,则在Xa至Xb之间的核心部门到Xa的距离都是&lt;=k的，因为楼层最高为20，然后继续从Xb用开始枚举Xb，一直到Xb-<br>Xa&gt;k为止，同样最多计算20<em>20次（20</em>m次）</p>
+<p>PS：表达可能不太清楚，请见谅</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define uLL unsigned long long
+const LL mod = 1e8;
+const LL INF = 1e18;
+typedef pair&lt;int, int&gt;P;
+const double eps = 1e-6;
+
+int h[MAX_N];
+P p[MAX_N];
+int minsum[MAX_N][20];
+void init_RMQ(int n)
+{
+    for(int i=1;i&lt;=n;i++)
+        minsum[i][0] = h[i];
+    int k = log2(1.0*n);
+    for(int j=1;j&lt;=k;j++) {
+        for(int i=1;i&lt;=n;i++) {
+            if(i+(1&lt;&lt;j)-1&lt;=n) {
+                minsum[i][j] = min(minsum[i][j-1], minsum[i+(1&lt;&lt;(j-1))][j-1]);
+            }
+        }
+    }
+}
+int getMin(int i,int j)
+{
+    int k = (int)log2(1.0*(j-i+1));
+    return min(minsum[i][k], minsum[j-(1&lt;&lt;k)+1][k]);
+}
+int main()
+{
+    int n, k, m;
+    cin &gt;&gt; n &gt;&gt; k;
+    for(int i=1; i&lt;=n; i++) {
+        scanf(&quot;%d&quot;, &amp;h[i]);
+    }
+    init_RMQ(n);
+    cin &gt;&gt; m;
+    for(int i=0; i&lt;m; i++) {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        p[i] = P(x, y);
+    }
+    sort(p, p+m);
+    LL ans = 0;
+    if(k&lt;=40) {
+        for(int i=0; i&lt;m; i++) {
+            for(int j=i+1; j&lt;m; j++) {
+                if(p[j].first-p[i].first&gt;k)
+                    break;
+                int low = min(p[i].second, p[j].second);
+                low = min(low, getMin(p[i].first, p[i].second));
+                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
+                if(tmp &lt;= k)
+                    ans++;
+            }
+        }
+    }
+    else {
+        for(int i=0; i&lt;m; i++) {
+            int pos = lower_bound(p, p+m, P(p[i].first+k-40, 0)) - p;//p[i+1]-p[pos]之间的点到p[i]的距离都是小于等于k的
+            ans += (LL)(pos-i-1);
+            for(int j=pos; j&lt;m; j++) {
+                if(p[j].first-p[i].first&gt;k)
+                    break;
+                int low = min(p[i].second, p[j].second);
+                low = min(low, getMin(p[i].first, p[j].first));
+                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
+                if(tmp &lt;= k)
+                    ans++;
+            }
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" data-id="cjttw582g002tm4v382g7lcbi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -705,116 +831,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/poj 1745 Divisibility /" data-id="cjttuf876001te8v3p1lwgxyj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-tyvj 1505 打砖头 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/tyvj 1505 打砖头 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/tyvj 1505 打砖头 /">tyvj 1505 打砖头</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接：<a href="http://www.tyvj.cn/p/1505" target="_blank" rel="noopener">http://www.tyvj.cn/p/1505</a></p>
-<p>原博客链接：<a href="http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html" target="_blank" rel="noopener">http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html</a>  </p>
-<p>题解：</p>
-<p>这个打砖头是很经典的题目。</p>
-<p>一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。</p>
-<p>消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，状压dp？别开玩笑了我直接搞不了。</p>
-<p>那么只能转换一下，上网上看了别人的方法，把三角形倒过来了！</p>
-<p>比如说样例：</p>
-<p>2 2 3 4</p>
-<p>8 2 7</p>
-<p>2 3</p>
-<p>49</p>
-<p>倒过来之后——&gt;</p>
-<p>4</p>
-<p>3 7</p>
-<p>2 2 3</p>
-<p>2 8 2 49</p>
-<p>那么每一点只能由左边的点转移过来，和左上角一直到上一行末尾的数转移过来。</p>
-<p>如第四行第2个数可以从第三行的1，2，3个数转移过来。为什么？再回去看看题吧……</p>
-<p>那么就可以开状态f[i,j,k]表示取到i,j这个位置，取了k个数的最大得分。</p>
-<p>那么如果取这个数，只能是a[i,1]+a[i,2]+…+a<a href="这个预处理出来">i,j</a>+f[i-1,p,k-j]  其中p取j-1到i-1。如上述。</p>
-<p>还应该注意每行都应该计算f[i,0,k]表示这一行不取数的答案。代码如下：</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 100005
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;int, int&gt;P;
-
-int a[55][55];
-int dp[55][55][505];
-int n, m;
-int main()
-{
-    cin &gt;&gt; n &gt;&gt; m;
-    for(int j=1; j&lt;=n; j++)
-        for(int i=n; i&gt;=j; i--)
-            scanf(&quot;%d&quot;, &amp;a[i][j]);
-    memset(dp, -1, sizeof(dp));
-    for(int i=0; i&lt;=n; i++)
-        dp[i][0][0] = 0;
-    int ans = 0;
-    for(int k=1; k&lt;=m; k++) {
-        for(int i=1; i&lt;=n; i++) {
-            int sum = 0;
-            for(int j=0; j&lt;=i; j++) {//注意j从0开始，一开始从1开始WA了好久
-                sum += a[i][j];
-                for(int p=j-1; p&lt;=i-1; p++)
-                    if(k &gt;= j &amp;&amp; p &gt;= 0 &amp;&amp; dp[i-1][p][k-j] != -1)
-                        dp[i][j][k] = max(dp[i][j][k], sum+dp[i-1][p][k-j]);
-                ans = max(ans, dp[i][j][k]);
-            }
-        }
-    }
-    cout &lt;&lt; ans &lt;&lt; endl;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1505 打砖头 /" data-id="cjttuf880002we8v3ytxv4g7g" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/poj 1745 Divisibility /" data-id="cjttw581w001vm4v33lqjzouy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -946,7 +963,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/poj 3071 【概率dp】 /" data-id="cjttuf878001xe8v3ueuaejd1" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/poj 3071 【概率dp】 /" data-id="cjttw581y001zm4v38qxz0ih4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1151,7 +1168,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/poj 3295 Tautology /" data-id="cjttuf87a0021e8v3j6rx2lgn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/poj 3295 Tautology /" data-id="cjttw581z0021m4v3b7k75hq6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1161,9 +1178,9 @@ int main()
 
 
   
-    <article id="post-21位 花朵数 " class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/21位 花朵数 /" class="article-date">
+    <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -1179,7 +1196,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/21位 花朵数 /">21位 花朵数</a>
+      <a class="article-title" href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
     </h1>
   
 
@@ -1187,120 +1204,130 @@ int main()
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题意：</p>
-<p>一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。</p>
-<p>例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =<br>153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。</p>
-<p>当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。</p>
-<p>当N=5时，92727满足条件。</p>
-<p>实际上，对N的每个取值，可能有多个数字满足条件。</p>
-<p>程序的任务是：求N=21时，所有满足条件的花朵数。注意：这个整数有21位，它的各个位数字的21次方之和正好等于这个数本身。</p>
-<p>如果满足条件的数字不只有一个，请从小到大输出所有符合条件的数字，每个数字占一行。因为这个数字很大，请注意解法时间上的可行性。要求程序在1分钟内运行完毕。</p>
+        <p>题目链接：</p>
+<p><a href="http://codeforces.com/contest/814/problem/C" target="_blank" rel="noopener"> http://codeforces.com/contest/814/problem/C
+</a></p>
+<p>题意：</p>
+<p>给出一个长为n的字符串s，接下来有q次询问，每次询问给出正整数m和字符c，问在字符串中最多添加m个字符c后字符串中最长的仅含c的连续子串的长度为多少</p>
 <p>题解：</p>
-<p>看了网上的思路，大概是枚举每个数出现的次数，其中次数和不超过21次，然后因为不管怎么排列，数字对应出现次数最终求和都为同一个值，所以可以判断最终生成的数中各<br>数字出现的次数与枚举的是否相同即可。深搜剪枝后数字出现次数符合的仅有14307150个，6s就可以得到答案</p>
-<pre><code>#include&lt;iostream&gt;
-#include &lt;stdio.h&gt;
-#include &lt;algorithm&gt;
-#include &lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
+<p>因为q&lt;=2e5所以易想到这题需要将答案保存到数组中，这样就需要dp处理字符串</p>
+<p>设dp[i][j][k]为从第i个下标开始选择修改k个字符后，仅含字符’a’+j的连续子串的最长长度为多少。</p>
+<p>当i&gt;=1，dp[i][j][k] = dp[i-1][j][k-p]       （当s[i]==’a’+j时p=0，否则p=1）</p>
+<p>当i==0，dp[i][j][k] = q        （当k大于0或s[i]==’a’+j时q=1否则q=0）</p>
+<p>然后因为给出m与c后dp的第一位无意义，所以可以舍去将dp[i][j][k]中有用的信息保存为ans[i][j]，ans[i][j]表示修改i个字符为’a’<br>+j字符后字符串的仅含’a’+j的连续子串最长长度</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
 using namespace std;
-#define MAX_N 100005
-#define inf 0x7fffffff
+#define MAX_N 40005
+#define inf 0x3f3f3f3f
 #define LL long long
-#define ull unsigned long long
-const LL INF = 9e18;
-const int mod = 100000000;
+#define uLL unsigned long long
+const LL mod = 1e9+7;
+const LL INF = 1e18;
+typedef pair&lt;int, int&gt;P;
+const double eps = 1e-6;
 
-int x[10];
-int num[10][3];
+int dp[1505][26][1505];
+int ans[1505][26];
+int main()
+{
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    char s[1505];
+    scanf(&quot;%s&quot;, s);
+    memset(dp, 0, sizeof(dp));
+    memset(ans, 0, sizeof(ans));
+    for(int i=0; i&lt;n; i++) {
+        for(int j=0; j&lt;26; j++) {
+            for(int k=0; k&lt;=n; k++) {
+                if(i) {
+                    if(k)
+                        dp[i][j][k] = dp[i-1][j][k-(s[i]!=(&apos;a&apos;+j))] + 1;
+                    else
+                        dp[i][j][k] = (s[i]==&apos;a&apos;+j)?(1 + dp[i-1][j][k]):0;
+                }
+                else {
+                    if(s[i]==&apos;a&apos;+j)
+                        dp[i][j][k] = 1;
+                    else
+                        dp[i][j][k] = (k&gt;0);
+                }
+            }
+        }
+    }
+    for(int i=0; i&lt;26; i++) {
+        for(int j=0; j&lt;n; j++) {
+            for(int k=0; k&lt;=n; k++) {
+                ans[k][i] = max(ans[k][i], dp[j][i][k]);
+            }
+        }
+    }
+    int q;
+    scanf(&quot;%d&quot;, &amp;q);
+    while(q--) {
+        int m;
+        char c;
+        scanf(&quot;%d %c&quot;, &amp;m, &amp;c);
+        printf(&quot;%d\n&quot;, ans[m][c-&apos;a&apos;]);
+    }
+}
+</code></pre><p>再提供另一种尺取法，更好编码和理解</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define MAX_N 40005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define uLL unsigned long long
+const LL mod = 1e9+7;
+const LL INF = 1e18;
+typedef pair&lt;int, int&gt;P;
+const double eps = 1e-6;
+
+int dp[26][1505];
+int n, q;
+string s;
 void init()
 {
-    num[0][2] = 0;        num[0][1] = 0;        num[0][0] = 0;
-    num[1][2] = 0;        num[1][1] = 0;        num[1][0] = 1;
-    num[2][2] = 0;        num[2][1] = 0;        num[2][0] = 2097152;
-    num[3][2] = 0;        num[3][1] = 104;      num[3][0] = 60353203;
-    num[4][2] = 0;        num[4][1] = 43980;    num[4][0] = 46511104;
-    num[5][2] = 0;        num[5][1] = 4768371;  num[5][0] = 58203125;
-    num[6][2] = 2;        num[6][1] = 19369506; num[6][0] = 40377856;
-    num[7][2] = 55;       num[7][1] = 85458640; num[7][0] = 83284007;
-    num[8][2] = 922;      num[8][1] = 33720368; num[8][0] = 54775808;
-    num[9][2] = 10941;    num[9][1] = 89891315; num[9][0] = 12359209;
-}
-void check()
-{
-    int tmp[3];
-    memset(tmp, 0, sizeof(tmp));
-    for(int i=0;i&lt;10;i++) {
-        tmp[0] = tmp[0] + (num[i][0]*x[i]);
-        tmp[1] = tmp[1] + (num[i][1]*x[i]);
-        tmp[2] = tmp[2] + (num[i][2]*x[i]);
-
-        tmp[1] = tmp[1] + (tmp[0]/mod);
-        tmp[0] = tmp[0] % mod;
-
-        tmp[2] = tmp[2] + (tmp[1]/mod);
-        tmp[1] = tmp[1] % mod;
-    }
-    int sum[10];
-    memset(sum, 0, sizeof(sum));
-    int t = tmp[2];
-    int dd = 0;
-    while(t) {
-        sum[t%10]++;
-        t/=10;
-        dd++;
-    }
-    t = tmp[1];
-    while(t) {
-        sum[t%10]++;
-        t/=10;
-        dd++;
-    }
-    t = tmp[0];
-    while(t) {
-        sum[t%10]++;
-        t/=10;
-        dd++;
-    }
-    sum[0] += 21 - dd;
-    for(int i=0;i&lt;=9;i++)
-        if(sum[i] != x[i])
-            return ;
-    if(!tmp[2] || !tmp[1] || !tmp[0])
-        return ;
-    printf(&quot;%d%d%d\n&quot;,tmp[2],tmp[1],tmp[0]);
-}
-int sum = 0;
-void dfs(int k, int total)
-{
-    if(total &gt; 21)
-        return;
-    if(k == -1) {
-        if(total == 21)
-            check(),sum++;
-        return;
-    }
-    for(int i=21;i&gt;=0;i--) {
-        x[k] = i;
-        dfs(k-1, total+i);
+    for(int i=0; i&lt;26; i++) {
+        for(int j=1; j&lt;=n; j++) {
+            char c = (&apos;a&apos;+i);
+            int l = 0;
+            int r = 0;
+            int tmp = s[0]!=c;
+            int ans = 0;
+            while(r&gt;=l &amp;&amp; r&lt;n) {
+                if(j&gt;=tmp)
+                    ans = max(ans, r-l+1);
+                if(j&gt;=tmp) {
+                    r++;
+                    tmp += (s[r]!=c);
+                }
+                else {
+                    tmp -= (s[l]!=c);
+                    l++;
+                }
+            }
+            dp[i][j] = ans;
+        }
     }
 }
 int main()
 {
+    cin &gt;&gt; n;
+    cin &gt;&gt; s;
+    cin &gt;&gt; q;
     init();
-    dfs(9, 0);
-    cout &lt;&lt; sum &lt;&lt; endl;
+    while(q--) {
+        int m;
+        char c;
+        scanf(&quot;%d %c&quot;, &amp;m ,&amp;c);
+        printf(&quot;%d\n&quot;, dp[c-&apos;a&apos;][m]);
+    }
 }
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/21位 花朵数 /" data-id="cjttuf8630003e8v3osbf4u7k" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/" data-id="cjttw580t0003m4v3pfhzaj6f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1408,7 +1435,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1059 过河【压缩】 /" data-id="cjttuf87c0025e8v3v7egd6ex" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1059 过河【压缩】 /" data-id="cjttw58230026m4v33ojbxhzw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1487,11 +1514,11 @@ int main()
           </li>
         
           <li>
-            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+            <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
           </li>
         
           <li>
-            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+            <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
           </li>
         
       </ul>

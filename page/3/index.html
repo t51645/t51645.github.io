@@ -62,6 +62,263 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-codeforce 689B 【bfs】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforce 689B 【bfs】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/codeforce 689B 【bfs】 /">codeforce 689B 【bfs】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：</p>
+<p>有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需<br>最小体力</p>
+<p>题解：</p>
+<p>第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-<br>1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+int n;
+int a[MAX_N];
+int ans[MAX_N];
+bool vis[MAX_N];
+struct node
+{
+    int x,t;
+};
+void bfs()
+{
+    node now, next;
+    queue&lt;node&gt; q;
+    fill(ans+1, ans+1+n, inf);
+    now.x = 1; now.t = 0;
+    vis[1] = true;
+    ans[1] = 0;
+    q.push(now);
+    while(!q.empty()) {
+        now = q.front();
+        q.pop();
+        for(int i=-1;i&lt;=1;i++) {
+            if(!i) {
+                next.x = a[now.x];
+                next.t = now.t + 1;
+                if(!vis[next.x]) {
+                    vis[next.x] = true;
+                    ans[next.x] = next.t;
+                    q.push(next);
+                }
+            }
+            else {
+                next.x = now.x + i;
+                next.t = now.t + 1;
+                if(next.x&gt;=1 &amp;&amp; next.x&lt;=n &amp;&amp; !vis[next.x]) {
+                    vis[next.x] = true;
+                    ans[next.x] = next.t;
+                    q.push(next);
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    cin &gt;&gt; n;
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;a[i]);
+    bfs();
+    for(int i=1;i&lt;=n;i++)
+        printf(&quot;%d%c&quot;,ans[i],i==n?&apos;\n&apos;:&apos; &apos;);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689B 【bfs】 /" data-id="cjttw581h0011m4v3wf76c1gw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-UVa 10817 Headmaster‘s Headache 【01背包 位运算】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/">UVa 10817 Headmaster‘s Headache 【01背包 位运算】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：刘汝佳训练指南p95</p>
+<p>题解：此题可以设dp[s2][s1] = 授课状态为s2、s1时的最小花费（s1为课程授课状态为1的集合，s2为授课状态为2的集合）</p>
+<p>然后视招募的新老师为要装进背包里的物品，授课状态s2，s1为容量，最终答案就为dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1]（S为课程数目）</p>
+<p>具体转移方程如下：</p>
+<p>设s2，s1为招募该老师前的状态，ns2，ns1为招募该老师后的状态则，ns1 = s1 | s ,ns2 = s2 | (s1 &amp; s)<br>,（s为该老师能教授的课程）</p>
+<p>dp[ns2][ns1] = min(dp[s1 | s[i]][s2 | (s1 &amp; s[i])]) +<br>v[i]，s[i]是第i个老师授课集合，v[i]是第i个老师的收费</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
+
+int S, M, N;
+int tC[25];
+int aC[105];
+int teacher[25];
+int applicant[105];
+int dp[1&lt;&lt;8][1&lt;&lt;8];
+int getT()
+{
+    char c;
+    int ans = 0;
+    int d;
+    c = getchar();
+    while(c!=&apos;\n&apos;) {
+        scanf(&quot;%d&quot;, &amp;d);
+        d--;
+        ans |= (1&lt;&lt;d);
+        c = getchar();
+    }
+    return ans;
+}
+void init()
+{
+    memset(dp, inf, sizeof(dp));
+}
+int main()
+{
+    while(cin &gt;&gt; S &gt;&gt; M &gt;&gt; N &amp;&amp; S+M+N) {
+        init();
+        int s1 = 0;
+        int s2 = 0;
+        int sum = 0;
+        for(int i=0; i&lt;M; i++) {
+            scanf(&quot;%d&quot;, &amp;tC[i]);
+            teacher[i] = getT();
+            sum += tC[i];
+            s2 |= (s1 &amp; teacher[i]);
+            s1 |= teacher[i];
+        }
+        for(int i=0; i&lt;N; i++) {
+            scanf(&quot;%d&quot;, &amp;aC[i]);
+            applicant[i] = getT();
+        }
+        dp[s2][s1] = sum;
+        for(int k=0; k&lt;N; k++) {
+            int s = applicant[k];
+            for(int i=(1&lt;&lt;S)-1; i&gt;=0; i--) {
+                for(int j=(1&lt;&lt;S)-1; j&gt;=0; j--) {
+                    int ns1 = j|s;
+                    int ns2 = i|(j&amp;s);
+                    dp[ns2][ns1] = min(dp[ns2][ns1], dp[i][j]+aC[k]);
+                }
+            }
+        }
+        /*
+       for(int i=0; i&lt;(1&lt;&lt;S); i++) {
+            for(int j=0; j&lt;(1&lt;&lt;S); j++) {
+                if(dp[i][j] == inf)
+                    printf(&quot;0 &quot;);
+                else
+                    printf(&quot;%d &quot;,dp[i][j]);
+            }
+            puts(&quot;&quot;);
+        }*/
+        cout &lt;&lt; dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1] &lt;&lt; endl;
+    }
+    return 0;
+}
+/*
+8 4 3
+1000 1
+1000 2
+1000 3
+1000 2
+50000 1 5 7 3 4
+50000 1 6 8
+50000 1 2 3 4 5 6 7 8
+*/
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" data-id="cjttw581i0013m4v30cwog83y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-codeforce 689D 【二分+RMQ】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/21/codeforce 689D 【二分+RMQ】 /" class="article-date">
@@ -200,215 +457,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689D 【二分+RMQ】 /" data-id="cjttuf86t0011e8v34moco818" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-codeforce 689B 【bfs】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/codeforce 689B 【bfs】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/codeforce 689B 【bfs】 /">codeforce 689B 【bfs】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题意：</p>
-<p>有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需<br>最小体力</p>
-<p>题解：</p>
-<p>第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-<br>1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了</p>
-<pre><code>#include&lt;iostream&gt;
-#include &lt;stdio.h&gt;
-#include &lt;algorithm&gt;
-#include &lt;math.h&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 200005
-#define inf 0x7fffffff
-#define LL long long
-#define ull unsigned long long
-#define mod 1000000007
-LL INF=9e18;
-
-int n;
-int a[MAX_N];
-int ans[MAX_N];
-bool vis[MAX_N];
-struct node
-{
-    int x,t;
-};
-void bfs()
-{
-    node now, next;
-    queue&lt;node&gt; q;
-    fill(ans+1, ans+1+n, inf);
-    now.x = 1; now.t = 0;
-    vis[1] = true;
-    ans[1] = 0;
-    q.push(now);
-    while(!q.empty()) {
-        now = q.front();
-        q.pop();
-        for(int i=-1;i&lt;=1;i++) {
-            if(!i) {
-                next.x = a[now.x];
-                next.t = now.t + 1;
-                if(!vis[next.x]) {
-                    vis[next.x] = true;
-                    ans[next.x] = next.t;
-                    q.push(next);
-                }
-            }
-            else {
-                next.x = now.x + i;
-                next.t = now.t + 1;
-                if(next.x&gt;=1 &amp;&amp; next.x&lt;=n &amp;&amp; !vis[next.x]) {
-                    vis[next.x] = true;
-                    ans[next.x] = next.t;
-                    q.push(next);
-                }
-            }
-        }
-    }
-}
-int main()
-{
-    cin &gt;&gt; n;
-    for(int i=1;i&lt;=n;i++)
-        scanf(&quot;%d&quot;,&amp;a[i]);
-    bfs();
-    for(int i=1;i&lt;=n;i++)
-        printf(&quot;%d%c&quot;,ans[i],i==n?&apos;\n&apos;:&apos; &apos;);
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689B 【bfs】 /" data-id="cjttuf86u0013e8v3f75lykux" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-codeforce 689C 【二分】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/codeforce 689C 【二分】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/codeforce 689C 【二分】 /">codeforce 689C 【二分】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题意：</p>
-<p>有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷a<em>q，第三个偷a</em>q<em>q，第四个偷a</em>q<em>q</em>q），每个小偷最多不能偷超过n个巧克力，<br>现在给出他们最多的偷法m，求最小的n。</p>
-<p>比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16</p>
-<p>题解：</p>
-<p>对于一个n，我们可以枚举q求解偷法m = ∑n/(i<em>i</em>i) (i=1;i<em>i</em>i&lt;=n;i++)</p>
-<p>所以对于某个n我们可以在O(n^1/3)求解，再二分n，当某个n求解得到的偷法等于m时该n可视为符合要求</p>
-<pre><code>#include&lt;iostream&gt;
-#include &lt;stdio.h&gt;
-#include &lt;algorithm&gt;
-#include &lt;math.h&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 200005
-#define inf 0x7fffffff
-#define LL long long
-#define ull unsigned long long
-#define mod 1000000007
-LL INF=9e18;
-
-LL cal(LL n)
-{
-    LL sum = 0;
-    for(LL i=2;i*i*i&lt;=n;i++)
-        sum += (n/(i*i*i));
-    return sum;
-}
-int main()
-{
-    LL m;
-    cin &gt;&gt; m;
-    LL low = 0;
-    LL up = INF;
-    LL ans = INF;
-    while(low &lt; up) {
-        LL mid = (low + up) / 2;
-        LL tmp = cal(mid);
-        if(tmp &gt;= m)
-            up = mid;
-        else
-            low = mid + 1;
-        if(tmp == m)
-            ans = mid;
-    }
-    if(ans == INF)
-        cout &lt;&lt; -1 &lt;&lt; endl;
-    else
-        cout &lt;&lt; ans &lt;&lt; endl;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689C 【二分】 /" data-id="cjttuf86v0015e8v3979o8e6r" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689D 【二分+RMQ】 /" data-id="cjttw581j0015m4v3ym8yf8u3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -543,7 +592,133 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/" data-id="cjttuf86v0017e8v3xtigd2sg" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/" data-id="cjttw581k0017m4v3bhv26lqm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-codeforces 219D 【树形DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforces 219D 【树形DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/codeforces 219D 【树形DP】 /">codeforces 219D 【树形DP】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点</p>
+<p>题解：</p>
+<p>设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。</p>
+<p>可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。</p>
+<pre><code>#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7f7f7f7f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+//const double Pi = acos(-1);
+const int mod = 1e4+7;
+typedef pair&lt;int, int&gt;P;
+
+vector&lt;int&gt;G[MAX_N];
+set&lt;P&gt;st;
+int dp[MAX_N][2];
+/*
+dp[i][0]该结点子树有多少条边要改，
+dp[i][1]该结点的父节点有多少条边要改
+*/
+void dfs1(int u, int pre)
+{
+    dp[u][0] = dp[u][1] = 0;
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i];
+        if(v == pre)
+            continue;
+        dfs1(v, u);
+        if(st.find(P(u, v)) == st.end())//如果u不能到v则需要逆转边
+            dp[u][0]++;
+        dp[u][0] += dp[v][0];
+    }
+}
+void dfs2(int u, int pre)
+{
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i];
+        if(v == pre)
+            continue;
+        dp[v][1] = dp[u][0] - dp[v][0] + dp[u][1];//(dp[u][0]-dp[v][0])就是u的除v结点外的其他子树逆转边
+        if(st.find(P(u, v)) != st.end())//还需判断u和v之间边的方向
+            dp[v][1]++;
+        else
+            dp[v][1]--;
+        dfs2(v, u);
+    }
+}
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;n; i++) {
+        int a, b;
+        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+        st.insert(P(a, b));
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+    dfs1(1, 0);
+    dfs2(1, 0);
+    int mn = inf;
+    for(int i=1; i&lt;=n; i++)
+        mn = min(mn, dp[i][0]+dp[i][1]);
+    cout &lt;&lt; mn &lt;&lt; endl;
+    for(int i=1; i&lt;=n; i++) {
+        if(dp[i][0]+dp[i][1] == mn)
+            printf(&quot;%d &quot;, i);
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 219D 【树形DP】 /" data-id="cjttw581l0019m4v3b2bjb8xd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -635,7 +810,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 148D 【概率dp】 /" data-id="cjttuf86w0019e8v3rzo4rf4i" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 148D 【概率dp】 /" data-id="cjttw581m001bm4v3k5p91935" class="article-share-link">Share</a>
       
       
     </footer>
@@ -645,9 +820,9 @@ int main()
 
 
   
-    <article id="post-codeforces 766D Mahmoud and a Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-21位 花朵数 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" class="article-date">
+    <a href="/2017/06/21/21位 花朵数 /" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -663,7 +838,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
+      <a class="article-title" href="/2017/06/21/21位 花朵数 /">21位 花朵数</a>
     </h1>
   
 
@@ -672,14 +847,19 @@ int main()
     <div class="article-entry" itemprop="articleBody">
       
         <p>题意：</p>
-<p>给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系</p>
+<p>一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。</p>
+<p>例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =<br>153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。</p>
+<p>当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。</p>
+<p>当N=5时，92727满足条件。</p>
+<p>实际上，对N的每个取值，可能有多个数字满足条件。</p>
+<p>程序的任务是：求N=21时，所有满足条件的花朵数。注意：这个整数有21位，它的各个位数字的21次方之和正好等于这个数本身。</p>
+<p>如果满足条件的数字不只有一个，请从小到大输出所有符合条件的数字，每个数字占一行。因为这个数字很大，请注意解法时间上的可行性。要求程序在1分钟内运行完毕。</p>
 <p>题解：</p>
-<p>带权并查集</p>
-<p>w[i]表示与父节点的关系，0为同义，1为反义</p>
+<p>看了网上的思路，大概是枚举每个数出现的次数，其中次数和不超过21次，然后因为不管怎么排列，数字对应出现次数最终求和都为同一个值，所以可以判断最终生成的数中各<br>数字出现的次数与枚举的是否相同即可。深搜剪枝后数字出现次数符合的仅有14307150个，6s就可以得到答案</p>
 <pre><code>#include&lt;iostream&gt;
 #include &lt;stdio.h&gt;
 #include &lt;algorithm&gt;
-#include &lt;math.h&gt;
+#include &lt;cmath&gt;
 #include&lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 #include&lt;queue&gt;
@@ -692,77 +872,94 @@ using namespace std;
 #define inf 0x7fffffff
 #define LL long long
 #define ull unsigned long long
-#define mod 1000000007
-LL INF=9e18;
+const LL INF = 9e18;
+const int mod = 100000000;
 
-int n,m,q;
-int par[MAX_N];
-int w[MAX_N];
-map&lt;string,int&gt;mp;
+int x[10];
+int num[10][3];
 void init()
 {
-    for(int i=0;i&lt;=n;i++)
-        par[i] = i;
+    num[0][2] = 0;        num[0][1] = 0;        num[0][0] = 0;
+    num[1][2] = 0;        num[1][1] = 0;        num[1][0] = 1;
+    num[2][2] = 0;        num[2][1] = 0;        num[2][0] = 2097152;
+    num[3][2] = 0;        num[3][1] = 104;      num[3][0] = 60353203;
+    num[4][2] = 0;        num[4][1] = 43980;    num[4][0] = 46511104;
+    num[5][2] = 0;        num[5][1] = 4768371;  num[5][0] = 58203125;
+    num[6][2] = 2;        num[6][1] = 19369506; num[6][0] = 40377856;
+    num[7][2] = 55;       num[7][1] = 85458640; num[7][0] = 83284007;
+    num[8][2] = 922;      num[8][1] = 33720368; num[8][0] = 54775808;
+    num[9][2] = 10941;    num[9][1] = 89891315; num[9][0] = 12359209;
 }
-int find(int x)
+void check()
 {
-    if(x != par[x]) {
-        int fx = find(par[x]);
-        w[x] = (w[x] + w[par[x]]) % 2;
-        par[x] = fx;
-        return fx;
+    int tmp[3];
+    memset(tmp, 0, sizeof(tmp));
+    for(int i=0;i&lt;10;i++) {
+        tmp[0] = tmp[0] + (num[i][0]*x[i]);
+        tmp[1] = tmp[1] + (num[i][1]*x[i]);
+        tmp[2] = tmp[2] + (num[i][2]*x[i]);
+
+        tmp[1] = tmp[1] + (tmp[0]/mod);
+        tmp[0] = tmp[0] % mod;
+
+        tmp[2] = tmp[2] + (tmp[1]/mod);
+        tmp[1] = tmp[1] % mod;
     }
-    return x;
+    int sum[10];
+    memset(sum, 0, sizeof(sum));
+    int t = tmp[2];
+    int dd = 0;
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    t = tmp[1];
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    t = tmp[0];
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    sum[0] += 21 - dd;
+    for(int i=0;i&lt;=9;i++)
+        if(sum[i] != x[i])
+            return ;
+    if(!tmp[2] || !tmp[1] || !tmp[0])
+        return ;
+    printf(&quot;%d%d%d\n&quot;,tmp[2],tmp[1],tmp[0]);
+}
+int sum = 0;
+void dfs(int k, int total)
+{
+    if(total &gt; 21)
+        return;
+    if(k == -1) {
+        if(total == 21)
+            check(),sum++;
+        return;
+    }
+    for(int i=21;i&gt;=0;i--) {
+        x[k] = i;
+        dfs(k-1, total+i);
+    }
 }
 int main()
 {
-    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;
-    for(int i=0;i&lt;n;i++) {
-        string str;
-        cin &gt;&gt; str;
-        mp[str] = i;
-    }
     init();
-    for(int i=0;i&lt;m;i++) {
-        int k;
-        string s1,s2;
-        cin &gt;&gt; k &gt;&gt; s1 &gt;&gt; s2;
-        int x = mp[s1];
-        int y = mp[s2];
-        int fx = find(x);
-        int fy = find(y);
-        if(fx != fy) {
-            par[fx] = fy;
-            w[fx] = (w[x] + w[y] + k-1) % 2;
-            cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
-        }
-        else {
-            if((w[x]+w[y])%2 != k-1)
-                cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
-            else
-                cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
-        }
-    }
-    for(int i=0;i&lt;q;i++) {
-        string s1,s2;
-        cin &gt;&gt; s1 &gt;&gt; s2;
-        int x = mp[s1];
-        int y = mp[s2];
-        int fx = find(x);
-        int fy = find(y);
-        if(fx == fy) {
-            cout &lt;&lt; (w[x] + w[y])%2 + 1 &lt;&lt; endl;
-        }
-        else {
-            cout &lt;&lt; 3 &lt;&lt; endl;
-        }
-    }
+    dfs(9, 0);
+    cout &lt;&lt; sum &lt;&lt; endl;
 }
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" data-id="cjttuf86x001be8v3n9jrcg7y" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/21位 花朵数 /" data-id="cjttw580p0001m4v37tj81qcb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -772,9 +969,9 @@ int main()
 
 
   
-    <article id="post-Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-codeforces 767B The Queue【贪心】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/" class="article-date">
+    <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -790,7 +987,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
+      <a class="article-title" href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
     </h1>
   
 
@@ -798,11 +995,12 @@ int main()
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目链接： <a href="http://codeforces.com/contest/782/problem/B" target="_blank" rel="noopener"> 点击打开链接 </a></p>
-<p><a href="http://codeforces.com/contest/782/problem/B" target="_blank" rel="noopener">  
-</a></p>
-<p>题意：给出n个人距最南端的距离Xi，与每个人的最大速度Vi，并且每个人可以向南或者向北走，问最少花多少时间可以使所有人到一点。</p>
-<p>题解：二分，判断取左区间还是右区间则是看最晚到达终点的人的初始位置是在终点左边还是右边，左边则终点应该往左，右边则终点应该往右。</p>
+        <p>链接：</p>
+<p><a href="http://codeforces.com/contest/767/problem/B" target="_blank" rel="noopener">http://codeforces.com/contest/767/problem/B</a></p>
+<p>题意：</p>
+<p>Vasya要去护照，然而接待员在【ts，tf）的时间段内上班，处理一件业务需要花费时间t，并且有n个人在T【i】的时间去办护照，当Vasya与另一个人同时去<br>办护照时，Vasya排在他的后面，问Vasya什么时候去等待的时间最少。</p>
+<p>题解：</p>
+<p>将n个人的办护照的时间段都计算出来，然后因为对于Vasya来说他只要在某个人来之前的前一秒先到所花费的时间最少，还要注意判断最后一个人办完护照后Vasya是<br>否还能办护照。</p>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
@@ -815,66 +1013,74 @@ int main()
 #include&lt;stack&gt;
 #include&lt;time.h&gt;
 using namespace std;
-#define MAX_N 60005
+#define MAX_N 1000005
 #define inf 0x3f3f3f3f
 #define LL long long
 #define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;double, int&gt;P;
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;LL, LL&gt;P;
 
-struct node
-{
-    double x, v;
-};
 int n;
-double ans = inf;
-node p[MAX_N];
-double Abs(double x)
-{
-    if(x&lt;0)
-        return -x;
-    else
-        return x;
-}
-bool check(double x)
-{
-    int idx;
-    double maxt = -1;
-    for(int i=0; i&lt;n; i++) {
-        double t = Abs(x-p[i].x) / p[i].v;
-        if(t &gt; maxt)
-            maxt = t, idx = i;
-    }
-    ans = min(ans, maxt);
-    if(p[idx].x &lt; x)
-        return false;
-    else
-        return true;
-}
+LL ts, tf, t;
+LL T[MAX_N];
+P V[MAX_N];
 int main()
 {
+    cin &gt;&gt; ts &gt;&gt; tf &gt;&gt; t;
     cin &gt;&gt; n;
-    for(int i=0; i&lt;n; i++)
-        scanf(&quot;%lf&quot;, &amp;p[i].x);
-    for(int i=0; i&lt;n; i++)
-        scanf(&quot;%lf&quot;, &amp;p[i].v);
-    double low = 0;
-    double up = inf;
-    while(low + 1e-6 &lt; up) {
-        double mid = (up + low) / 2;
-        if(check(mid))
-            low = mid;
-        else
-            up = mid;
+    for(int i=1; i&lt;=n; i++) {
+        scanf(&quot;%lld&quot;,&amp;T[i]);
     }
-    printf(&quot;%.12lf\n&quot;, ans);
+    V[0].second = -INF;
+    for(int i=1; i&lt;=n; i++) {
+        if(T[i] &gt; V[i-1].second) {
+            if(T[i] &gt;= ts)
+                V[i].first = T[i];
+            else
+                V[i].first = ts;
+            V[i].second = V[i].first + t - 1;
+        }
+        else {
+            V[i].first = V[i-1].second + 1;
+            V[i].second = V[i].first + t - 1;
+        }
+    }/*
+    for(int i=1; i&lt;=n; i++) {
+        printf(&quot;%lld %lld\n&quot;,V[i].first, V[i].second);
+    }*/
+    LL minT = INF;
+    LL ans;
+    for(int i=1; i&lt;=n; i++) {
+        P tmp;
+        if(T[i]-1 &gt; V[i-1].second) {
+            if(T[i]-1 &gt;= ts)
+                tmp.first = T[i] - 1;
+            else
+                tmp.first = ts;
+            tmp.second = tmp.first + t - 1;
+        }
+        else {
+            tmp.first = V[i-1].second + 1;
+            tmp.second = tmp.first + t - 1;
+        }
+        if(minT&gt;tmp.first-T[i]+1 &amp;&amp; tmp.second&lt;tf) {
+            minT = tmp.first - T[i] + 1;
+            ans = T[i] - 1;
+        }
+    }
+    if(V[n].second+t&lt;tf)
+        ans = V[n].second + 1;
+    if(minT != INF)
+        printf(&quot;%lld\n&quot;,ans);
+    else
+        printf(&quot;%lld\n&quot;,ts);
 }
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/" data-id="cjttuf85z0001e8v3ya0o9hxs" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 767B The Queue【贪心】 /" data-id="cjttw581o001fm4v34exbvmqj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1017,7 +1223,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 767C Garland 【dfs】 /" data-id="cjttuf86z001fe8v3iepe9all" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 767C Garland 【dfs】 /" data-id="cjttw581p001hm4v36jdigldk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1136,133 +1342,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/" data-id="cjttuf870001he8v3uy3y6h1q" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-codeforces 219D 【树形DP】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/codeforces 219D 【树形DP】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/codeforces 219D 【树形DP】 /">codeforces 219D 【树形DP】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接： <a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener"> 点击打开链接 </a></p>
-<p><a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener">  
-</a></p>
-<p>题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点</p>
-<p>题解：</p>
-<p>设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。</p>
-<p>可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。</p>
-<pre><code>#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)
-#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-#include&lt;sstream&gt;
-using namespace std;
-#define MAX_N 200005
-#define inf 0x7f7f7f7f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-//const double Pi = acos(-1);
-const int mod = 1e4+7;
-typedef pair&lt;int, int&gt;P;
-
-vector&lt;int&gt;G[MAX_N];
-set&lt;P&gt;st;
-int dp[MAX_N][2];
-/*
-dp[i][0]该结点子树有多少条边要改，
-dp[i][1]该结点的父节点有多少条边要改
-*/
-void dfs1(int u, int pre)
-{
-    dp[u][0] = dp[u][1] = 0;
-    for(int i=0; i&lt;G[u].size(); i++) {
-        int v = G[u][i];
-        if(v == pre)
-            continue;
-        dfs1(v, u);
-        if(st.find(P(u, v)) == st.end())//如果u不能到v则需要逆转边
-            dp[u][0]++;
-        dp[u][0] += dp[v][0];
-    }
-}
-void dfs2(int u, int pre)
-{
-    for(int i=0; i&lt;G[u].size(); i++) {
-        int v = G[u][i];
-        if(v == pre)
-            continue;
-        dp[v][1] = dp[u][0] - dp[v][0] + dp[u][1];//(dp[u][0]-dp[v][0])就是u的除v结点外的其他子树逆转边
-        if(st.find(P(u, v)) != st.end())//还需判断u和v之间边的方向
-            dp[v][1]++;
-        else
-            dp[v][1]--;
-        dfs2(v, u);
-    }
-}
-int main()
-{
-    int n;
-    cin &gt;&gt; n;
-    for(int i=1; i&lt;n; i++) {
-        int a, b;
-        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
-        st.insert(P(a, b));
-        G[a].push_back(b);
-        G[b].push_back(a);
-    }
-    dfs1(1, 0);
-    dfs2(1, 0);
-    int mn = inf;
-    for(int i=1; i&lt;=n; i++)
-        mn = min(mn, dp[i][0]+dp[i][1]);
-    cout &lt;&lt; mn &lt;&lt; endl;
-    for(int i=1; i&lt;=n; i++) {
-        if(dp[i][0]+dp[i][1] == mn)
-            printf(&quot;%d &quot;, i);
-    }
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 219D 【树形DP】 /" data-id="cjttuf871001je8v3q3rzgsnj" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/" data-id="cjttw581q001jm4v32ms4s5w5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1341,11 +1421,11 @@ int main()
           </li>
         
           <li>
-            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+            <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
           </li>
         
           <li>
-            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+            <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
           </li>
         
       </ul>

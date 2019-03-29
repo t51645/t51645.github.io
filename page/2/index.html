@@ -62,6 +62,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Poj 1837 Balance【DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 1837 Balance【DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 1837 Balance【DP】 /">Poj 1837 Balance【DP】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：</p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：</p>
+<p>有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。</p>
+<p>题解：</p>
+<p>我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=<br>dp【i-1】【j-c【m】*g【n】】（1&lt;=m&lt;=C, 1&lt;=n&lt;=i）</p>
+<p>但是由于j可能负，所以要将未放砝码时的平衡位置右移，因为负值最大为15<em>20</em>25=7500，所以7500为一开始的平衡位置，dp【0】【7500】=1</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int C, G;
+    cin &gt;&gt; C &gt;&gt; G;
+    int c[25], g[25];
+    for(int i=1; i&lt;=C; i++)
+        cin &gt;&gt; c[i];
+    for(int i=1; i&lt;=G; i++)
+        cin &gt;&gt; g[i];
+    int dp[25][15005];
+    dp[0][7500] = 1;
+    for(int i=1; i&lt;=G; i++) {
+        for(int j=1; j&lt;=C; j++) {
+            for(int k=15000; k&gt;=0; k--) {
+                if(k-c[j]*g[i]&gt;=0 &amp;&amp; k-c[j]*g[i]&lt;=15000)
+                    dp[i][k] += dp[i-1][k-c[j]*g[i]];
+                /*if(dp[i][k])
+                    printf(&quot;%d %d %d\n&quot;,i,j,k-7500);*/
+            }
+        }
+    }
+    printf(&quot;%d\n&quot;,dp[G][7500]);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1837 Balance【DP】 /" data-id="cjttw5816000hm4v3ysvc3qsu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Poj 2955 Brackets 【区间DP】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /" class="article-date">
@@ -148,99 +240,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 2955 Brackets 【区间DP】 /" data-id="cjttuf86g000he8v3ccah63u2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Poj 1837 Balance【DP】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/Poj 1837 Balance【DP】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/Poj 1837 Balance【DP】 /">Poj 1837 Balance【DP】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接：</p>
-<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener"> 点击打开链接 </a></p>
-<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener">  
-</a></p>
-<p>题意：</p>
-<p>有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。</p>
-<p>题解：</p>
-<p>我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=<br>dp【i-1】【j-c【m】*g【n】】（1&lt;=m&lt;=C, 1&lt;=n&lt;=i）</p>
-<p>但是由于j可能负，所以要将未放砝码时的平衡位置右移，因为负值最大为15<em>20</em>25=7500，所以7500为一开始的平衡位置，dp【0】【7500】=1</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 100005
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 9e18;
-const int mod = 1e8+7;
-typedef pair&lt;LL, LL&gt;P;
-
-int main()
-{
-    int C, G;
-    cin &gt;&gt; C &gt;&gt; G;
-    int c[25], g[25];
-    for(int i=1; i&lt;=C; i++)
-        cin &gt;&gt; c[i];
-    for(int i=1; i&lt;=G; i++)
-        cin &gt;&gt; g[i];
-    int dp[25][15005];
-    dp[0][7500] = 1;
-    for(int i=1; i&lt;=G; i++) {
-        for(int j=1; j&lt;=C; j++) {
-            for(int k=15000; k&gt;=0; k--) {
-                if(k-c[j]*g[i]&gt;=0 &amp;&amp; k-c[j]*g[i]&lt;=15000)
-                    dp[i][k] += dp[i-1][k-c[j]*g[i]];
-                /*if(dp[i][k])
-                    printf(&quot;%d %d %d\n&quot;,i,j,k-7500);*/
-            }
-        }
-    }
-    printf(&quot;%d\n&quot;,dp[G][7500]);
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 1837 Balance【DP】 /" data-id="cjttuf86i000je8v3ey8vozo7" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 2955 Brackets 【区间DP】 /" data-id="cjttw5817000jm4v32qia7utm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -370,7 +370,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" data-id="cjttuf86k000le8v3cjlpw8hd" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" data-id="cjttw5818000lm4v3t5k1nu6k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -475,108 +475,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" data-id="cjttuf86l000ne8v3hawisifs" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Poj 3311 Hie with the Pie 【TSP+floyd】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /">Poj 3311 Hie with the Pie 【TSP+floyd】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接： <a href="http://poj.org/problem?id=3311" target="_blank" rel="noopener"> 点击打开链接 </a>  </p>
-<p>题解：</p>
-<p>先floyd算出各城市最短路径  </p>
-<p>设dp[i][j]=在第i个城市且送过了集合j（按位存城市集合，比如5表示送过了城市2、0）个城市。</p>
-<p>然后枚举从小到大枚举j dp[i][j] = min(dp[k][j^(1&lt;&lt;i)]+dis[k][j])，边界为dp[0][1] = 0</p>
-<p>最后答案就是 min(dp[i][(1&lt;&lt;n)-1])+dis[i][0]</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 110
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;LL, LL&gt;P;
-
-int main()
-{
-    int n;
-    int dis[15][15];
-    int dp[15][1&lt;&lt;15];
-    int way[15];
-    while(cin &gt;&gt; n &amp;&amp; n) {
-        n++;
-        for(int i=0; i&lt;n; i++)
-            for(int j=0; j&lt;n; j++)
-                cin &gt;&gt; dis[i][j];
-        for(int k=0; k&lt;n; k++)
-            for(int i=0; i&lt;n; i++)
-                for(int j=0; j&lt;n; j++)
-                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
-        dp[0][1] = 0;
-        for(int i=2; i&lt;(1&lt;&lt;n); i++) {
-            for(int j=0; j&lt;n; j++) {
-                if(i &amp; (1&lt;&lt;j)) {
-                    dp[j][i] = inf;
-                    for(int k=0; k&lt;n; k++) {
-                        if(j == k)
-                            continue;
-                        if(i &amp; (1&lt;&lt;k))
-                            dp[j][i] = min(dp[j][i], dp[k][i^(1&lt;&lt;j)]+dis[k][j]);
-                    }
-                }
-            }
-        }
-        int ans = inf;
-        for(int i=1; i&lt;n; i++)
-            ans = min(ans, dp[i][(1&lt;&lt;n)-1]+dis[i][0]);
-        cout &lt;&lt; ans &lt;&lt; endl;
-    }
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" data-id="cjttuf86m000pe8v3tx3bt2u7" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" data-id="cjttw5819000nm4v3u543bx3p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -736,215 +635,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" data-id="cjttuf86n000re8v3a86m0tm4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SCOI2005] 最大子矩阵 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/SCOI2005] 最大子矩阵 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/SCOI2005] 最大子矩阵 /">SCOI2005] 最大子矩阵</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="P2331-SCOI2005-最大子矩阵"><a href="#P2331-SCOI2005-最大子矩阵" class="headerlink" title="P2331 [SCOI2005] 最大子矩阵"></a>P2331 [SCOI2005] 最大子矩阵</h1><p><strong> 版权声明：  </strong></p>
-<p>本篇随笔版权归作者 <strong> shenben  ( <a href="http://www.cnblogs.com/shenben" target="_blank" rel="noopener"> www.cnblogs.com/shenben
-</a> )  </strong> 所有，转载请保留原地址!</p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>这里有一个n*m的矩阵，请你选出其中k个子矩阵，使得这个k个子矩阵分值之和最大。注意：选出的k个子矩阵不能相互重叠。</p>
-<h2 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h2><p>输入格式：  </p>
-<p>第一行为n,m,k（1≤n≤100,1≤m≤2,1≤k≤10），接下来n行描述矩阵每行中的每个元素的分值(每个元素的分值的绝对值不超过32767)。</p>
-<p>输出格式：  </p>
-<p>只有一行为k个子矩阵分值之和最大为多少。</p>
-<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p>输入样例#1：  </p>
-<pre><code>3 2 2
-1 -3
-2 3
--2 3
-</code></pre><p>输出样例#1：  </p>
-<pre><code>9
-</code></pre><p><strong> 题解：  </strong></p>
-<p>注意到m=1或者2，</p>
-<p>当m=1时，是  普通的最大连续字段和，只不过是k个  ：</p>
-<p>设dp[i][j]表示前i个数中取出j个矩形的最大和</p>
-<p>转移：</p>
-<p><strong> 选：dp[i][j]=max{dp[l][j-1]+s[i]-s[l-1]}  </strong></p>
-<p><strong> 不选：dp[i][j]=max(dp[i][j],dp[i-1][j])  </strong></p>
-<p>复杂度O(n^2*K)</p>
-<p>当m=2时，设f[i][j][k]表示第一列选到第i个数，第二列选到第j个数时，总共k个子矩形的答案</p>
-<p>转移有4种情况</p>
-<p><strong> 当这一位什么都不做的时候：f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k])  </strong></p>
-<p><strong> 当仅选取第一列的某段区间时：f[i][j][k]=max(f[l][j][k-1]+sum[i][1]-sum[l-1][1])  1&lt;=l&lt;i  </strong></p>
-<p><strong> 当仅选取第二列的某段区间时：f[i][j][k]=max(f[i][l][k-1]+sum[j][2]-sum[l-1][2])  1&lt;=l&lt;j  </strong></p>
-<p><strong> 当i==j时，可以选取两列一起的f[i][j][k]=max(f[l][l][k]+sum[i][1]+sum[i][2]-sum[l-1][1]-sum[l-1][2])  </strong></p>
-<p><strong> 最后所有情况取max  </strong></p>
-<p>复杂度O(n^3*K)</p>
-<p>Ps:这道题数据有bug，似乎没有在一开始赋值为-INF的也能过</p>
-<p><strong> AC代码：  </strong></p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-const int N=110;
-const int M=11;
-int n,m,K,s1[N],s2[N],dp[N][M],f[N][N][M];
-int main(){
-    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;K);
-    if(m==1){
-        for(int i=1,x;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;x),s1[i]=s1[i-1]+x;
-        for(int k=1;k&lt;=K;k++){
-            for(int i=1;i&lt;=n;i++){
-                dp[i][k]=dp[i-1][k];
-                for(int j=0;j&lt;i;j++) dp[i][k]=max(dp[i][k],dp[j][k-1]+s1[i]-s1[j]);
-            }
-        }
-        printf(&quot;%d\n&quot;,dp[n][K]);
-    }
-    else{
-        for(int i=1,x,y;i&lt;=n;i++) scanf(&quot;%d%d&quot;,&amp;x,&amp;y),s1[i]=s1[i-1]+x,s2[i]=s2[i-1]+y;
-        for(int k=1;k&lt;=K;k++){
-            for(int i=1;i&lt;=n;i++){
-                for(int j=1;j&lt;=n;j++){
-                    f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k]);
-                    for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][j][k-1]+s1[i]-s1[l]);
-                    for(int l=0;l&lt;j;l++) f[i][j][k]=max(f[i][j][k],f[i][l][k-1]+s2[j]-s2[l]);
-                    if(i==j)  for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][l][k-1]+s1[i]-s1[l]+s2[j]-s2[l]);
-                }
-            }
-        }
-        printf(&quot;%d\n&quot;,f[n][n][K]);
-    }
-    return 0;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/SCOI2005] 最大子矩阵 /" data-id="cjttuf86o000te8v3060qxftz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-UVa 10635 Prince and Princess 【LIS】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /">UVa 10635 Prince and Princess 【LIS】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>刘汝佳训练指南 p66</p>
-<p>这题很好的把LCS问题转化成了LIS问题</p>
-<p>因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了  </p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 250*250+5
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;LL, LL&gt;P;
-
-int pos[MAX_N];
-int b[MAX_N];
-int g[MAX_N];
-int main()
-{
-    int T;
-    int ca = 1;
-    cin &gt;&gt; T;
-    while(T--) {
-        int n, p, q;
-        cin &gt;&gt; n &gt;&gt; p &gt;&gt; q;
-        memset(pos, 0, sizeof(pos));
-        memset(g, 0, sizeof(g));
-        for(int i=1; i&lt;=p+1; i++) {
-            int x;
-            cin &gt;&gt; x;
-            pos[x] = i;
-        }
-        for(int i=1; i&lt;=q+1; i++) {
-            int x;
-            cin &gt;&gt; x;
-            b[i] = pos[x];
-        }
-        int ans = 0;
-        int len = 0;
-        g[0] = b[1];
-        for(int i=2; i&lt;=q+1; i++) {
-            if(b[i] &gt; g[len]) {
-                g[++len] = b[i];
-            }
-            else {
-                int k =  lower_bound(g, g+len, b[i]) - g;
-                g[k] = b[i];
-            }
-        }
-        printf(&quot;Case %d: %d\n&quot;, ca++, len+1);
-    }
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" data-id="cjttuf86q000ve8v3n91060ns" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" data-id="cjttw581a000pm4v3aiv8tuo9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1079,7 +770,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 3276 Face The Right Way /" data-id="cjttuf86r000xe8v3ooxwtqvp" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3276 Face The Right Way /" data-id="cjttw581b000rm4v3bzhss32k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1089,9 +780,9 @@ int main()
 
 
   
-    <article id="post-UVa 10817 Headmaster‘s Headache 【01背包 位运算】" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Poj 3311 Hie with the Pie 【TSP+floyd】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" class="article-date">
+    <a href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -1107,7 +798,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/">UVa 10817 Headmaster‘s Headache 【01背包 位运算】</a>
+      <a class="article-title" href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /">Poj 3311 Hie with the Pie 【TSP+floyd】</a>
     </h1>
   
 
@@ -1115,12 +806,12 @@ int main()
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题意：刘汝佳训练指南p95</p>
-<p>题解：此题可以设dp[s2][s1] = 授课状态为s2、s1时的最小花费（s1为课程授课状态为1的集合，s2为授课状态为2的集合）</p>
-<p>然后视招募的新老师为要装进背包里的物品，授课状态s2，s1为容量，最终答案就为dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1]（S为课程数目）</p>
-<p>具体转移方程如下：</p>
-<p>设s2，s1为招募该老师前的状态，ns2，ns1为招募该老师后的状态则，ns1 = s1 | s ,ns2 = s2 | (s1 &amp; s)<br>,（s为该老师能教授的课程）</p>
-<p>dp[ns2][ns1] = min(dp[s1 | s[i]][s2 | (s1 &amp; s[i])]) +<br>v[i]，s[i]是第i个老师授课集合，v[i]是第i个老师的收费</p>
+        <p>题目链接： <a href="http://poj.org/problem?id=3311" target="_blank" rel="noopener"> 点击打开链接 </a>  </p>
+<p>题解：</p>
+<p>先floyd算出各城市最短路径  </p>
+<p>设dp[i][j]=在第i个城市且送过了集合j（按位存城市集合，比如5表示送过了城市2、0）个城市。</p>
+<p>然后枚举从小到大枚举j dp[i][j] = min(dp[k][j^(1&lt;&lt;i)]+dis[k][j])，边界为dp[0][1] = 0</p>
+<p>最后答案就是 min(dp[i][(1&lt;&lt;n)-1])+dis[i][0]</p>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
@@ -1133,96 +824,356 @@ int main()
 #include&lt;stack&gt;
 #include&lt;time.h&gt;
 using namespace std;
-#define MAX_N 505
+#define MAX_N 110
 #define inf 0x3f3f3f3f
 #define LL long long
 #define ull unsigned long long
 const LL INF = 1e18;
 const int mod = 1e8+7;
-typedef pair&lt;double, int&gt;P;
+typedef pair&lt;LL, LL&gt;P;
 
-int S, M, N;
-int tC[25];
-int aC[105];
-int teacher[25];
-int applicant[105];
-int dp[1&lt;&lt;8][1&lt;&lt;8];
-int getT()
-{
-    char c;
-    int ans = 0;
-    int d;
-    c = getchar();
-    while(c!=&apos;\n&apos;) {
-        scanf(&quot;%d&quot;, &amp;d);
-        d--;
-        ans |= (1&lt;&lt;d);
-        c = getchar();
-    }
-    return ans;
-}
-void init()
-{
-    memset(dp, inf, sizeof(dp));
-}
 int main()
 {
-    while(cin &gt;&gt; S &gt;&gt; M &gt;&gt; N &amp;&amp; S+M+N) {
-        init();
-        int s1 = 0;
-        int s2 = 0;
-        int sum = 0;
-        for(int i=0; i&lt;M; i++) {
-            scanf(&quot;%d&quot;, &amp;tC[i]);
-            teacher[i] = getT();
-            sum += tC[i];
-            s2 |= (s1 &amp; teacher[i]);
-            s1 |= teacher[i];
-        }
-        for(int i=0; i&lt;N; i++) {
-            scanf(&quot;%d&quot;, &amp;aC[i]);
-            applicant[i] = getT();
-        }
-        dp[s2][s1] = sum;
-        for(int k=0; k&lt;N; k++) {
-            int s = applicant[k];
-            for(int i=(1&lt;&lt;S)-1; i&gt;=0; i--) {
-                for(int j=(1&lt;&lt;S)-1; j&gt;=0; j--) {
-                    int ns1 = j|s;
-                    int ns2 = i|(j&amp;s);
-                    dp[ns2][ns1] = min(dp[ns2][ns1], dp[i][j]+aC[k]);
+    int n;
+    int dis[15][15];
+    int dp[15][1&lt;&lt;15];
+    int way[15];
+    while(cin &gt;&gt; n &amp;&amp; n) {
+        n++;
+        for(int i=0; i&lt;n; i++)
+            for(int j=0; j&lt;n; j++)
+                cin &gt;&gt; dis[i][j];
+        for(int k=0; k&lt;n; k++)
+            for(int i=0; i&lt;n; i++)
+                for(int j=0; j&lt;n; j++)
+                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
+        dp[0][1] = 0;
+        for(int i=2; i&lt;(1&lt;&lt;n); i++) {
+            for(int j=0; j&lt;n; j++) {
+                if(i &amp; (1&lt;&lt;j)) {
+                    dp[j][i] = inf;
+                    for(int k=0; k&lt;n; k++) {
+                        if(j == k)
+                            continue;
+                        if(i &amp; (1&lt;&lt;k))
+                            dp[j][i] = min(dp[j][i], dp[k][i^(1&lt;&lt;j)]+dis[k][j]);
+                    }
                 }
             }
         }
-        /*
-       for(int i=0; i&lt;(1&lt;&lt;S); i++) {
-            for(int j=0; j&lt;(1&lt;&lt;S); j++) {
-                if(dp[i][j] == inf)
-                    printf(&quot;0 &quot;);
-                else
-                    printf(&quot;%d &quot;,dp[i][j]);
-            }
-            puts(&quot;&quot;);
-        }*/
-        cout &lt;&lt; dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1] &lt;&lt; endl;
+        int ans = inf;
+        for(int i=1; i&lt;n; i++)
+            ans = min(ans, dp[i][(1&lt;&lt;n)-1]+dis[i][0]);
+        cout &lt;&lt; ans &lt;&lt; endl;
     }
-    return 0;
 }
-/*
-8 4 3
-1000 1
-1000 2
-1000 3
-1000 2
-50000 1 5 7 3 4
-50000 1 6 8
-50000 1 2 3 4 5 6 7 8
-*/
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" data-id="cjttuf86s000ze8v3iwg1rtc5" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" data-id="cjttw581c000tm4v3qgck4r31" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SCOI2005] 最大子矩阵 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/SCOI2005] 最大子矩阵 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/SCOI2005] 最大子矩阵 /">SCOI2005] 最大子矩阵</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="P2331-SCOI2005-最大子矩阵"><a href="#P2331-SCOI2005-最大子矩阵" class="headerlink" title="P2331 [SCOI2005] 最大子矩阵"></a>P2331 [SCOI2005] 最大子矩阵</h1><p><strong> 版权声明：  </strong></p>
+<p>本篇随笔版权归作者 <strong> shenben  ( <a href="http://www.cnblogs.com/shenben" target="_blank" rel="noopener"> www.cnblogs.com/shenben
+</a> )  </strong> 所有，转载请保留原地址!</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>这里有一个n*m的矩阵，请你选出其中k个子矩阵，使得这个k个子矩阵分值之和最大。注意：选出的k个子矩阵不能相互重叠。</p>
+<h2 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h2><p>输入格式：  </p>
+<p>第一行为n,m,k（1≤n≤100,1≤m≤2,1≤k≤10），接下来n行描述矩阵每行中的每个元素的分值(每个元素的分值的绝对值不超过32767)。</p>
+<p>输出格式：  </p>
+<p>只有一行为k个子矩阵分值之和最大为多少。</p>
+<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p>输入样例#1：  </p>
+<pre><code>3 2 2
+1 -3
+2 3
+-2 3
+</code></pre><p>输出样例#1：  </p>
+<pre><code>9
+</code></pre><p><strong> 题解：  </strong></p>
+<p>注意到m=1或者2，</p>
+<p>当m=1时，是  普通的最大连续字段和，只不过是k个  ：</p>
+<p>设dp[i][j]表示前i个数中取出j个矩形的最大和</p>
+<p>转移：</p>
+<p><strong> 选：dp[i][j]=max{dp[l][j-1]+s[i]-s[l-1]}  </strong></p>
+<p><strong> 不选：dp[i][j]=max(dp[i][j],dp[i-1][j])  </strong></p>
+<p>复杂度O(n^2*K)</p>
+<p>当m=2时，设f[i][j][k]表示第一列选到第i个数，第二列选到第j个数时，总共k个子矩形的答案</p>
+<p>转移有4种情况</p>
+<p><strong> 当这一位什么都不做的时候：f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k])  </strong></p>
+<p><strong> 当仅选取第一列的某段区间时：f[i][j][k]=max(f[l][j][k-1]+sum[i][1]-sum[l-1][1])  1&lt;=l&lt;i  </strong></p>
+<p><strong> 当仅选取第二列的某段区间时：f[i][j][k]=max(f[i][l][k-1]+sum[j][2]-sum[l-1][2])  1&lt;=l&lt;j  </strong></p>
+<p><strong> 当i==j时，可以选取两列一起的f[i][j][k]=max(f[l][l][k]+sum[i][1]+sum[i][2]-sum[l-1][1]-sum[l-1][2])  </strong></p>
+<p><strong> 最后所有情况取max  </strong></p>
+<p>复杂度O(n^3*K)</p>
+<p>Ps:这道题数据有bug，似乎没有在一开始赋值为-INF的也能过</p>
+<p><strong> AC代码：  </strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=110;
+const int M=11;
+int n,m,K,s1[N],s2[N],dp[N][M],f[N][N][M];
+int main(){
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;K);
+    if(m==1){
+        for(int i=1,x;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;x),s1[i]=s1[i-1]+x;
+        for(int k=1;k&lt;=K;k++){
+            for(int i=1;i&lt;=n;i++){
+                dp[i][k]=dp[i-1][k];
+                for(int j=0;j&lt;i;j++) dp[i][k]=max(dp[i][k],dp[j][k-1]+s1[i]-s1[j]);
+            }
+        }
+        printf(&quot;%d\n&quot;,dp[n][K]);
+    }
+    else{
+        for(int i=1,x,y;i&lt;=n;i++) scanf(&quot;%d%d&quot;,&amp;x,&amp;y),s1[i]=s1[i-1]+x,s2[i]=s2[i-1]+y;
+        for(int k=1;k&lt;=K;k++){
+            for(int i=1;i&lt;=n;i++){
+                for(int j=1;j&lt;=n;j++){
+                    f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k]);
+                    for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][j][k-1]+s1[i]-s1[l]);
+                    for(int l=0;l&lt;j;l++) f[i][j][k]=max(f[i][j][k],f[i][l][k-1]+s2[j]-s2[l]);
+                    if(i==j)  for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][l][k-1]+s1[i]-s1[l]+s2[j]-s2[l]);
+                }
+            }
+        }
+        printf(&quot;%d\n&quot;,f[n][n][K]);
+    }
+    return 0;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/SCOI2005] 最大子矩阵 /" data-id="cjttw581e000vm4v3z6govh01" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-UVa 10635 Prince and Princess 【LIS】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /">UVa 10635 Prince and Princess 【LIS】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刘汝佳训练指南 p66</p>
+<p>这题很好的把LCS问题转化成了LIS问题</p>
+<p>因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 250*250+5
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int pos[MAX_N];
+int b[MAX_N];
+int g[MAX_N];
+int main()
+{
+    int T;
+    int ca = 1;
+    cin &gt;&gt; T;
+    while(T--) {
+        int n, p, q;
+        cin &gt;&gt; n &gt;&gt; p &gt;&gt; q;
+        memset(pos, 0, sizeof(pos));
+        memset(g, 0, sizeof(g));
+        for(int i=1; i&lt;=p+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            pos[x] = i;
+        }
+        for(int i=1; i&lt;=q+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            b[i] = pos[x];
+        }
+        int ans = 0;
+        int len = 0;
+        g[0] = b[1];
+        for(int i=2; i&lt;=q+1; i++) {
+            if(b[i] &gt; g[len]) {
+                g[++len] = b[i];
+            }
+            else {
+                int k =  lower_bound(g, g+len, b[i]) - g;
+                g[k] = b[i];
+            }
+        }
+        printf(&quot;Case %d: %d\n&quot;, ca++, len+1);
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" data-id="cjttw581f000xm4v3sha44auk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-codeforce 689C 【二分】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforce 689C 【二分】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/codeforce 689C 【二分】 /">codeforce 689C 【二分】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：</p>
+<p>有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷a<em>q，第三个偷a</em>q<em>q，第四个偷a</em>q<em>q</em>q），每个小偷最多不能偷超过n个巧克力，<br>现在给出他们最多的偷法m，求最小的n。</p>
+<p>比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16</p>
+<p>题解：</p>
+<p>对于一个n，我们可以枚举q求解偷法m = ∑n/(i<em>i</em>i) (i=1;i<em>i</em>i&lt;=n;i++)</p>
+<p>所以对于某个n我们可以在O(n^1/3)求解，再二分n，当某个n求解得到的偷法等于m时该n可视为符合要求</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+LL cal(LL n)
+{
+    LL sum = 0;
+    for(LL i=2;i*i*i&lt;=n;i++)
+        sum += (n/(i*i*i));
+    return sum;
+}
+int main()
+{
+    LL m;
+    cin &gt;&gt; m;
+    LL low = 0;
+    LL up = INF;
+    LL ans = INF;
+    while(low &lt; up) {
+        LL mid = (low + up) / 2;
+        LL tmp = cal(mid);
+        if(tmp &gt;= m)
+            up = mid;
+        else
+            low = mid + 1;
+        if(tmp == m)
+            ans = mid;
+    }
+    if(ans == INF)
+        cout &lt;&lt; -1 &lt;&lt; endl;
+    else
+        cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689C 【二分】 /" data-id="cjttw581g000zm4v3xzsffm2q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1301,11 +1252,11 @@ int main()
           </li>
         
           <li>
-            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+            <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
           </li>
         
           <li>
-            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+            <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
           </li>
         
       </ul>

@@ -161,7 +161,97 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1051 选课 /" data-id="cjttuf87d0028e8v3rs6c7qen" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1051 选课 /" data-id="cjttw58240028m4v3gpulu20g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tyvj 1089 【背包转换 容量为负】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /">tyvj 1089 【背包转换 容量为负】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1089" target="_blank" rel="noopener">http://www.tyvj.cn/p/1089</a></p>
+<p>题解：</p>
+<p>可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &lt;=<br>1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位）</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+int dp[200005];
+int a[105];
+int b[105];
+int n;
+int main()
+{
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;=n; i++)
+        scanf(&quot;%d%d&quot;, &amp;a[i], &amp;b[i]);
+    memset(dp, -inf, sizeof(dp));
+    int top = 100000;
+    dp[top] = 0;
+    for(int i=1; i&lt;=n; i++) {
+        if(a[i] &gt;= 0)
+            for(int j=2*top; j&gt;=a[i]; j--)
+                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
+        else
+            for(int j=0; j&lt;=2*top+a[i]; j++)
+                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
+    }
+    int ans = 0;
+    for(int i=2*top; i&gt;=top; i--) {
+        if(dp[i] &gt;= 0)
+            ans = max(ans, dp[i]+i-top);
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" data-id="cjttw5825002am4v3864nlmgx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -269,7 +359,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1073 加分二叉树【】 /" data-id="cjttuf87e002ae8v333nif177" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1073 加分二叉树【】 /" data-id="cjttw5826002cm4v3psitgc78" class="article-share-link">Share</a>
       
       
     </footer>
@@ -279,9 +369,9 @@ int main()
 
 
   
-    <article id="post-tyvj 1089 【背包转换 容量为负】 " class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-tyvj 1505 打砖头 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" class="article-date">
+    <a href="/2017/06/21/tyvj 1505 打砖头 /" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -297,7 +387,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /">tyvj 1089 【背包转换 容量为负】</a>
+      <a class="article-title" href="/2017/06/21/tyvj 1505 打砖头 /">tyvj 1505 打砖头</a>
     </h1>
   
 
@@ -305,9 +395,28 @@ int main()
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目链接：<a href="http://www.tyvj.cn/p/1089" target="_blank" rel="noopener">http://www.tyvj.cn/p/1089</a></p>
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1505" target="_blank" rel="noopener">http://www.tyvj.cn/p/1505</a></p>
+<p>原博客链接：<a href="http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html" target="_blank" rel="noopener">http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html</a>  </p>
 <p>题解：</p>
-<p>可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &lt;=<br>1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位）</p>
+<p>这个打砖头是很经典的题目。</p>
+<p>一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。</p>
+<p>消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，状压dp？别开玩笑了我直接搞不了。</p>
+<p>那么只能转换一下，上网上看了别人的方法，把三角形倒过来了！</p>
+<p>比如说样例：</p>
+<p>2 2 3 4</p>
+<p>8 2 7</p>
+<p>2 3</p>
+<p>49</p>
+<p>倒过来之后——&gt;</p>
+<p>4</p>
+<p>3 7</p>
+<p>2 2 3</p>
+<p>2 8 2 49</p>
+<p>那么每一点只能由左边的点转移过来，和左上角一直到上一行末尾的数转移过来。</p>
+<p>如第四行第2个数可以从第三行的1，2，3个数转移过来。为什么？再回去看看题吧……</p>
+<p>那么就可以开状态f[i,j,k]表示取到i,j这个位置，取了k个数的最大得分。</p>
+<p>那么如果取这个数，只能是a[i,1]+a[i,2]+…+a<a href="这个预处理出来">i,j</a>+f[i-1,p,k-j]  其中p取j-1到i-1。如上述。</p>
+<p>还应该注意每行都应该计算f[i,0,k]表示这一行不取数的答案。代码如下：</p>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
@@ -320,7 +429,7 @@ int main()
 #include&lt;stack&gt;
 #include&lt;time.h&gt;
 using namespace std;
-#define MAX_N 505
+#define MAX_N 100005
 #define inf 0x3f3f3f3f
 #define LL long long
 #define ull unsigned long long
@@ -328,30 +437,30 @@ const LL INF = 1e18;
 const int mod = 1e8+7;
 typedef pair&lt;int, int&gt;P;
 
-int dp[200005];
-int a[105];
-int b[105];
-int n;
+int a[55][55];
+int dp[55][55][505];
+int n, m;
 int main()
 {
-    cin &gt;&gt; n;
-    for(int i=1; i&lt;=n; i++)
-        scanf(&quot;%d%d&quot;, &amp;a[i], &amp;b[i]);
-    memset(dp, -inf, sizeof(dp));
-    int top = 100000;
-    dp[top] = 0;
-    for(int i=1; i&lt;=n; i++) {
-        if(a[i] &gt;= 0)
-            for(int j=2*top; j&gt;=a[i]; j--)
-                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
-        else
-            for(int j=0; j&lt;=2*top+a[i]; j++)
-                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
-    }
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int j=1; j&lt;=n; j++)
+        for(int i=n; i&gt;=j; i--)
+            scanf(&quot;%d&quot;, &amp;a[i][j]);
+    memset(dp, -1, sizeof(dp));
+    for(int i=0; i&lt;=n; i++)
+        dp[i][0][0] = 0;
     int ans = 0;
-    for(int i=2*top; i&gt;=top; i--) {
-        if(dp[i] &gt;= 0)
-            ans = max(ans, dp[i]+i-top);
+    for(int k=1; k&lt;=m; k++) {
+        for(int i=1; i&lt;=n; i++) {
+            int sum = 0;
+            for(int j=0; j&lt;=i; j++) {//注意j从0开始，一开始从1开始WA了好久
+                sum += a[i][j];
+                for(int p=j-1; p&lt;=i-1; p++)
+                    if(k &gt;= j &amp;&amp; p &gt;= 0 &amp;&amp; dp[i-1][p][k-j] != -1)
+                        dp[i][j][k] = max(dp[i][j][k], sum+dp[i-1][p][k-j]);
+                ans = max(ans, dp[i][j][k]);
+            }
+        }
     }
     cout &lt;&lt; ans &lt;&lt; endl;
 }
@@ -359,7 +468,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" data-id="cjttuf87g002ce8v3xbfpfrnr" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1505 打砖头 /" data-id="cjttw5827002em4v31g0smn9p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -477,334 +586,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/zoj 3777【状态压缩dp】 /" data-id="cjttuf87h002ee8v3zn3qdf62" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Codeforces Round #403 C. Andryusha and Colored Balloons" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/">Codeforces Round</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接： <a href="http://codeforces.com/contest/782/problem/C" target="_blank" rel="noopener"> 点击打开链接 </a></p>
-<p><a href="http://codeforces.com/contest/782/problem/C" target="_blank" rel="noopener">  
-</a></p>
-<p>题意：给出n个点，（n-1）条无向边，问能否将点染色使所有点与其邻接的点以及距离为1的点的颜色不同（如：a与b存在一边，b与c存在一边，则a，b，c三点颜色<br>应不同）</p>
-<p>题解：将图看做一棵树，对于一个节点的子节点我们先将选一个节点进行染色，染色的颜色选择则是从1开始不断++一直到与其父节点以及父节点的父节点颜色不同为止，然后<br>再对这个子节点进行进一步深搜，因为这个子节点的子节点不受这个子节点的兄弟的颜色影响所以可以继续深搜，搜完第一个子节点后则对第二个子节点进行染色，第二个子节点<br>的颜色则是先++然后一直++到和其父节点以及父节点的父节点不同为止，然后再做与第一个子节点相同的深搜，以此类推即可。</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 200005
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;double, int&gt;P;
-
-int n;
-int mx;
-vector&lt;int&gt;G[MAX_N];
-int color[MAX_N];
-void dfs(int u, int fa)
-{
-    int c = 0;
-    for(int i=0; i&lt;G[u].size(); i++) {
-        if(G[u][i] != fa) {
-            c++;
-            while(c == color[u] || c == color[fa])
-                c++;
-            color[G[u][i]] = c;
-            mx = max(mx, c);
-        }
-    }
-    for(int i=0; i&lt;G[u].size(); i++) {
-        if(G[u][i] != fa) {
-            dfs(G[u][i], u);
-        }
-    }
-}
-int main()
-{
-    memset(color, 0, sizeof(color));
-    mx = 0;
-    cin &gt;&gt; n;
-    for(int i=1; i&lt;n; i++) {
-        int a, b;
-        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
-        G[a].push_back(b);
-        G[b].push_back(a);
-    }
-    color[1] = 1;
-    dfs(1, 1);
-    printf(&quot;%d\n&quot;, mx);
-    for(int i=1; i&lt;=n; i++)
-        printf(&quot;%d &quot;,color[i]);
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" data-id="cjttuf8640004e8v3ektqrmgc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-点集配对 【dp 位运算】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/点集配对 【dp 位运算】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/点集配对 【dp 位运算】 /">点集配对 【dp 位运算】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>刘汝佳训练指南P61</p>
-<p>这里第二个for里的break保证了不出现重复组合  </p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 110
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;LL, LL&gt;P;
-
-double dp[1&lt;&lt;20];
-struct node
-{
-    double x, y, z;
-};
-double dis(node a, node b)
-{
-    double dx = a.x - b.x;
-    double dy = a.y - b.y;
-    double dz = a.z - b.z;
-    return sqrt(dx*dx+dy*dy+dz*dz);
-}
-node p[25];
-int main()
-{
-    int n;
-    while(cin &gt;&gt; n &amp;&amp; n) {
-        for(int i=0; i&lt;n; i++)
-            cin &gt;&gt; p[i].x &gt;&gt; p[i].y &gt;&gt; p[i].z;
-        dp[0] = 0;
-        for(int i=1; i&lt;(1&lt;&lt;n); i++) {
-            dp[i] = inf;
-            for(int j=0; j&lt;n; j++) {
-                if(i &amp; (1&lt;&lt;j)) {
-                    for(int k=j+1; k&lt;n; k++) {
-                        if(i &amp; (1&lt;&lt;k))
-                            dp[i] = min(dp[i], dp[i^(1&lt;&lt;j)^(1&lt;&lt;k)]+dis(p[j], p[k]));
-                    }
-                    break;//注意此处
-                }
-            }
-        }
-        cout &lt;&lt; dp[(1&lt;&lt;n)-1] &lt;&lt; endl;
-    }
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/点集配对 【dp 位运算】 /" data-id="cjttuf87j002ie8v3nkploy8s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-计蒜客第六场 微软大楼设计方案（困难） " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /">计蒜客第六场 微软大楼设计方案（困难）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目链接：</p>
-<p><a href="https://nanti.jisuanke.com/t/15773" target="_blank" rel="noopener"> https://nanti.jisuanke.com/t/15773 </a></p>
-<p>题解：</p>
-<p>先对点按x排序  </p>
-<p>设Xa&lt;=Xb</p>
-<p>当k&lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为2<br>0所以最多计算20<em>20次（这里更正一下，应该是20</em>m次m具体为多少我也不知道，但肯定不超过40，望dalao指教）</p>
-<p>k&gt;40时，从枚举Xa，再对Xb进行二分，找到第一个Xb-<br>Xa&gt;=k-40,则在Xa至Xb之间的核心部门到Xa的距离都是&lt;=k的，因为楼层最高为20，然后继续从Xb用开始枚举Xb，一直到Xb-<br>Xa&gt;k为止，同样最多计算20<em>20次（20</em>m次）</p>
-<p>PS：表达可能不太清楚，请见谅</p>
-<pre><code>#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define MAX_N 200005
-#define inf 0x3f3f3f3f
-#define LL long long
-#define uLL unsigned long long
-const LL mod = 1e8;
-const LL INF = 1e18;
-typedef pair&lt;int, int&gt;P;
-const double eps = 1e-6;
-
-int h[MAX_N];
-P p[MAX_N];
-int minsum[MAX_N][20];
-void init_RMQ(int n)
-{
-    for(int i=1;i&lt;=n;i++)
-        minsum[i][0] = h[i];
-    int k = log2(1.0*n);
-    for(int j=1;j&lt;=k;j++) {
-        for(int i=1;i&lt;=n;i++) {
-            if(i+(1&lt;&lt;j)-1&lt;=n) {
-                minsum[i][j] = min(minsum[i][j-1], minsum[i+(1&lt;&lt;(j-1))][j-1]);
-            }
-        }
-    }
-}
-int getMin(int i,int j)
-{
-    int k = (int)log2(1.0*(j-i+1));
-    return min(minsum[i][k], minsum[j-(1&lt;&lt;k)+1][k]);
-}
-int main()
-{
-    int n, k, m;
-    cin &gt;&gt; n &gt;&gt; k;
-    for(int i=1; i&lt;=n; i++) {
-        scanf(&quot;%d&quot;, &amp;h[i]);
-    }
-    init_RMQ(n);
-    cin &gt;&gt; m;
-    for(int i=0; i&lt;m; i++) {
-        int x, y;
-        cin &gt;&gt; x &gt;&gt; y;
-        p[i] = P(x, y);
-    }
-    sort(p, p+m);
-    LL ans = 0;
-    if(k&lt;=40) {
-        for(int i=0; i&lt;m; i++) {
-            for(int j=i+1; j&lt;m; j++) {
-                if(p[j].first-p[i].first&gt;k)
-                    break;
-                int low = min(p[i].second, p[j].second);
-                low = min(low, getMin(p[i].first, p[i].second));
-                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
-                if(tmp &lt;= k)
-                    ans++;
-            }
-        }
-    }
-    else {
-        for(int i=0; i&lt;m; i++) {
-            int pos = lower_bound(p, p+m, P(p[i].first+k-40, 0)) - p;//p[i+1]-p[pos]之间的点到p[i]的距离都是小于等于k的
-            ans += (LL)(pos-i-1);
-            for(int j=pos; j&lt;m; j++) {
-                if(p[j].first-p[i].first&gt;k)
-                    break;
-                int low = min(p[i].second, p[j].second);
-                low = min(low, getMin(p[i].first, p[j].first));
-                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
-                if(tmp &lt;= k)
-                    ans++;
-            }
-        }
-    }
-    cout &lt;&lt; ans &lt;&lt; endl;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" data-id="cjttuf87n002re8v3huun3fdg" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/zoj 3777【状态压缩dp】 /" data-id="cjttw5828002gm4v39b53wp9i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -916,7 +698,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/三个串的最长公共子序列 /" data-id="cjttuf87l002me8v3k0h5ybjv" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/三个串的最长公共子序列 /" data-id="cjttw582a002im4v3crq3v7u2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1085,7 +867,208 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /" data-id="cjttuf87m002pe8v3ku60n1vp" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /" data-id="cjttw582f002rm4v3jsw1fkn7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-点集配对 【dp 位运算】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/点集配对 【dp 位运算】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/点集配对 【dp 位运算】 /">点集配对 【dp 位运算】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刘汝佳训练指南P61</p>
+<p>这里第二个for里的break保证了不出现重复组合  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 110
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+double dp[1&lt;&lt;20];
+struct node
+{
+    double x, y, z;
+};
+double dis(node a, node b)
+{
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    double dz = a.z - b.z;
+    return sqrt(dx*dx+dy*dy+dz*dz);
+}
+node p[25];
+int main()
+{
+    int n;
+    while(cin &gt;&gt; n &amp;&amp; n) {
+        for(int i=0; i&lt;n; i++)
+            cin &gt;&gt; p[i].x &gt;&gt; p[i].y &gt;&gt; p[i].z;
+        dp[0] = 0;
+        for(int i=1; i&lt;(1&lt;&lt;n); i++) {
+            dp[i] = inf;
+            for(int j=0; j&lt;n; j++) {
+                if(i &amp; (1&lt;&lt;j)) {
+                    for(int k=j+1; k&lt;n; k++) {
+                        if(i &amp; (1&lt;&lt;k))
+                            dp[i] = min(dp[i], dp[i^(1&lt;&lt;j)^(1&lt;&lt;k)]+dis(p[j], p[k]));
+                    }
+                    break;//注意此处
+                }
+            }
+        }
+        cout &lt;&lt; dp[(1&lt;&lt;n)-1] &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/点集配对 【dp 位运算】 /" data-id="cjttw582c002mm4v3a0tq21fu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Codeforces Round #403 C. Andryusha and Colored Balloons" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/">Codeforces Round</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://codeforces.com/contest/782/problem/C" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://codeforces.com/contest/782/problem/C" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：给出n个点，（n-1）条无向边，问能否将点染色使所有点与其邻接的点以及距离为1的点的颜色不同（如：a与b存在一边，b与c存在一边，则a，b，c三点颜色<br>应不同）</p>
+<p>题解：将图看做一棵树，对于一个节点的子节点我们先将选一个节点进行染色，染色的颜色选择则是从1开始不断++一直到与其父节点以及父节点的父节点颜色不同为止，然后<br>再对这个子节点进行进一步深搜，因为这个子节点的子节点不受这个子节点的兄弟的颜色影响所以可以继续深搜，搜完第一个子节点后则对第二个子节点进行染色，第二个子节点<br>的颜色则是先++然后一直++到和其父节点以及父节点的父节点不同为止，然后再做与第一个子节点相同的深搜，以此类推即可。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
+
+int n;
+int mx;
+vector&lt;int&gt;G[MAX_N];
+int color[MAX_N];
+void dfs(int u, int fa)
+{
+    int c = 0;
+    for(int i=0; i&lt;G[u].size(); i++) {
+        if(G[u][i] != fa) {
+            c++;
+            while(c == color[u] || c == color[fa])
+                c++;
+            color[G[u][i]] = c;
+            mx = max(mx, c);
+        }
+    }
+    for(int i=0; i&lt;G[u].size(); i++) {
+        if(G[u][i] != fa) {
+            dfs(G[u][i], u);
+        }
+    }
+}
+int main()
+{
+    memset(color, 0, sizeof(color));
+    mx = 0;
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;n; i++) {
+        int a, b;
+        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+    color[1] = 1;
+    dfs(1, 1);
+    printf(&quot;%d\n&quot;, mx);
+    for(int i=1; i&lt;=n; i++)
+        printf(&quot;%d &quot;,color[i]);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" data-id="cjttw580u0004m4v3c5o076zp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1480,7 +1463,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #417 (Div. 2) /" data-id="cjttuf881002xe8v3s2xtlh6c" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #417 (Div. 2) /" data-id="cjttw582l002ym4v3i8h6p2cf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1559,11 +1542,11 @@ int main()
           </li>
         
           <li>
-            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+            <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
           </li>
         
           <li>
-            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+            <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
           </li>
         
       </ul>

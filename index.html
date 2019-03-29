@@ -92,7 +92,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/模拟登陆ZJJCXY/" data-id="cjttuf87i002ge8v3nag59eal" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2019/03/29/模拟登陆ZJJCXY/" data-id="cjttw582e002pm4v3jmiwlwn2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttw58200023m4v3b9pxiw4y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -173,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/hello-world/" data-id="cjttuf875001re8v3ocsnedpl" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2019/03/29/hello-world/" data-id="cjttw581u001rm4v36qwc4ydf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,9 +183,9 @@
 
 
   
-    <article id="post-codeforces 767B The Queue【贪心】 " class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-codeforces 766D Mahmoud and a Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /" class="article-date">
+    <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -201,7 +201,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+      <a class="article-title" href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
     </h1>
   
 
@@ -209,12 +209,138 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>链接：</p>
-<p><a href="http://codeforces.com/contest/767/problem/B" target="_blank" rel="noopener">http://codeforces.com/contest/767/problem/B</a></p>
-<p>题意：</p>
-<p>Vasya要去护照，然而接待员在【ts，tf）的时间段内上班，处理一件业务需要花费时间t，并且有n个人在T【i】的时间去办护照，当Vasya与另一个人同时去<br>办护照时，Vasya排在他的后面，问Vasya什么时候去等待的时间最少。</p>
+        <p>题意：</p>
+<p>给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系</p>
 <p>题解：</p>
-<p>将n个人的办护照的时间段都计算出来，然后因为对于Vasya来说他只要在某个人来之前的前一秒先到所花费的时间最少，还要注意判断最后一个人办完护照后Vasya是<br>否还能办护照。</p>
+<p>带权并查集</p>
+<p>w[i]表示与父节点的关系，0为同义，1为反义</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+int n,m,q;
+int par[MAX_N];
+int w[MAX_N];
+map&lt;string,int&gt;mp;
+void init()
+{
+    for(int i=0;i&lt;=n;i++)
+        par[i] = i;
+}
+int find(int x)
+{
+    if(x != par[x]) {
+        int fx = find(par[x]);
+        w[x] = (w[x] + w[par[x]]) % 2;
+        par[x] = fx;
+        return fx;
+    }
+    return x;
+}
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;
+    for(int i=0;i&lt;n;i++) {
+        string str;
+        cin &gt;&gt; str;
+        mp[str] = i;
+    }
+    init();
+    for(int i=0;i&lt;m;i++) {
+        int k;
+        string s1,s2;
+        cin &gt;&gt; k &gt;&gt; s1 &gt;&gt; s2;
+        int x = mp[s1];
+        int y = mp[s2];
+        int fx = find(x);
+        int fy = find(y);
+        if(fx != fy) {
+            par[fx] = fy;
+            w[fx] = (w[x] + w[y] + k-1) % 2;
+            cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+        }
+        else {
+            if((w[x]+w[y])%2 != k-1)
+                cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+            else
+                cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+        }
+    }
+    for(int i=0;i&lt;q;i++) {
+        string s1,s2;
+        cin &gt;&gt; s1 &gt;&gt; s2;
+        int x = mp[s1];
+        int y = mp[s2];
+        int fx = find(x);
+        int fy = find(y);
+        if(fx == fy) {
+            cout &lt;&lt; (w[x] + w[y])%2 + 1 &lt;&lt; endl;
+        }
+        else {
+            cout &lt;&lt; 3 &lt;&lt; endl;
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" data-id="cjttw581n001dm4v3d9b6hwal" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://codeforces.com/contest/782/problem/B" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://codeforces.com/contest/782/problem/B" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：给出n个人距最南端的距离Xi，与每个人的最大速度Vi，并且每个人可以向南或者向北走，问最少花多少时间可以使所有人到一点。</p>
+<p>题解：二分，判断取左区间还是右区间则是看最晚到达终点的人的初始位置是在终点左边还是右边，左边则终点应该往左，右边则终点应该往右。</p>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
@@ -227,74 +353,66 @@
 #include&lt;stack&gt;
 #include&lt;time.h&gt;
 using namespace std;
-#define MAX_N 1000005
+#define MAX_N 60005
 #define inf 0x3f3f3f3f
 #define LL long long
 #define ull unsigned long long
-const LL INF = 9e18;
-const int mod = 100000000;
-typedef pair&lt;LL, LL&gt;P;
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
 
+struct node
+{
+    double x, v;
+};
 int n;
-LL ts, tf, t;
-LL T[MAX_N];
-P V[MAX_N];
+double ans = inf;
+node p[MAX_N];
+double Abs(double x)
+{
+    if(x&lt;0)
+        return -x;
+    else
+        return x;
+}
+bool check(double x)
+{
+    int idx;
+    double maxt = -1;
+    for(int i=0; i&lt;n; i++) {
+        double t = Abs(x-p[i].x) / p[i].v;
+        if(t &gt; maxt)
+            maxt = t, idx = i;
+    }
+    ans = min(ans, maxt);
+    if(p[idx].x &lt; x)
+        return false;
+    else
+        return true;
+}
 int main()
 {
-    cin &gt;&gt; ts &gt;&gt; tf &gt;&gt; t;
     cin &gt;&gt; n;
-    for(int i=1; i&lt;=n; i++) {
-        scanf(&quot;%lld&quot;,&amp;T[i]);
+    for(int i=0; i&lt;n; i++)
+        scanf(&quot;%lf&quot;, &amp;p[i].x);
+    for(int i=0; i&lt;n; i++)
+        scanf(&quot;%lf&quot;, &amp;p[i].v);
+    double low = 0;
+    double up = inf;
+    while(low + 1e-6 &lt; up) {
+        double mid = (up + low) / 2;
+        if(check(mid))
+            low = mid;
+        else
+            up = mid;
     }
-    V[0].second = -INF;
-    for(int i=1; i&lt;=n; i++) {
-        if(T[i] &gt; V[i-1].second) {
-            if(T[i] &gt;= ts)
-                V[i].first = T[i];
-            else
-                V[i].first = ts;
-            V[i].second = V[i].first + t - 1;
-        }
-        else {
-            V[i].first = V[i-1].second + 1;
-            V[i].second = V[i].first + t - 1;
-        }
-    }/*
-    for(int i=1; i&lt;=n; i++) {
-        printf(&quot;%lld %lld\n&quot;,V[i].first, V[i].second);
-    }*/
-    LL minT = INF;
-    LL ans;
-    for(int i=1; i&lt;=n; i++) {
-        P tmp;
-        if(T[i]-1 &gt; V[i-1].second) {
-            if(T[i]-1 &gt;= ts)
-                tmp.first = T[i] - 1;
-            else
-                tmp.first = ts;
-            tmp.second = tmp.first + t - 1;
-        }
-        else {
-            tmp.first = V[i-1].second + 1;
-            tmp.second = tmp.first + t - 1;
-        }
-        if(minT&gt;tmp.first-T[i]+1 &amp;&amp; tmp.second&lt;tf) {
-            minT = tmp.first - T[i] + 1;
-            ans = T[i] - 1;
-        }
-    }
-    if(V[n].second+t&lt;tf)
-        ans = V[n].second + 1;
-    if(minT != INF)
-        printf(&quot;%lld\n&quot;,ans);
-    else
-        printf(&quot;%lld\n&quot;,ts);
+    printf(&quot;%.12lf\n&quot;, ans);
 }
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/codeforces 767B The Queue【贪心】 /" data-id="cjttuf86y001de8v360lpeobp" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/" data-id="cjttw580w0005m4v3ygvrzl8y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -304,9 +422,9 @@ int main()
 
 
   
-    <article id="post-Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-LA Strategic Game 【最小点覆盖】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/" class="article-date">
+    <a href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /" class="article-date">
   <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
@@ -322,7 +440,7 @@ int main()
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+      <a class="article-title" href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /">LA Strategic Game 【最小点覆盖】</a>
     </h1>
   
 
@@ -330,130 +448,94 @@ int main()
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题目链接：</p>
-<p><a href="http://codeforces.com/contest/814/problem/C" target="_blank" rel="noopener"> http://codeforces.com/contest/814/problem/C
-</a></p>
-<p>题意：</p>
-<p>给出一个长为n的字符串s，接下来有q次询问，每次询问给出正整数m和字符c，问在字符串中最多添加m个字符c后字符串中最长的仅含c的连续子串的长度为多少</p>
-<p>题解：</p>
-<p>因为q&lt;=2e5所以易想到这题需要将答案保存到数组中，这样就需要dp处理字符串</p>
-<p>设dp[i][j][k]为从第i个下标开始选择修改k个字符后，仅含字符’a’+j的连续子串的最长长度为多少。</p>
-<p>当i&gt;=1，dp[i][j][k] = dp[i-1][j][k-p]       （当s[i]==’a’+j时p=0，否则p=1）</p>
-<p>当i==0，dp[i][j][k] = q        （当k大于0或s[i]==’a’+j时q=1否则q=0）</p>
-<p>然后因为给出m与c后dp的第一位无意义，所以可以舍去将dp[i][j][k]中有用的信息保存为ans[i][j]，ans[i][j]表示修改i个字符为’a’<br>+j字符后字符串的仅含’a’+j的连续子串最长长度</p>
-<pre><code>#include&lt;bits/stdc++.h&gt;
+        <p>题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻</p>
+<p>题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是<br>无向图还要除以二</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
 using namespace std;
-#define MAX_N 40005
+#define MAX_N 1505
 #define inf 0x3f3f3f3f
 #define LL long long
-#define uLL unsigned long long
-const LL mod = 1e9+7;
+#define ull unsigned long long
 const LL INF = 1e18;
-typedef pair&lt;int, int&gt;P;
-const double eps = 1e-6;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
 
-int dp[1505][26][1505];
-int ans[1505][26];
-int main()
+struct Edge
 {
-    int n;
-    scanf(&quot;%d&quot;, &amp;n);
-    char s[1505];
-    scanf(&quot;%s&quot;, s);
-    memset(dp, 0, sizeof(dp));
-    memset(ans, 0, sizeof(ans));
-    for(int i=0; i&lt;n; i++) {
-        for(int j=0; j&lt;26; j++) {
-            for(int k=0; k&lt;=n; k++) {
-                if(i) {
-                    if(k)
-                        dp[i][j][k] = dp[i-1][j][k-(s[i]!=(&apos;a&apos;+j))] + 1;
-                    else
-                        dp[i][j][k] = (s[i]==&apos;a&apos;+j)?(1 + dp[i-1][j][k]):0;
-                }
-                else {
-                    if(s[i]==&apos;a&apos;+j)
-                        dp[i][j][k] = 1;
-                    else
-                        dp[i][j][k] = (k&gt;0);
-                }
-            }
-        }
-    }
-    for(int i=0; i&lt;26; i++) {
-        for(int j=0; j&lt;n; j++) {
-            for(int k=0; k&lt;=n; k++) {
-                ans[k][i] = max(ans[k][i], dp[j][i][k]);
-            }
-        }
-    }
-    int q;
-    scanf(&quot;%d&quot;, &amp;q);
-    while(q--) {
-        int m;
-        char c;
-        scanf(&quot;%d %c&quot;, &amp;m, &amp;c);
-        printf(&quot;%d\n&quot;, ans[m][c-&apos;a&apos;]);
-    }
-}
-</code></pre><p>再提供另一种尺取法，更好编码和理解</p>
-<pre><code>#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define MAX_N 40005
-#define inf 0x3f3f3f3f
-#define LL long long
-#define uLL unsigned long long
-const LL mod = 1e9+7;
-const LL INF = 1e18;
-typedef pair&lt;int, int&gt;P;
-const double eps = 1e-6;
-
-int dp[26][1505];
-int n, q;
-string s;
+    int to, next;
+}edge[MAX_N*MAX_N];
+int head[MAX_N], tot;
 void init()
 {
-    for(int i=0; i&lt;26; i++) {
-        for(int j=1; j&lt;=n; j++) {
-            char c = (&apos;a&apos;+i);
-            int l = 0;
-            int r = 0;
-            int tmp = s[0]!=c;
-            int ans = 0;
-            while(r&gt;=l &amp;&amp; r&lt;n) {
-                if(j&gt;=tmp)
-                    ans = max(ans, r-l+1);
-                if(j&gt;=tmp) {
-                    r++;
-                    tmp += (s[r]!=c);
-                }
-                else {
-                    tmp -= (s[l]!=c);
-                    l++;
-                }
+    tot = 0;
+    memset(head, -1, sizeof(head));
+}
+void addedge(int u, int v)
+{
+    edge[tot].to = v;
+    edge[tot].next = head[u];
+    head[u] = tot++;
+}
+int linker[MAX_N];
+bool used[MAX_N];
+int uN;
+bool dfs(int u)
+{
+    for(int i=head[u]; i!=-1; i=edge[i].next) {
+        int v = edge[i].to;
+        if(!used[v]) {
+            used[v] = true;
+            if(linker[v] == -1 || dfs(linker[v])) {
+                linker[v] = u;
+                return true;
             }
-            dp[i][j] = ans;
         }
     }
+    return false;
+}
+int hungry()
+{
+    int res = 0;
+    memset(linker, -1, sizeof(linker));
+    for(int u=0; u&lt;uN; u++) {
+        memset(used, false, sizeof(used));
+        if(dfs(u))
+            res++;
+    }
+    return res;
 }
 int main()
 {
-    cin &gt;&gt; n;
-    cin &gt;&gt; s;
-    cin &gt;&gt; q;
-    init();
-    while(q--) {
-        int m;
-        char c;
-        scanf(&quot;%d %c&quot;, &amp;m ,&amp;c);
-        printf(&quot;%d\n&quot;, dp[c-&apos;a&apos;][m]);
+    while(cin &gt;&gt; uN) {
+        int n, m;
+        init();
+        for(int i=0; i&lt;uN; i++) {
+            scanf(&quot;%d:(%d)&quot;, &amp;n, &amp;m);
+            for(int i=0; i&lt;m; i++) {
+                int x;
+                scanf(&quot;%d&quot;, &amp;x);
+                addedge(x, n);
+                addedge(n, x);
+            }
+        }
+        cout &lt;&lt; hungry() / 2 &lt;&lt; endl;
     }
 }
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/" data-id="cjttuf8650005e8v338xdi6aj" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/LA Strategic Game 【最小点覆盖】 /" data-id="cjttw580z0007m4v3dns59y2h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -556,7 +638,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/POJ 3264 【RMQ模板】 /" data-id="cjttuf8670007e8v391ht1snd" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/POJ 3264 【RMQ模板】 /" data-id="cjttw58100008m4v3rq6a283a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -691,7 +773,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 1094 Sorting It All Out 【拓扑排序】 /" data-id="cjttuf8680008e8v3q1ofhftm" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1094 Sorting It All Out 【拓扑排序】 /" data-id="cjttw5812000bm4v3sag57bwc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -818,130 +900,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 1416 Shredding Company 【dfs】 /" data-id="cjttuf86a000be8v3wgbjcnq1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-LA Strategic Game 【最小点覆盖】 " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /" class="article-date">
-  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/acm/">acm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /">LA Strategic Game 【最小点覆盖】</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻</p>
-<p>题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是<br>无向图还要除以二</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;cmath&gt;
-#include&lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include&lt;queue&gt;
-#include&lt;set&gt;
-#include&lt;map&gt;
-#include&lt;stack&gt;
-#include&lt;time.h&gt;
-using namespace std;
-#define MAX_N 1505
-#define inf 0x3f3f3f3f
-#define LL long long
-#define ull unsigned long long
-const LL INF = 1e18;
-const int mod = 1e8+7;
-typedef pair&lt;double, int&gt;P;
-
-struct Edge
-{
-    int to, next;
-}edge[MAX_N*MAX_N];
-int head[MAX_N], tot;
-void init()
-{
-    tot = 0;
-    memset(head, -1, sizeof(head));
-}
-void addedge(int u, int v)
-{
-    edge[tot].to = v;
-    edge[tot].next = head[u];
-    head[u] = tot++;
-}
-int linker[MAX_N];
-bool used[MAX_N];
-int uN;
-bool dfs(int u)
-{
-    for(int i=head[u]; i!=-1; i=edge[i].next) {
-        int v = edge[i].to;
-        if(!used[v]) {
-            used[v] = true;
-            if(linker[v] == -1 || dfs(linker[v])) {
-                linker[v] = u;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-int hungry()
-{
-    int res = 0;
-    memset(linker, -1, sizeof(linker));
-    for(int u=0; u&lt;uN; u++) {
-        memset(used, false, sizeof(used));
-        if(dfs(u))
-            res++;
-    }
-    return res;
-}
-int main()
-{
-    while(cin &gt;&gt; uN) {
-        int n, m;
-        init();
-        for(int i=0; i&lt;uN; i++) {
-            scanf(&quot;%d:(%d)&quot;, &amp;n, &amp;m);
-            for(int i=0; i&lt;m; i++) {
-                int x;
-                scanf(&quot;%d&quot;, &amp;x);
-                addedge(x, n);
-                addedge(n, x);
-            }
-        }
-        cout &lt;&lt; hungry() / 2 &lt;&lt; endl;
-    }
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/LA Strategic Game 【最小点覆盖】 /" data-id="cjttuf86b000de8v36gvgqzle" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1416 Shredding Company 【dfs】 /" data-id="cjttw5813000dm4v32k5dk5ql" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1051,7 +1010,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2017/06/21/Poj 1655 【树的重心】 /" data-id="cjttuf86d000fe8v3cwei4bdm" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1655 【树的重心】 /" data-id="cjttw5815000fm4v3jjkp25le" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1130,11 +1089,11 @@ int main()
           </li>
         
           <li>
-            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+            <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/">codeforces 766D Mahmoud and a Dictionary</a>
           </li>
         
           <li>
-            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+            <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/">Codeforces Round</a>
           </li>
         
       </ul>
