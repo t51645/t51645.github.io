@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>Poj 1655 【树的重心】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://poj.org/problem?id=1655   题解： 设sum[i]为以i为根结点的树上有多少个结点，maxsum[i]为去掉i结点导致的森林中最大的树有多大   一开始建树时是取小的点指向大的点，然后一直WA后来发现这样建树是有问题的，可能会有（1,3）（2,3）这种出现1-&amp;gt;3,2-&amp;gt;3导致1、2不联通的情况出现。 #include&amp;lt;iostre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 1655 【树的重心】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 1655 【树的重心】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://poj.org/problem?id=1655   题解： 设sum[i]为以i为根结点的树上有多少个结点，maxsum[i]为去掉i结点导致的森林中最大的树有多大   一开始建树时是取小的点指向大的点，然后一直WA后来发现这样建树是有问题的，可能会有（1,3）（2,3）这种出现1-&amp;gt;3,2-&amp;gt;3导致1、2不联通的情况出现。 #include&amp;lt;iostre">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.541Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="Poj 1655 【树的重心】">
+<meta name="twitter:description" content="题目链接：http://poj.org/problem?id=1655   题解： 设sum[i]为以i为根结点的树上有多少个结点，maxsum[i]为去掉i结点导致的森林中最大的树有多大   一开始建树时是取小的点指向大的点，然后一直WA后来发现这样建树是有问题的，可能会有（1,3）（2,3）这种出现1-&amp;gt;3,2-&amp;gt;3导致1、2不联通的情况出现。 #include&amp;lt;iostre">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Poj 1655 【树的重心】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/Poj 1655 【树的重心】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      Poj 1655 【树的重心】
     </h1>
   
 
@@ -83,11 +90,81 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://poj.org/problem?id=1655" target="_blank" rel="noopener">http://poj.org/problem?id=1655</a>  </p>
+<p>题解：</p>
+<p>设sum[i]为以i为根结点的树上有多少个结点，maxsum[i]为去掉i结点导致的森林中最大的树有多大  </p>
+<p>一开始建树时是取小的点指向大的点，然后一直WA后来发现这样建树是有问题的，可能会有（1,3）（2,3）这种出现1-&gt;3,2-&gt;3导致1、2不联通的情况出现。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 20005
+#define inf 0x7f7f7f7f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+//const double Pi = acos(-1);
+const int mod = 1e4+7;
+typedef pair&lt;int, int&gt;P;
+
+vector&lt;int&gt;G[MAX_N];
+int sum[MAX_N];
+int maxSum[MAX_N];
+int n;
+void dfs(int u, int pre)
+{
+    sum[u] = 1;
+    maxSum[u] = 0;
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i];
+        if(v == pre)
+            continue;
+        dfs(v, u);
+        sum[u] += sum[v];
+        maxSum[u] = max(maxSum[u], sum[v]);
+    }
+    maxSum[u] = max(maxSum[u], n-sum[u]);
+}
+int main()
+{
+    int t;
+    cin &gt;&gt; t;
+    while(t--) {
+        cin &gt;&gt; n;
+        for(int i=1; i&lt;=n; i++)
+            G[i].clear();
+        for(int i=1; i&lt;n; i++) {
+            int a, b;
+            scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+            G[a].push_back(b);
+            G[b].push_back(a);
+        }
+        dfs(1, 0);
+        int idx;
+        int ans = inf;
+        for(int i=1; i&lt;=n; i++) {
+            if(ans &gt; maxSum[i]) {
+                ans = maxSum[i];
+                idx = i;
+            }
+        }
+        printf(&quot;%d %d\n&quot;, idx, ans);
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1655 【树的重心】 /" data-id="cjttuf86d000fe8v3cwei4bdm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +173,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          LA Strategic Game 【最小点覆盖】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 2955 Brackets 【区间DP】</div>
     </a>
   
 </nav>

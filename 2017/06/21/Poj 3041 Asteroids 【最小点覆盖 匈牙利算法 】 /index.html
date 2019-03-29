@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="链接： http://poj.org/problem?id=3041 题解： 这题可以将障碍物的横坐标与纵坐标看成两个点然后连边，然后这题是要选最少条边使所有点都有边相连就是最小点覆盖数。 根据König  定理  一个二分图中的最大匹配数等于这个图中的最小点覆盖数。 跑一遍匈牙利算法就有答案了。   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接： http://poj.org/problem?id=3041 题解： 这题可以将障碍物的横坐标与纵坐标看成两个点然后连边，然后这题是要选最少条边使所有点都有边相连就是最小点覆盖数。 根据König  定理  一个二分图中的最大匹配数等于这个图中的最小点覆盖数。 跑一遍匈牙利算法就有答案了。   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.546Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】">
+<meta name="twitter:description" content="链接： http://poj.org/problem?id=3041 题解： 这题可以将障碍物的横坐标与纵坐标看成两个点然后连边，然后这题是要选最少条边使所有点都有边相连就是最小点覆盖数。 根据König  定理  一个二分图中的最大匹配数等于这个图中的最小点覆盖数。 跑一遍匈牙利算法就有答案了。   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】
     </h1>
   
 
@@ -83,11 +90,76 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=3041" target="_blank" rel="noopener">http://poj.org/problem?id=3041</a></p>
+<p>题解：</p>
+<p>这题可以将障碍物的横坐标与纵坐标看成两个点然后连边，然后这题是要选最少条边使所有点都有边相连就是最小点覆盖数。</p>
+<p>根据König  定理  一个二分图中的最大匹配数等于这个图中的最小点覆盖数。</p>
+<p>跑一遍匈牙利算法就有答案了。  </p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;double, double&gt;P;
+
+bool G[MAX_N][MAX_N];
+int n, k;
+int linker[MAX_N];
+bool used[MAX_N];
+bool dfs(int u)
+{
+    for(int i=1;i&lt;=n;i++) {
+        if(G[u][i] &amp;&amp; !used[i]) {
+            used[i] = true;
+            if(!linker[i] || dfs(linker[i])) {
+                linker[i] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int hungary()
+{
+    int res = 0;
+    memset(linker, 0, sizeof(linker));
+    for(int i=1;i&lt;=n;i++) {
+        memset(used, false, sizeof(used));
+        if(dfs(i))
+            res++;
+    }
+    return res;
+}
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; k;
+    for(int i=0;i&lt;k;i++) {
+        int a, b;
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        G[a][b] = true;
+    }
+    int ans = hungary();
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" data-id="cjttuf86l000ne8v3hawisifs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +168,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 3311 Hie with the Pie 【TSP+floyd】</div>
     </a>
   
 </nav>

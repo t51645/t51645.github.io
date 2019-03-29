@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>tyvj 1089 【背包转换 容量为负】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://www.tyvj.cn/p/1089 题解： 可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &amp;lt;=1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位） #include&amp;lt;iostream&amp;gt; #include&amp;lt;st">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tyvj 1089 【背包转换 容量为负】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/tyvj 1089 【背包转换 容量为负】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://www.tyvj.cn/p/1089 题解： 可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &amp;lt;=1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位） #include&amp;lt;iostream&amp;gt; #include&amp;lt;st">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="tyvj 1089 【背包转换 容量为负】">
+<meta name="twitter:description" content="题目链接：http://www.tyvj.cn/p/1089 题解： 可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &amp;lt;=1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位） #include&amp;lt;iostream&amp;gt; #include&amp;lt;st">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tyvj 1089 【背包转换 容量为负】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      tyvj 1089 【背包转换 容量为负】
     </h1>
   
 
@@ -83,11 +90,61 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1089" target="_blank" rel="noopener">http://www.tyvj.cn/p/1089</a></p>
+<p>题解：</p>
+<p>可以将a[i]看做背包体积，b[i]看做价值，然后按着01背包的思路求解。但是因为a[i]可能为负，所以要重新取0点，因为sum|a[i]| &lt;=<br>1e5所以取1e5为新0点，然后进行01背包。（注意a[i]为负数时要第二个for要从低位到高位）</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+int dp[200005];
+int a[105];
+int b[105];
+int n;
+int main()
+{
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;=n; i++)
+        scanf(&quot;%d%d&quot;, &amp;a[i], &amp;b[i]);
+    memset(dp, -inf, sizeof(dp));
+    int top = 100000;
+    dp[top] = 0;
+    for(int i=1; i&lt;=n; i++) {
+        if(a[i] &gt;= 0)
+            for(int j=2*top; j&gt;=a[i]; j--)
+                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
+        else
+            for(int j=0; j&lt;=2*top+a[i]; j++)
+                dp[j] = max(dp[j], dp[j-a[i]]+b[i]);
+    }
+    int ans = 0;
+    for(int i=2*top; i&gt;=top; i--) {
+        if(dp[i] &gt;= 0)
+            ans = max(ans, dp[i]+i-top);
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" data-id="cjttuf87g002ce8v3xbfpfrnr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +153,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyoj 1073 加分二叉树【】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          tyoj 1073 加分二叉树【】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/zoj 3777【状态压缩dp】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">zoj 3777【状态压缩dp】</div>
     </a>
   
 </nav>

@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>LA Strategic Game 【最小点覆盖】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻 题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是无向图还要除以二 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LA Strategic Game 【最小点覆盖】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/LA Strategic Game 【最小点覆盖】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻 题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是无向图还要除以二 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="LA Strategic Game 【最小点覆盖】">
+<meta name="twitter:description" content="题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻 题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是无向图还要除以二 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-LA Strategic Game 【最小点覆盖】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/LA Strategic Game 【最小点覆盖】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      LA Strategic Game 【最小点覆盖】
     </h1>
   
 
@@ -83,11 +90,94 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题意：给定一棵树，选择尽量少的结点，使得每个没有选中的结点至少和一个已选的结点相邻</p>
+<p>题解：只要保证每条边的两边至少有一个结点是被选中的就可以保证每个没有选中的结点至少和一个已选的结点相邻，其实就是最小点覆盖，跑一遍匈牙利算法模板即可，因为是<br>无向图还要除以二</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 1505
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
+
+struct Edge
+{
+    int to, next;
+}edge[MAX_N*MAX_N];
+int head[MAX_N], tot;
+void init()
+{
+    tot = 0;
+    memset(head, -1, sizeof(head));
+}
+void addedge(int u, int v)
+{
+    edge[tot].to = v;
+    edge[tot].next = head[u];
+    head[u] = tot++;
+}
+int linker[MAX_N];
+bool used[MAX_N];
+int uN;
+bool dfs(int u)
+{
+    for(int i=head[u]; i!=-1; i=edge[i].next) {
+        int v = edge[i].to;
+        if(!used[v]) {
+            used[v] = true;
+            if(linker[v] == -1 || dfs(linker[v])) {
+                linker[v] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int hungry()
+{
+    int res = 0;
+    memset(linker, -1, sizeof(linker));
+    for(int u=0; u&lt;uN; u++) {
+        memset(used, false, sizeof(used));
+        if(dfs(u))
+            res++;
+    }
+    return res;
+}
+int main()
+{
+    while(cin &gt;&gt; uN) {
+        int n, m;
+        init();
+        for(int i=0; i&lt;uN; i++) {
+            scanf(&quot;%d:(%d)&quot;, &amp;n, &amp;m);
+            for(int i=0; i&lt;m; i++) {
+                int x;
+                scanf(&quot;%d&quot;, &amp;x);
+                addedge(x, n);
+                addedge(n, x);
+            }
+        }
+        cout &lt;&lt; hungry() / 2 &lt;&lt; endl;
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/LA Strategic Game 【最小点覆盖】 /" data-id="cjttuf86b000de8v36gvgqzle" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +186,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 1416 Shredding Company 【dfs】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Poj 1416 Shredding Company 【dfs】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 1655 【树的重心】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 1655 【树的重心】</div>
     </a>
   
 </nav>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>21位 花朵数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题意： 一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。 例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。 当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。 当N=5时，92727满足条件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21位 花朵数">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/21位 花朵数 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意： 一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。 例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。 当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。 当N=5时，92727满足条件。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="21位 花朵数">
+<meta name="twitter:description" content="题意： 一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。 例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。 当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。 当N=5时，92727满足条件。">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-21位 花朵数 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/21位 花朵数 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      21位 花朵数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：</p>
+<p>一个N位的十进制正整数，如果它的每个位上的数字的N次方的和等于这个数本身，则称其为花朵数。</p>
+<p>例如：当N=3时，153就满足条件，因为 1^3 + 5^3 + 3^3 =<br>153，这样的数字也被称为水仙花数（其中，“^”表示乘方，5^3表示5的3次方，也就是立方）。</p>
+<p>当N=4时，1634满足条件，因为 1^4 + 6^4 + 3^4 + 4^4 = 1634。</p>
+<p>当N=5时，92727满足条件。</p>
+<p>实际上，对N的每个取值，可能有多个数字满足条件。</p>
+<p>程序的任务是：求N=21时，所有满足条件的花朵数。注意：这个整数有21位，它的各个位数字的21次方之和正好等于这个数本身。</p>
+<p>如果满足条件的数字不只有一个，请从小到大输出所有符合条件的数字，每个数字占一行。因为这个数字很大，请注意解法时间上的可行性。要求程序在1分钟内运行完毕。</p>
+<p>题解：</p>
+<p>看了网上的思路，大概是枚举每个数出现的次数，其中次数和不超过21次，然后因为不管怎么排列，数字对应出现次数最终求和都为同一个值，所以可以判断最终生成的数中各<br>数字出现的次数与枚举的是否相同即可。深搜剪枝后数字出现次数符合的仅有14307150个，6s就可以得到答案</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+
+int x[10];
+int num[10][3];
+void init()
+{
+    num[0][2] = 0;        num[0][1] = 0;        num[0][0] = 0;
+    num[1][2] = 0;        num[1][1] = 0;        num[1][0] = 1;
+    num[2][2] = 0;        num[2][1] = 0;        num[2][0] = 2097152;
+    num[3][2] = 0;        num[3][1] = 104;      num[3][0] = 60353203;
+    num[4][2] = 0;        num[4][1] = 43980;    num[4][0] = 46511104;
+    num[5][2] = 0;        num[5][1] = 4768371;  num[5][0] = 58203125;
+    num[6][2] = 2;        num[6][1] = 19369506; num[6][0] = 40377856;
+    num[7][2] = 55;       num[7][1] = 85458640; num[7][0] = 83284007;
+    num[8][2] = 922;      num[8][1] = 33720368; num[8][0] = 54775808;
+    num[9][2] = 10941;    num[9][1] = 89891315; num[9][0] = 12359209;
+}
+void check()
+{
+    int tmp[3];
+    memset(tmp, 0, sizeof(tmp));
+    for(int i=0;i&lt;10;i++) {
+        tmp[0] = tmp[0] + (num[i][0]*x[i]);
+        tmp[1] = tmp[1] + (num[i][1]*x[i]);
+        tmp[2] = tmp[2] + (num[i][2]*x[i]);
+
+        tmp[1] = tmp[1] + (tmp[0]/mod);
+        tmp[0] = tmp[0] % mod;
+
+        tmp[2] = tmp[2] + (tmp[1]/mod);
+        tmp[1] = tmp[1] % mod;
+    }
+    int sum[10];
+    memset(sum, 0, sizeof(sum));
+    int t = tmp[2];
+    int dd = 0;
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    t = tmp[1];
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    t = tmp[0];
+    while(t) {
+        sum[t%10]++;
+        t/=10;
+        dd++;
+    }
+    sum[0] += 21 - dd;
+    for(int i=0;i&lt;=9;i++)
+        if(sum[i] != x[i])
+            return ;
+    if(!tmp[2] || !tmp[1] || !tmp[0])
+        return ;
+    printf(&quot;%d%d%d\n&quot;,tmp[2],tmp[1],tmp[0]);
+}
+int sum = 0;
+void dfs(int k, int total)
+{
+    if(total &gt; 21)
+        return;
+    if(k == -1) {
+        if(total == 21)
+            check(),sum++;
+        return;
+    }
+    for(int i=21;i&gt;=0;i--) {
+        x[k] = i;
+        dfs(k-1, total+i);
+    }
+}
+int main()
+{
+    init();
+    dfs(9, 0);
+    cout &lt;&lt; sum &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/21位 花朵数 /" data-id="cjttuf8630003e8v3osbf4u7k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/poj 3295 Tautology /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj 3295 Tautology
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/tyoj 1059 过河【压缩】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">tyoj 1059 过河【压缩】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

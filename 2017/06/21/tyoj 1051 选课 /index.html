@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>tyoj 1051 选课 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://www.tyvj.cn/p/1051   题解： 设dp[i][j] =第i门课选课程j的最大学分，vis[i][j][k]标记第i门课选课程j时选修课k是否选择，par[i]表示i的先修课程（无先修课程的默认先修课程为课程0） 则dp[i][j] = max(dp[i-1][k]+w[j])（vis[i-1][k][par[j]] &amp;amp;&amp;amp; !vis[i-1]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tyoj 1051 选课">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/tyoj 1051 选课 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://www.tyvj.cn/p/1051   题解： 设dp[i][j] =第i门课选课程j的最大学分，vis[i][j][k]标记第i门课选课程j时选修课k是否选择，par[i]表示i的先修课程（无先修课程的默认先修课程为课程0） 则dp[i][j] = max(dp[i-1][k]+w[j])（vis[i-1][k][par[j]] &amp;amp;&amp;amp; !vis[i-1]">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.552Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="tyoj 1051 选课">
+<meta name="twitter:description" content="题目链接：http://www.tyvj.cn/p/1051   题解： 设dp[i][j] =第i门课选课程j的最大学分，vis[i][j][k]标记第i门课选课程j时选修课k是否选择，par[i]表示i的先修课程（无先修课程的默认先修课程为课程0） 则dp[i][j] = max(dp[i-1][k]+w[j])（vis[i-1][k][par[j]] &amp;amp;&amp;amp; !vis[i-1]">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tyoj 1051 选课 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/tyoj 1051 选课 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      tyoj 1051 选课
     </h1>
   
 
@@ -83,11 +90,80 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1051" target="_blank" rel="noopener">http://www.tyvj.cn/p/1051</a>  </p>
+<p>题解：</p>
+<p>设dp[i][j] =<br>第i门课选课程j的最大学分，vis[i][j][k]标记第i门课选课程j时选修课k是否选择，par[i]表示i的先修课程（无先修课程的默认先修课程为课程0）</p>
+<p>则dp[i][j] = max(dp[i-1][k]+w[j])（vis[i-1][k][par[j]] &amp;&amp; !vis[i-1][k][j]）</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+int par[305];
+int dp[305][305];
+bool vis[305][305][305];
+int w[305];
+int main()
+{
+    int N, M;
+    cin &gt;&gt; N &gt;&gt; M;
+    for(int i=1; i&lt;=N; i++)
+        cin &gt;&gt; par[i] &gt;&gt; w[i];
+    for(int j=0; j&lt;=N; j++)
+        vis[0][j][0] = true;
+    for(int i=1; i&lt;=M; i++) {
+        for(int j=1; j&lt;=N; j++) {
+            int c = -1;
+            for(int k=0; k&lt;=N; k++) {
+                if(!vis[i-1][k][j] &amp;&amp; vis[i-1][k][par[j]] &amp;&amp; (c==-1 || dp[i-1][c]&lt;dp[i-1][k]))
+                    c = k;
+            }
+            if(c != -1) {
+                //printf(&quot;%d %d %d---\n&quot;, i, j, c);
+                for(int k=0; k&lt;=N; k++)
+                    vis[i][j][k] = vis[i-1][c][k];
+                vis[i][j][j] = true;
+                dp[i][j] = dp[i-1][c] + w[j];
+            }
+        }
+    }/*
+    for(int i=1; i&lt;=M; i++)
+        for(int j=1; j&lt;=N; j++)
+            printf(&quot;%d%c&quot;,dp[i][j],j==N?&apos;\n&apos;:&apos; &apos;);*/
+    int ans = 0;
+    for(int i=1; i&lt;=N; i++)
+        ans = max(ans, dp[M][i]);
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+/*
+6 4
+0 4
+1 3
+2 2
+3 1
+1 1
+5 3
+*/
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1051 选课 /" data-id="cjttuf87d0028e8v3rs6c7qen" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +172,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyoj 1059 过河【压缩】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          tyoj 1059 过河【压缩】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyoj 1073 加分二叉树【】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">tyoj 1073 加分二叉树【】</div>
     </a>
   
 </nav>

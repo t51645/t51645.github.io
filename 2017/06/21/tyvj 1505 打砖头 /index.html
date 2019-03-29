@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>tyvj 1505 打砖头 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：http://www.tyvj.cn/p/1505 原博客链接：http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html   题解： 这个打砖头是很经典的题目。 一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。 消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tyvj 1505 打砖头">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/tyvj 1505 打砖头 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://www.tyvj.cn/p/1505 原博客链接：http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html   题解： 这个打砖头是很经典的题目。 一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。 消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tyvj 1505 打砖头">
+<meta name="twitter:description" content="题目链接：http://www.tyvj.cn/p/1505 原博客链接：http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html   题解： 这个打砖头是很经典的题目。 一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。 消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tyvj 1505 打砖头 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/tyvj 1505 打砖头 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      tyvj 1505 打砖头
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1505" target="_blank" rel="noopener">http://www.tyvj.cn/p/1505</a></p>
+<p>原博客链接：<a href="http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html" target="_blank" rel="noopener">http://www.cnblogs.com/zjerly/archive/2011/11/02/2232526.html</a>  </p>
+<p>题解：</p>
+<p>这个打砖头是很经典的题目。</p>
+<p>一开始想着在题目给的形状上dp，结果发现这样的话会有三角形重合现象也就是动规有了后效性。</p>
+<p>消除后效性要么转换状态，要么在状态里记录一下取数的情况。记录取数的情况，状压dp？别开玩笑了我直接搞不了。</p>
+<p>那么只能转换一下，上网上看了别人的方法，把三角形倒过来了！</p>
+<p>比如说样例：</p>
+<p>2 2 3 4</p>
+<p>8 2 7</p>
+<p>2 3</p>
+<p>49</p>
+<p>倒过来之后——&gt;</p>
+<p>4</p>
+<p>3 7</p>
+<p>2 2 3</p>
+<p>2 8 2 49</p>
+<p>那么每一点只能由左边的点转移过来，和左上角一直到上一行末尾的数转移过来。</p>
+<p>如第四行第2个数可以从第三行的1，2，3个数转移过来。为什么？再回去看看题吧……</p>
+<p>那么就可以开状态f[i,j,k]表示取到i,j这个位置，取了k个数的最大得分。</p>
+<p>那么如果取这个数，只能是a[i,1]+a[i,2]+…+a<a href="这个预处理出来">i,j</a>+f[i-1,p,k-j]  其中p取j-1到i-1。如上述。</p>
+<p>还应该注意每行都应该计算f[i,0,k]表示这一行不取数的答案。代码如下：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+int a[55][55];
+int dp[55][55][505];
+int n, m;
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int j=1; j&lt;=n; j++)
+        for(int i=n; i&gt;=j; i--)
+            scanf(&quot;%d&quot;, &amp;a[i][j]);
+    memset(dp, -1, sizeof(dp));
+    for(int i=0; i&lt;=n; i++)
+        dp[i][0][0] = 0;
+    int ans = 0;
+    for(int k=1; k&lt;=m; k++) {
+        for(int i=1; i&lt;=n; i++) {
+            int sum = 0;
+            for(int j=0; j&lt;=i; j++) {//注意j从0开始，一开始从1开始WA了好久
+                sum += a[i][j];
+                for(int p=j-1; p&lt;=i-1; p++)
+                    if(k &gt;= j &amp;&amp; p &gt;= 0 &amp;&amp; dp[i-1][p][k-j] != -1)
+                        dp[i][j][k] = max(dp[i][j][k], sum+dp[i-1][p][k-j]);
+                ans = max(ans, dp[i][j][k]);
+            }
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/tyvj 1505 打砖头 /" data-id="cjttuf880002we8v3ytxv4g7g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/poj 1745 Divisibility /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj 1745 Divisibility
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/poj 3071 【概率dp】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">poj 3071 【概率dp】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

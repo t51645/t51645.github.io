@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>codeforce 689D 【二分+RMQ】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题意： 给出长度都为n(1&amp;lt;=n&amp;lt;=2e5)的两数组a[i]与b[i]，求有多少组l与r使  。 比如a = {1,2,3,2,1,4}，b={6,7,1,2,3,2}有两组l与r符合条件：1.l=4，r=4，max=min=2；2.l=4，r=5，max=min=2。 题解： 我们可以思考当l固定时，可以通过求解r的范围[left,righ]得到(right-left)组符合条件的l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforce 689D 【二分+RMQ】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforce 689D 【二分+RMQ】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意： 给出长度都为n(1&amp;lt;=n&amp;lt;=2e5)的两数组a[i]与b[i]，求有多少组l与r使  。 比如a = {1,2,3,2,1,4}，b={6,7,1,2,3,2}有两组l与r符合条件：1.l=4，r=4，max=min=2；2.l=4，r=5，max=min=2。 题解： 我们可以思考当l固定时，可以通过求解r的范围[left,righ]得到(right-left)组符合条件的l">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://codeforces.com/predownloa
+ded/b5/41/b541c28898a520dabaed7640ee9906d0bd797fbe.png">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforce 689D 【二分+RMQ】">
+<meta name="twitter:description" content="题意： 给出长度都为n(1&amp;lt;=n&amp;lt;=2e5)的两数组a[i]与b[i]，求有多少组l与r使  。 比如a = {1,2,3,2,1,4}，b={6,7,1,2,3,2}有两组l与r符合条件：1.l=4，r=4，max=min=2；2.l=4，r=5，max=min=2。 题解： 我们可以思考当l固定时，可以通过求解r的范围[left,righ]得到(right-left)组符合条件的l">
+<meta name="twitter:image" content="http://codeforces.com/predownloa
+ded/b5/41/b541c28898a520dabaed7640ee9906d0bd797fbe.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-codeforce 689D 【二分+RMQ】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforce 689D 【二分+RMQ】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeforce 689D 【二分+RMQ】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：</p>
+<p>给出长度都为n(1&lt;=n&lt;=2e5)的两数组a[i]与b[i]，求有多少组l与r使 <img src="http://codeforces.com/predownloa
+ded/b5/41/b541c28898a520dabaed7640ee9906d0bd797fbe.png" alt> 。</p>
+<p>比如a = {1,2,3,2,1,4}，b={6,7,1,2,3,2}<br>有两组l与r符合条件：1.l=4，r=4，max=min=2；2.l=4，r=5，max=min=2。</p>
+<p>题解：</p>
+<p>我们可以思考当l固定时，可以通过求解r的范围[left,righ]得到(right-left)组符合条件的l与r，这个r的范围求解可以通过二分来求解，<br>判断在某个范围[l,r]是否符合条件可以通过RMQ在O（1）时间内处理，具体思路如下：</p>
+<p>当r在范围[left,right]中可能存在符合条件的值时判断mid(mid=(left+right)/2)是否符合条件，若在[l,mid]范围，Max&gt;M<br>in则说明符合条件的r在[eftl,mid-1]中，Max&lt;Min则说明符合条件的r在[mid+1,right]中，当Max==Min时符合条件的r最小值在<br>[left,mid-1]符合条件的r的最大值在[mid+1,right]中。</p>
+<p>这样就可以在O(2<em>log(n))求解某个固定值l下符合条件的r的范围，再枚举l就可以得到答案，总的时间复杂度为O(n</em>2*log(n))</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+int a[MAX_N];
+int b[MAX_N];
+int minsum[MAX_N][20];
+int maxsum[MAX_N][20];
+void init_RMQ(int n)
+{
+    for(int i=1;i&lt;=n;i++)
+        maxsum[i][0] = a[i], minsum[i][0] = b[i];
+    int k = log2(1.0*n);
+    for(int j=1;j&lt;=k;j++) {
+        for(int i=1;i&lt;=n;i++) {
+            if(i+(1&lt;&lt;j)-1&lt;=n) {
+                maxsum[i][j] = max(maxsum[i][j-1], maxsum[i+(1&lt;&lt;(j-1))][j-1]);
+                minsum[i][j] = min(minsum[i][j-1], minsum[i+(1&lt;&lt;(j-1))][j-1]);
+            }
+        }
+    }
+}
+int getMax(int i,int j)
+{
+    int k = (int)log2(1.0*(j-i+1));
+    return max(maxsum[i][k], maxsum[j-(1&lt;&lt;k)+1][k]);
+}
+int getMin(int i,int j)
+{
+    int k = (int)log2(1.0*(j-i+1));
+    return min(minsum[i][k], minsum[j-(1&lt;&lt;k)+1][k]);
+}
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;a[i]);
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;b[i]);
+    init_RMQ(n);
+    LL ans = 0;
+    //固定left，二分right
+    for(int i=1;i&lt;=n;i++) {
+        //如果a[i]比b[i]则跳过，因为接下来Max只会更大Min只会更小
+        if(a[i] &gt; b[i])
+            continue;
+        int low = i;
+        int up = n;
+        int l = 0;
+        int r = 0;
+        while(low &lt;= up) {
+            int mid = (low + up) / 2;
+            int Max = getMax(i, mid);
+            int Min = getMin(i, mid);
+            if(Max &gt; Min)
+                up = mid - 1;
+            else if(Max &lt; Min)
+                low = mid + 1;
+            else//假如mid符合条件则right最小值向low靠拢
+                l = mid, up = mid - 1;
+
+        }
+        if(l) {//假如存在符合条件的最小值则搜索最大值
+            up = n;
+            low = l;
+            while(low &lt;= up) {
+                int mid = (low + up) / 2;
+                int Max = getMax(i, mid);
+                int Min = getMin(i, mid);
+                if(Max &gt; Min)
+                    up = mid - 1;
+                else if(Max &lt; Min)
+                    low = mid + 1;
+                else//假如mid符合条件则right最大值向up靠拢
+                    r = mid, low = mid + 1;
+            }
+        }
+        //printf(&quot;%d %d %d\n&quot;,i,l,r);
+        if(l &amp;&amp; r) {
+            ans = ans + (LL)(r - l) + 1;
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689D 【二分+RMQ】 /" data-id="cjttuf86t0011e8v34moco818" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          UVa 10817 Headmaster‘s Headache 【01背包 位运算】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/codeforce 689B 【bfs】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeforce 689B 【bfs】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

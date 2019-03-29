@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives: 2019 | Hexo</title>
+  <title>点集配对 【dp 位运算】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://t51645.github.io/archives/2019/index.html">
+  <meta name="description" content="刘汝佳训练指南P61 这里第二个for里的break保证了不出现重复组合   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点集配对 【dp 位运算】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/点集配对 【dp 位运算】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="刘汝佳训练指南P61 这里第二个for里的break保证了不出现重复组合   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;q">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.561Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="点集配对 【dp 位运算】">
+<meta name="twitter:description" content="刘汝佳训练指南P61 这里第二个for里的break保证了不出现重复组合   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;q">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,72 +64,121 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/模拟登陆ZJJCXY/" class="archive-article-date">
-  <time datetime="2019-03-29T08:48:42.826Z" itemprop="datePublished">Mar 29</time>
+        <section id="main"><article id="post-点集配对 【dp 位运算】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/点集配对 【dp 位运算】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
-      
-    </header>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
   </div>
-</article>
-  
+
+  </div>
+  <div class="article-inner">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/test/" class="archive-article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">Mar 29</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/test/">test</a>
+    <h1 class="article-title" itemprop="name">
+      点集配对 【dp 位运算】
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/hello-world/" class="archive-article-date">
-  <time datetime="2019-03-29T08:32:05.585Z" itemprop="datePublished">Mar 29</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/hello-world/">Hello World</a>
-    </h1>
-  
+        <p>刘汝佳训练指南P61</p>
+<p>这里第二个for里的break保证了不出现重复组合  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 110
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
 
-    </header>
+double dp[1&lt;&lt;20];
+struct node
+{
+    double x, y, z;
+};
+double dis(node a, node b)
+{
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    double dz = a.z - b.z;
+    return sqrt(dx*dx+dy*dy+dz*dz);
+}
+node p[25];
+int main()
+{
+    int n;
+    while(cin &gt;&gt; n &amp;&amp; n) {
+        for(int i=0; i&lt;n; i++)
+            cin &gt;&gt; p[i].x &gt;&gt; p[i].y &gt;&gt; p[i].z;
+        dp[0] = 0;
+        for(int i=1; i&lt;(1&lt;&lt;n); i++) {
+            dp[i] = inf;
+            for(int j=0; j&lt;n; j++) {
+                if(i &amp; (1&lt;&lt;j)) {
+                    for(int k=j+1; k&lt;n; k++) {
+                        if(i &amp; (1&lt;&lt;k))
+                            dp[i] = min(dp[i], dp[i^(1&lt;&lt;j)^(1&lt;&lt;k)]+dis(p[j], p[k]));
+                    }
+                    break;//注意此处
+                }
+            }
+        }
+        cout &lt;&lt; dp[(1&lt;&lt;n)-1] &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/点集配对 【dp 位运算】 /" data-id="cjttuf87j002ie8v3nkploy8s" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Codeforces Round
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计蒜客第六场 微软大楼设计方案（困难）</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

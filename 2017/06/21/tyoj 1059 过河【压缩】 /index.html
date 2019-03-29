@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>tyoj 1059 过河【压缩】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接： http://www.tyvj.cn/p/1059 题解： 当L较小时有,dp[i] = dp[i-j] + (位置i是否为石头)，（dp[i] = 跳至距离为i时最少跳几个石头） 但是此题L较大，但是S，T，M较小，所以我们可以将两块较长距离的石头间的距离压缩，比如d &amp;gt; 200（d为两块石头间的距离）可以视作 d = 200，因为S，T均小于10，当 d = 200 时与d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tyoj 1059 过河【压缩】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/tyoj 1059 过河【压缩】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接： http://www.tyvj.cn/p/1059 题解： 当L较小时有,dp[i] = dp[i-j] + (位置i是否为石头)，（dp[i] = 跳至距离为i时最少跳几个石头） 但是此题L较大，但是S，T，M较小，所以我们可以将两块较长距离的石头间的距离压缩，比如d &amp;gt; 200（d为两块石头间的距离）可以视作 d = 200，因为S，T均小于10，当 d = 200 时与d">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.553Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="tyoj 1059 过河【压缩】">
+<meta name="twitter:description" content="题目链接： http://www.tyvj.cn/p/1059 题解： 当L较小时有,dp[i] = dp[i-j] + (位置i是否为石头)，（dp[i] = 跳至距离为i时最少跳几个石头） 但是此题L较大，但是S，T，M较小，所以我们可以将两块较长距离的石头间的距离压缩，比如d &amp;gt; 200（d为两块石头间的距离）可以视作 d = 200，因为S，T均小于10，当 d = 200 时与d">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tyoj 1059 过河【压缩】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/tyoj 1059 过河【压缩】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      tyoj 1059 过河【压缩】
     </h1>
   
 
@@ -83,11 +90,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：</p>
+<p><a href="http://www.tyvj.cn/p/1059" target="_blank" rel="noopener">http://www.tyvj.cn/p/1059</a></p>
+<p>题解：</p>
+<p>当L较小时有,dp[i] = dp[i-j] + (位置i是否为石头)，（dp[i] = 跳至距离为i时最少跳几个石头）</p>
+<p>但是此题L较大，但是S，T，M较小，所以我们可以将两块较长距离的石头间的距离压缩，比如d &gt; 200（d为两块石头间的距离）可以视作 d = 200，因为<br>S，T均小于10，当 d = 200 时与d &gt; 200所能到达点的可能性相同。（不一定要取200，最小取到s*t，具体证明：<a href="http://blog.csd" target="_blank" rel="noopener">http://blog.csd</a><br>n.net/wdlsjdl2/article/details/51282795）。然后再注意S==T时的情况。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+int L, S, T, M;
+int dp[205*105+5];
+bool st[205*105+5];
+int a[105];
+int main()
+{
+    cin &gt;&gt; L &gt;&gt; S &gt;&gt; T &gt;&gt; M;
+    for(int i=1; i&lt;=M; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    a[0] = 0;
+    a[M+1] = L;
+    sort(a, a+M+2);
+    if(S == T) {
+        int ans = 0;
+        for(int i=1; i&lt;=M; i++)
+            if(a[i]%S == 0)
+                ans++;
+        cout &lt;&lt; ans &lt;&lt; endl;
+        return 0;
+    }
+    for(int i=1; i&lt;=M+1; i++) {
+        if(a[i]-a[i-1]&lt;200)
+            continue;
+        int d = a[i] - a[i-1] - 200;
+        for(int j=i; j&lt;=M+1; j++) {
+            a[j] -= d;
+        }
+    }
+    memset(dp, inf, sizeof(dp));
+    memset(st, false, sizeof(st));
+    dp[0] = 0;
+    for(int i=1; i&lt;=M; i++)
+        st[a[i]] = true;
+    for(int i=1; i&lt;=a[M+1]+T; i++)
+        for(int j=S; j&lt;=T; j++)
+            if(i-j &gt;= 0)
+                dp[i] = min(dp[i], dp[i-j] + st[i]);
+    int ans = inf;
+    for(int i=a[M+1]; i&lt;=a[M+1]+T; i++)
+        ans = min(ans, dp[i]);
+    cout &lt;&lt; ans &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1059 过河【压缩】 /" data-id="cjttuf87c0025e8v3v7egd6ex" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +171,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/21位 花朵数 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          21位 花朵数
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyoj 1051 选课 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">tyoj 1051 选课</div>
     </a>
   
 </nav>

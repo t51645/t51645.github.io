@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>Poj 1094 Sorting It All Out 【拓扑排序】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://poj.org/problem?id=1094   注意拓扑排序要先判断是否存在环，再判断是否唯一   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 1094 Sorting It All Out 【拓扑排序】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 1094 Sorting It All Out 【拓扑排序】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://poj.org/problem?id=1094   注意拓扑排序要先判断是否存在环，再判断是否唯一   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;l">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="Poj 1094 Sorting It All Out 【拓扑排序】">
+<meta name="twitter:description" content="题目链接：http://poj.org/problem?id=1094   注意拓扑排序要先判断是否存在环，再判断是否唯一   #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;l">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Poj 1094 Sorting It All Out 【拓扑排序】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/Poj 1094 Sorting It All Out 【拓扑排序】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      Poj 1094 Sorting It All Out 【拓扑排序】
     </h1>
   
 
@@ -83,11 +90,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://poj.org/problem?id=1094" target="_blank" rel="noopener">http://poj.org/problem?id=1094</a>  </p>
+<p>注意拓扑排序要先判断是否存在环，再判断是否唯一  </p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 30
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;double, double&gt;P;
+
+int n, m;
+int inDegree[MAX_N];
+vector&lt;int&gt;G[MAX_N];
+stack&lt;int&gt;S;
+void init()
+{
+    for(int i=0;i&lt;n;i++)
+        inDegree[i] = 0, G[i].clear();
+}
+bool topSort(int k)
+{
+    while(!S.empty())
+        S.pop();
+    int inDe[MAX_N];
+    int ans[MAX_N];
+    int total = 0;
+    for(int i=0;i&lt;n;i++)
+        inDe[i] = inDegree[i];
+    for(int i=0;i&lt;n;i++) {
+        if(!inDe[i])
+            S.push(i);
+    }
+    bool f = false;
+    while(!S.empty()) {
+        if(S.size() &gt;= 2)
+            f = true;
+        int v = S.top();
+        S.pop();
+        ans[total++] = v;
+        for(int i=0;i&lt;G[v].size();i++) {
+            inDe[G[v][i]]--;
+            if(!inDe[G[v][i]]) {
+                S.push(G[v][i]);
+            }
+        }
+    }
+    if(total == n &amp;&amp; !f) {
+        printf(&quot;Sorted sequence determined after %d relations: &quot;,k+1);
+        for(int i=n-1;i&gt;=0;i--)
+            printf(&quot;%c&quot;,ans[i]+&apos;A&apos;);
+        puts(&quot;.&quot;);
+        return true;
+    }
+    else if(total &lt; n){
+        printf(&quot;Inconsistency found after %d relations.\n&quot;,k+1);
+        return true;
+    }
+    else
+        return false;
+}
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m) {
+        if(!n &amp;&amp; !m)
+            break;
+        bool flag = false;
+        init();
+        for(int i=0;i&lt;m;i++) {
+            char a, b, c;
+            cin &gt;&gt; a &gt;&gt; c &gt;&gt; b;
+            if(flag)
+                continue;
+            inDegree[a-&apos;A&apos;]++;
+            G[b-&apos;A&apos;].push_back(a-&apos;A&apos;);
+            if(topSort(i)) {
+                flag = true;
+            }
+        }
+        if(!flag) {
+            printf(&quot;Sorted sequence cannot be determined.\n&quot;);
+        }
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1094 Sorting It All Out 【拓扑排序】 /" data-id="cjttuf8680008e8v3q1ofhftm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +198,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/POJ 3264 【RMQ模板】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          POJ 3264 【RMQ模板】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 1416 Shredding Company 【dfs】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 1416 Shredding Company 【dfs】</div>
     </a>
   
 </nav>

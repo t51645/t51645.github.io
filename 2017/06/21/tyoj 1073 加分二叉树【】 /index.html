@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>tyoj 1073 加分二叉树【】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://www.tyvj.cn/p/1073 题解： 设dp[i][j] = 序号i~j构成子树的最大分值 当我们取k为根节点时，因为给出中序遍历为1.2.3.4…n，所以它的左子树包含1~k-1，它的右子树包含k+1~n。 得到dp[i][j] = min(dp[i][k]*dp[k+1][j]+a[k]) 然后再用tree[l][r]保存最大分值时l~r序号的根节点，再先序遍历">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tyoj 1073 加分二叉树【】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/tyoj 1073 加分二叉树【】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://www.tyvj.cn/p/1073 题解： 设dp[i][j] = 序号i~j构成子树的最大分值 当我们取k为根节点时，因为给出中序遍历为1.2.3.4…n，所以它的左子树包含1~k-1，它的右子树包含k+1~n。 得到dp[i][j] = min(dp[i][k]*dp[k+1][j]+a[k]) 然后再用tree[l][r]保存最大分值时l~r序号的根节点，再先序遍历">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.554Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="tyoj 1073 加分二叉树【】">
+<meta name="twitter:description" content="题目链接：http://www.tyvj.cn/p/1073 题解： 设dp[i][j] = 序号i~j构成子树的最大分值 当我们取k为根节点时，因为给出中序遍历为1.2.3.4…n，所以它的左子树包含1~k-1，它的右子树包含k+1~n。 得到dp[i][j] = min(dp[i][k]*dp[k+1][j]+a[k]) 然后再用tree[l][r]保存最大分值时l~r序号的根节点，再先序遍历">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tyoj 1073 加分二叉树【】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/tyoj 1073 加分二叉树【】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      tyoj 1073 加分二叉树【】
     </h1>
   
 
@@ -83,11 +90,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://www.tyvj.cn/p/1073" target="_blank" rel="noopener">http://www.tyvj.cn/p/1073</a></p>
+<p>题解：</p>
+<p>设dp[i][j] = 序号i~j构成子树的最大分值</p>
+<p>当我们取k为根节点时，因为给出中序遍历为1.2.3.4…n，所以它的左子树包含1~k-1，它的右子树包含k+1~n。</p>
+<p>得到dp[i][j] = min(dp[i][k]*dp[k+1][j]+a[k])</p>
+<p>然后再用tree[l][r]保存最大分值时l~r序号的根节点，再先序遍历一遍即可</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;int, int&gt;P;
+
+LL a[35];
+LL dp[35][35];
+int tree[35][35];
+LL cal(int l, int r)
+{
+    if(l == r) {
+        tree[l][r] = l;
+        return dp[l][r] = a[l];
+    }
+    if(l &gt; r)
+        return dp[l][r] = 1;
+    if(dp[l][r])
+        return dp[l][r];
+    for(int i=l; i&lt;=r; i++) {
+        int L = cal(l, i-1);
+        int R = cal(i+1, r);
+        if(dp[l][r] &lt; L*R+a[i]) {
+            dp[l][r] = L*R+a[i];
+            tree[l][r] = i;
+        }
+    }
+    return dp[l][r];
+}
+void print(int l, int r)
+{
+    if(!tree[l][r])
+        return;
+    printf(&quot;%d &quot;,tree[l][r]);
+    print(l, tree[l][r]-1);
+    print(tree[l][r]+1, r);
+}
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;=n; i++)
+        cin &gt;&gt; a[i];
+    memset(dp, 0, sizeof(dp));
+    memset(tree, 0, sizeof(tree));
+    cout &lt;&lt; cal(1, n) &lt;&lt; endl;
+    print(1, n);
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/tyoj 1073 加分二叉树【】 /" data-id="cjttuf87e002ae8v333nif177" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +171,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyoj 1051 选课 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          tyoj 1051 选课
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">tyvj 1089 【背包转换 容量为负】</div>
     </a>
   
 </nav>

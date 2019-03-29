@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>codeforce 689B 【bfs】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题意： 有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需最小体力 题解： 第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了 #incl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforce 689B 【bfs】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforce 689B 【bfs】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意： 有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需最小体力 题解： 第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了 #incl">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="codeforce 689B 【bfs】">
+<meta name="twitter:description" content="题意： 有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需最小体力 题解： 第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了 #incl">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-codeforce 689B 【bfs】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/codeforce 689B 【bfs】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      codeforce 689B 【bfs】
     </h1>
   
 
@@ -83,11 +90,85 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题意：</p>
+<p>有n个路口，第i个路口到第j个路口需要abs(i-j)的体力，并且每个路口有一条单向捷径a[i]直接到路口a[i]消耗1点体力，求从路口1到其他所有路口所需<br>最小体力</p>
+<p>题解：</p>
+<p>第i个路口到第j个路口消耗体力abs(i-j)，因为对于每个路口可以花费1点体力向i+1或者i-<br>1个路口移动，所以从i个路口到第j个路口的一次移动可以视为abs(i-j)次临近移动，然后就可以用bfs求解了</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+int n;
+int a[MAX_N];
+int ans[MAX_N];
+bool vis[MAX_N];
+struct node
+{
+    int x,t;
+};
+void bfs()
+{
+    node now, next;
+    queue&lt;node&gt; q;
+    fill(ans+1, ans+1+n, inf);
+    now.x = 1; now.t = 0;
+    vis[1] = true;
+    ans[1] = 0;
+    q.push(now);
+    while(!q.empty()) {
+        now = q.front();
+        q.pop();
+        for(int i=-1;i&lt;=1;i++) {
+            if(!i) {
+                next.x = a[now.x];
+                next.t = now.t + 1;
+                if(!vis[next.x]) {
+                    vis[next.x] = true;
+                    ans[next.x] = next.t;
+                    q.push(next);
+                }
+            }
+            else {
+                next.x = now.x + i;
+                next.t = now.t + 1;
+                if(next.x&gt;=1 &amp;&amp; next.x&lt;=n &amp;&amp; !vis[next.x]) {
+                    vis[next.x] = true;
+                    ans[next.x] = next.t;
+                    q.push(next);
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    cin &gt;&gt; n;
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;a[i]);
+    bfs();
+    for(int i=1;i&lt;=n;i++)
+        printf(&quot;%d%c&quot;,ans[i],i==n?&apos;\n&apos;:&apos; &apos;);
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689B 【bfs】 /" data-id="cjttuf86u0013e8v3f75lykux" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +177,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/codeforce 689D 【二分+RMQ】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          codeforce 689D 【二分+RMQ】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/codeforce 689C 【二分】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">codeforce 689C 【二分】</div>
     </a>
   
 </nav>

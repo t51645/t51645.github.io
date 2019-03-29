@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>蓝桥杯 两条直线【二分，线段树】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考：http://www.cnblogs.com/mypsq/p/4410081.html（大致方法）http://blog.sina.com.cn/s/blog_3fd642cf0101cc8w.html（坐标系旋转后点的坐标公式）   思路：将坐标系逆时针旋转45°，然后通过公式计算旋转后点的坐标，并且两直线变成了垂直旋转后的x轴和y轴。先按x坐标排序，然后二分答案d，每次对答案的判优是枚举">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝桥杯 两条直线【二分，线段树】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考：http://www.cnblogs.com/mypsq/p/4410081.html（大致方法）http://blog.sina.com.cn/s/blog_3fd642cf0101cc8w.html（坐标系旋转后点的坐标公式）   思路：将坐标系逆时针旋转45°，然后通过公式计算旋转后点的坐标，并且两直线变成了垂直旋转后的x轴和y轴。先按x坐标排序，然后二分答案d，每次对答案的判优是枚举">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓝桥杯 两条直线【二分，线段树】">
+<meta name="twitter:description" content="参考：http://www.cnblogs.com/mypsq/p/4410081.html（大致方法）http://blog.sina.com.cn/s/blog_3fd642cf0101cc8w.html（坐标系旋转后点的坐标公式）   思路：将坐标系逆时针旋转45°，然后通过公式计算旋转后点的坐标，并且两直线变成了垂直旋转后的x轴和y轴。先按x坐标排序，然后二分答案d，每次对答案的判优是枚举">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-蓝桥杯 两条直线【二分，线段树】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      蓝桥杯 两条直线【二分，线段树】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<br><a href="http://www.cnblogs.com/mypsq/p/4410081.html（大致方法）" target="_blank" rel="noopener">http://www.cnblogs.com/mypsq/p/4410081.html（大致方法）</a><br><a href="http://blog.sina.com.cn/s/blog_3fd642cf0101cc8w.html（坐标系旋转后点的坐标公式）" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_3fd642cf0101cc8w.html（坐标系旋转后点的坐标公式）</a>  </p>
+<p>思路：<br>将坐标系逆时针旋转45°，然后通过公式计算旋转后点的坐标，并且两直线变成了垂直旋转后的x轴和y轴。<br>先按x坐标排序，然后二分答案d，每次对答案的判优是枚举左节点L，并且二分找到第一个i点 p[i].x &gt; p[L].x+2<em>d，<br>再判断[1,i-1]与[L,n]间的y的最大值与最小值的差是否也&lt;=2</em>d如果成立则改答案符合条件，d可以更小（查找最大值最小值的方法用线段树）<br>最后答案就等于sqrt(2)*d（我也不知道为什么要乘根号2，如果有dalao知道希望能够留言讲一下）  </p>
+<p>最后时间复杂度为O(log(n)<em>log(n)</em>n)</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e9+7;
+typedef pair&lt;double, double&gt;P;
+
+struct tree
+{
+    double maxy, miny;
+    int l, r;
+};
+int n;
+tree SegTree[MAX_N*2];
+P a[MAX_N];
+void build(int id, int l, int r)
+{
+    SegTree[id].l = l;
+    SegTree[id].r = r;
+    if(l == r) {
+        SegTree[id].maxy = a[l].second;
+        SegTree[id].miny = a[l].second;
+        return;
+    }
+    int mid = (l+r)/2;
+    build(2*id, l, mid);
+    build(2*id+1, mid+1, r);
+    SegTree[id].maxy = max(SegTree[2*id].maxy, SegTree[2*id+1].maxy);
+    SegTree[id].miny = min(SegTree[2*id].miny, SegTree[2*id+1].miny);
+}
+double getMaxy(int id, int l, int r)
+{
+    if(SegTree[id].l == l &amp;&amp; SegTree[id].r == r)
+        return SegTree[id].maxy;
+    int mid = (SegTree[id].l+SegTree[id].r)/2;
+    if(r &lt;= mid)
+        return getMaxy(2*id, l, r);
+    else if(l &gt; mid)
+        return getMaxy(2*id+1, l, r);
+    else
+        return max(getMaxy(2*id, l, mid), getMaxy(2*id+1, mid+1, r));
+}
+double getMiny(int id, int l, int r)
+{
+    if(SegTree[id].l == l &amp;&amp; SegTree[id].r == r)
+        return SegTree[id].miny;
+    int mid = (SegTree[id].l+SegTree[id].r)/2;
+    if(r &lt;= mid)
+        return getMiny(2*id, l, r);
+    else if(l &gt; mid)
+        return getMiny(2*id+1, l, r);
+    else
+        return min(getMiny(2*id, l, mid), getMiny(2*id+1, mid+1, r));
+}
+int binarySearch(double x)
+{
+    int low = 1;
+    int up = n;
+    while(low &lt; up) {
+        int mid = (low+up)/2;
+        if(a[mid].first &gt;= x)
+            up = mid;
+        else
+            low = mid+1;
+    }
+    return low;
+}
+bool check(double d)
+{
+
+    for(int i=1; i&lt;=n; i++) {
+        int pos = binarySearch(a[i].first+2*d);//二分找节点pos,使a[pos].first&gt;a[i].first+2*d
+        //如果a[pos].first==a[i].first+2*d，那么再判断一下能否符合条件，因为下面求maxy，miny是基于a[pos].first&gt;a[i].first+2*d
+        if(a[i].first + 2*d &gt;= a[pos].first &amp;&amp; (i==1 || getMaxy(1, 1, i-1)-getMiny(1, 1, i-1) &lt;= 2*d))
+            return true;
+        double maxy, miny;
+        if(i == 1)
+            maxy = getMaxy(1, pos, n), miny = getMiny(1, pos, n);
+        else if(i == n)
+            maxy = getMaxy(1, 1, n-1), miny = getMiny(1, 1, n-1);
+        else
+            maxy = max(getMaxy(1, 1, i-1), getMaxy(1, pos, n)), miny = min(getMiny(1, 1, i-1), getMiny(1, pos, n));
+        if(maxy - miny&lt;= 2*d)
+            return true;
+    }
+    return false;
+}
+int main()
+{
+    cin &gt;&gt; n;
+    double t = sqrt(2)/2;
+    for(int i=1; i&lt;=n; i++) {
+        double x, y;
+        scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y);
+        //旋转后的坐标
+        a[i].first = t*x + t*y;
+        a[i].second = t*y - t*x;
+    }
+    sort(a+1, a+n+1);
+    build(1, 1, n);
+    double up = inf;
+    double low = 0;
+    //二分答案
+    while(low + 1e-2 &lt;= up) {
+        double mid = (low + up)/2;
+        if(check(mid))
+            up = mid;
+        else
+            low = mid;
+    }
+    printf(&quot;%.1lf\n&quot;, low*t*2);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /" data-id="cjttuf87m002pe8v3ku60n1vp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/三个串的最长公共子序列 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          三个串的最长公共子序列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/Codeforces Round #417 (Div. 2) /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Codeforces Round</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

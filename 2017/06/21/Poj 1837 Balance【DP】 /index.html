@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>Poj 1837 Balance【DP】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：  点击打开链接      题意： 有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。 题解： 我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=dp【i-1】【j-c【m】*g【n】】（1&amp;lt;=m&amp;lt;=C,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 1837 Balance【DP】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 1837 Balance【DP】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：  点击打开链接      题意： 有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。 题解： 我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=dp【i-1】【j-c【m】*g【n】】（1&amp;lt;=m&amp;lt;=C,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="Poj 1837 Balance【DP】">
+<meta name="twitter:description" content="题目链接：  点击打开链接      题意： 有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。 题解： 我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=dp【i-1】【j-c【m】*g【n】】（1&amp;lt;=m&amp;lt;=C,">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Poj 1837 Balance【DP】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/Poj 1837 Balance【DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      Poj 1837 Balance【DP】
     </h1>
   
 
@@ -83,11 +90,63 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：</p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：</p>
+<p>有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。</p>
+<p>题解：</p>
+<p>我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=<br>dp【i-1】【j-c【m】*g【n】】（1&lt;=m&lt;=C, 1&lt;=n&lt;=i）</p>
+<p>但是由于j可能负，所以要将未放砝码时的平衡位置右移，因为负值最大为15<em>20</em>25=7500，所以7500为一开始的平衡位置，dp【0】【7500】=1</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int C, G;
+    cin &gt;&gt; C &gt;&gt; G;
+    int c[25], g[25];
+    for(int i=1; i&lt;=C; i++)
+        cin &gt;&gt; c[i];
+    for(int i=1; i&lt;=G; i++)
+        cin &gt;&gt; g[i];
+    int dp[25][15005];
+    dp[0][7500] = 1;
+    for(int i=1; i&lt;=G; i++) {
+        for(int j=1; j&lt;=C; j++) {
+            for(int k=15000; k&gt;=0; k--) {
+                if(k-c[j]*g[i]&gt;=0 &amp;&amp; k-c[j]*g[i]&lt;=15000)
+                    dp[i][k] += dp[i-1][k-c[j]*g[i]];
+                /*if(dp[i][k])
+                    printf(&quot;%d %d %d\n&quot;,i,j,k-7500);*/
+            }
+        }
+    }
+    printf(&quot;%d\n&quot;,dp[G][7500]);
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1837 Balance【DP】 /" data-id="cjttuf86i000je8v3ey8vozo7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +155,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Poj 2955 Brackets 【区间DP】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】</div>
     </a>
   
 </nav>

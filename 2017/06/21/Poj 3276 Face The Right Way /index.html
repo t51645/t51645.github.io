@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Poj 3276 Face The Right Way | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="链接:  点击打开链接      题意： 有N头牛朝着正面或反面，先有一个机器能够将连续的K头牛翻转，问K取多少时操作次数最少。 题解： 对于一个固定的K值我们可以枚举每头牛判断是否需要翻转，判断一头牛是否要翻转则需要知道它之前被翻转了几次与它初始状态，假如翻转次数为奇数初始状态为偶数或翻转次数为偶数初始状态为奇数则该头牛需要翻转，判断一头牛之前翻转了几次则可以在每次枚举牛时得到，假如这头牛的前K">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 3276 Face The Right Way">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 3276 Face The Right Way /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接:  点击打开链接      题意： 有N头牛朝着正面或反面，先有一个机器能够将连续的K头牛翻转，问K取多少时操作次数最少。 题解： 对于一个固定的K值我们可以枚举每头牛判断是否需要翻转，判断一头牛是否要翻转则需要知道它之前被翻转了几次与它初始状态，假如翻转次数为奇数初始状态为偶数或翻转次数为偶数初始状态为奇数则该头牛需要翻转，判断一头牛之前翻转了几次则可以在每次枚举牛时得到，假如这头牛的前K">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Poj 3276 Face The Right Way">
+<meta name="twitter:description" content="链接:  点击打开链接      题意： 有N头牛朝着正面或反面，先有一个机器能够将连续的K头牛翻转，问K取多少时操作次数最少。 题解： 对于一个固定的K值我们可以枚举每头牛判断是否需要翻转，判断一头牛是否要翻转则需要知道它之前被翻转了几次与它初始状态，假如翻转次数为奇数初始状态为偶数或翻转次数为偶数初始状态为奇数则该头牛需要翻转，判断一头牛之前翻转了几次则可以在每次枚举牛时得到，假如这头牛的前K">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Poj 3276 Face The Right Way " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3276 Face The Right Way /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Poj 3276 Face The Right Way
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接:</p>
+<p><a href="http://poj.org/problem?id=3276" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://poj.org/problem?id=3276" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：</p>
+<p>有N头牛朝着正面或反面，先有一个机器能够将连续的K头牛翻转，问K取多少时操作次数最少。</p>
+<p>题解：</p>
+<p>对于一个固定的K值我们可以枚举每头牛判断是否需要翻转，判断一头牛是否要翻转则需要知道它之前被翻转了几次与它初始状态，假如翻转次数为奇数初始状态为偶数或翻转次<br>数为偶数初始状态为奇数则该头牛需要翻转，判断一头牛之前翻转了几次则可以在每次枚举牛时得到，假如这头牛的前K+1头牛为翻转则这头牛之前翻转的次数减一，如果这头<br>牛需要翻转则这头牛之后的翻转次数加一，这样就可以在O（1）时间得到翻转次数，总的时间复杂度为O（N^2）</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 5005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int N;
+    bool cow[MAX_N];
+    bool flip[MAX_N];
+    while(cin &gt;&gt; N) {
+        for(int i=1; i&lt;=N; i++) {
+            char c;
+            getchar();
+            c = getchar();
+            if(c == &apos;B&apos;)
+                cow[i] = false;
+            else
+                cow[i] = true;
+        }
+        int K, M;
+        K = 1;
+        M = inf;
+        //枚举K
+        for(int i=1; i&lt;=N; i++) {
+            memset(flip, false, sizeof(flip));
+            int sum = 0;
+            int ope = 0;
+            for(int j=1; j+i-1&lt;=N; j++) {
+                //判断该头牛之前翻转了几次
+                if(j-i&gt;=1 &amp;&amp; flip[j-i]) {
+                    //之前翻转次数减一
+                    sum--;
+                }
+                //判断是否要翻转
+                if(sum%2==0 &amp;&amp; !cow[j]) {
+                    ope++;
+                    sum++;//之后翻转次数加一
+                    flip[j] = true;
+                }
+                else if(sum%2==1 &amp;&amp; cow[j]) {
+                    ope++;
+                    sum++;//之后翻转你次数加一
+                    flip[j] = true;
+                }
+            }
+            //检测后面i-1头牛是否都为正面
+            for(int j=N+2-i; j&lt;=N; j++) {
+                if(j-i&gt;=1 &amp;&amp; flip[j-i]) {
+                    sum--;
+                }
+                if(sum%2==0 &amp;&amp; !cow[j]) {
+                    ope = inf+1;
+                    break;
+                }
+                else if(sum%2==1 &amp;&amp; cow[j]) {
+                    ope = inf+1;
+                    break;
+                }
+            }
+            //更新答案
+            if(ope &lt; M) {
+                M = ope;
+                K = i;
+            }
+            else if(ope == M) {
+                K = min(K, i);
+            }
+        }
+        cout &lt;&lt; K &lt;&lt; &quot; &quot; &lt;&lt; M &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3276 Face The Right Way /" data-id="cjttuf86r000xe8v3ooxwtqvp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          UVa 10635 Prince and Princess 【LIS】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">UVa 10817 Headmaster‘s Headache 【01背包 位运算】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

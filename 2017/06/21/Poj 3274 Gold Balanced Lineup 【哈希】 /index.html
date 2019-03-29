@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Poj 3274 Gold Balanced Lineup 【哈希】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="链接： http://poj.org/problem?id=3274 参考了： http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html 题解： 最重要的是问题的转换，感受到了哈希查找的省时 我最后是将∑C[i][1~K-1]%大素数作为哈希值 #include&amp;lt;iostream&amp;gt; #include&amp;lt;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 3274 Gold Balanced Lineup 【哈希】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接： http://poj.org/problem?id=3274 参考了： http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html 题解： 最重要的是问题的转换，感受到了哈希查找的省时 我最后是将∑C[i][1~K-1]%大素数作为哈希值 #include&amp;lt;iostream&amp;gt; #include&amp;lt;s">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Poj 3274 Gold Balanced Lineup 【哈希】">
+<meta name="twitter:description" content="链接： http://poj.org/problem?id=3274 参考了： http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html 题解： 最重要的是问题的转换，感受到了哈希查找的省时 我最后是将∑C[i][1~K-1]%大素数作为哈希值 #include&amp;lt;iostream&amp;gt; #include&amp;lt;s">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Poj 3274 Gold Balanced Lineup 【哈希】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Poj 3274 Gold Balanced Lineup 【哈希】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=3274" target="_blank" rel="noopener">http://poj.org/problem?id=3274</a></p>
+<p>参考了： <a href="http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html" target="_blank" rel="noopener">http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html</a></p>
+<p>题解：</p>
+<p>最重要的是问题的转换，感受到了哈希查找的省时</p>
+<p>我最后是将∑C[i][1~K-1]%大素数作为哈希值</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e6+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int N, K;
+int tot;
+struct node
+{
+    int K[35];
+    int idx;
+};
+vector&lt;node&gt;Hash[mod];
+node cow[MAX_N];
+int hashFun(int k)
+{
+    int key = 0;
+    for(int i=1; i&lt;K; i++) {
+        key += cow[k].K[i];
+    }
+    return (key+mod)%mod;
+}
+void add(int n)
+{
+    node tmp;
+    for(int i=0; i&lt;K; i++) {
+        if(n&amp;1)
+            tmp.K[i] = 1;
+        else
+            tmp.K[i] = 0;
+        n &gt;&gt;= 1;
+    }
+    tmp.idx = tot;
+    cow[tot++] = tmp;
+}
+int calDis(int k)
+{
+    int key = hashFun(k);
+    int ans = 0;
+    for(int i=0; i&lt;Hash[key].size(); i++) {
+        bool flag = true;
+        for(int j=1; j&lt;K; j++) {
+            if(cow[k].K[j] != cow[Hash[key][i].idx].K[j]) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag)
+            ans = max(ans, abs(cow[k].idx - Hash[key][i].idx));
+    }
+    return ans;
+}
+void printK()
+{
+    for(int i=0; i&lt;=N; i++) {
+        for(int j=0; j&lt;K; j++) {
+            printf(&quot;%d &quot;,cow[i].K[j]);
+        }
+        puts(&quot;&quot;);
+    }
+}
+int main()
+{
+    cin &gt;&gt; N &gt;&gt; K;
+    tot = 0;
+    add(0);
+    for(int i=1; i&lt;=N; i++) {
+        int n;
+        scanf(&quot;%d&quot;,&amp;n);
+        add(n);
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+    for(int i=1; i&lt;=N; i++) {
+        for(int j=0; j&lt;K; j++) {
+            cow[i].K[j] += cow[i-1].K[j];
+        }
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+    for(int i=1; i&lt;=N; i++) {
+        for(int j=1; j&lt;K; j++) {
+            cow[i].K[j] -= cow[i].K[0];
+        }
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+
+    for(int i=0; i&lt;=N; i++) {
+        int key = hashFun(i);
+        //printf(&quot;%d %d\n&quot;,i, key);
+        Hash[key].push_back(cow[i]);
+    }
+    int ans = 0;
+    for(int i=0; i&lt;=N; i++) {
+        ans = max(ans, calDis(i));
+    }
+    printf(&quot;%d\n&quot;,ans);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" data-id="cjttuf86n000re8v3a86m0tm4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Poj 3311 Hie with the Pie 【TSP+floyd】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/SCOI2005] 最大子矩阵 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SCOI2005] 最大子矩阵</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

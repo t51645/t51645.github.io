@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>codeforce 792D Paths in a Complete Binary Tree | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：http://codeforces.com/problemset/problem/792/D   题意： 给出一个包含n个结点的完全二叉树，并且结点的编号是按中序遍历的顺序标号的，接下来有q个询问，每个询问包括一个点m表示你现在在编号为m的电上，和一个长度为u的字符串，字符串包括（U、L、R）表示向上、向左、向右，如果不能移动的话保持在原位。 题解： 观察中序遍历编号的二叉树我们可以得到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforce 792D Paths in a Complete Binary Tree">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://codeforces.com/problemset/problem/792/D   题意： 给出一个包含n个结点的完全二叉树，并且结点的编号是按中序遍历的顺序标号的，接下来有q个询问，每个询问包括一个点m表示你现在在编号为m的电上，和一个长度为u的字符串，字符串包括（U、L、R）表示向上、向左、向右，如果不能移动的话保持在原位。 题解： 观察中序遍历编号的二叉树我们可以得到">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforce 792D Paths in a Complete Binary Tree">
+<meta name="twitter:description" content="题目链接：http://codeforces.com/problemset/problem/792/D   题意： 给出一个包含n个结点的完全二叉树，并且结点的编号是按中序遍历的顺序标号的，接下来有q个询问，每个询问包括一个点m表示你现在在编号为m的电上，和一个长度为u的字符串，字符串包括（U、L、R）表示向上、向左、向右，如果不能移动的话保持在原位。 题解： 观察中序遍历编号的二叉树我们可以得到">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-codeforce 792D Paths in a Complete Binary Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeforce 792D Paths in a Complete Binary Tree
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：<a href="http://codeforces.com/problemset/problem/792/D" target="_blank" rel="noopener">http://codeforces.com/problemset/problem/792/D</a>  </p>
+<p>题意：</p>
+<p>给出一个包含n个结点的完全二叉树，并且结点的编号是按中序遍历的顺序标号的，接下来有q个询问，每个询问包括一个点m表示你现在在编号为m的电上，和一个长度为u的<br>字符串，字符串包括（U、L、R）表示向上、向左、向右，如果不能移动的话保持在原位。</p>
+<p>题解：</p>
+<p>观察中序遍历编号的二叉树我们可以得到一个点的左子树编号和右子树编号与改点的深度和最大深度有关，得到相应的关系即可模拟在二叉树上走。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 55
+#define inf 0x7f7f7f7f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const double Pi = acos(-1);
+const int mod = 1e4+7;
+typedef pair&lt;int, int&gt;P;
+
+LL pow2(int x)
+{
+    LL ans = 1;
+    while(x) {
+        x--;
+        ans *= 2;
+    }
+    return ans;
+}
+int main()
+{
+    LL n, q;
+    cin &gt;&gt; n &gt;&gt; q;
+    //向下寻路时保存向左还是向右
+    while(q--) {
+        LL m;
+        char s[100005];
+        cin &gt;&gt; m;
+        scanf(&quot;%s&quot;, &amp;s);
+        LL d, maxd;
+        maxd = log2(n);
+        LL p = (n+1)/2;
+        d = 0;
+        int path[100005];
+        int l = 0;
+        while(p != m) {
+            LL pp = pow2(maxd-d-1);
+            LL lc = p-pp;
+            LL rc = p+pp;
+            LL maxc = lc + pp - 1;//左子树下的最大值
+            if(maxc &gt;= m)
+                p = lc, d++, path[++l] = 0;
+            else
+                p = rc, d++, path[++l] = 1;
+        }
+        int len = strlen(s);
+        for(int i=0; i&lt;len; i++) {
+            if(s[i] == &apos;U&apos;) {
+                if(!l)
+                    continue;
+                LL pp = pow2(maxd-d);
+                if(path[l] == 0)
+                    p += pp;
+                else
+                    p -= pp;
+                d--;
+                l--;
+            }
+            else if(s[i] == &apos;L&apos;) {
+                if(d == maxd)
+                    continue;
+                LL pp = pow2(maxd-d-1);
+                d++;
+                path[++l] = 0;
+                p -= pp;
+            }
+            else {
+                if(d == maxd)
+                    continue;
+                LL pp = pow2(maxd-d-1);
+                d++;
+                path[++l] = 1;
+                p += pp;
+            }
+        }
+        cout &lt;&lt; p &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/" data-id="cjttuf86v0017e8v3xtigd2sg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/codeforce 689C 【二分】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          codeforce 689C 【二分】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/codeforces 148D 【概率dp】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeforces 148D 【概率dp】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

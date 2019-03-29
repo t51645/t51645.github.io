@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>codeforces 766D Mahmoud and a Dictionary | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题意： 给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系 题解： 带权并查集 w[i]表示与父节点的关系，0为同义，1为反义 #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforces 766D Mahmoud and a Dictionary">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforces 766D Mahmoud and a Dictionary/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意： 给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系 题解： 带权并查集 w[i]表示与父节点的关系，0为同义，1为反义 #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;l">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.524Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="codeforces 766D Mahmoud and a Dictionary">
+<meta name="twitter:description" content="题意： 给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系 题解： 带权并查集 w[i]表示与父节点的关系，0为同义，1为反义 #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;l">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-codeforces 766D Mahmoud and a Dictionary" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      codeforces 766D Mahmoud and a Dictionary
     </h1>
   
 
@@ -83,11 +90,98 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题意：</p>
+<p>给你n个词，m个关于这些词的关系（1表示同义2表示反义）如果给出的关系与前面的关系不冲突则输出YES反之则输出NO，再给出q组词，问这两个词的关系</p>
+<p>题解：</p>
+<p>带权并查集</p>
+<p>w[i]表示与父节点的关系，0为同义，1为反义</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+int n,m,q;
+int par[MAX_N];
+int w[MAX_N];
+map&lt;string,int&gt;mp;
+void init()
+{
+    for(int i=0;i&lt;=n;i++)
+        par[i] = i;
+}
+int find(int x)
+{
+    if(x != par[x]) {
+        int fx = find(par[x]);
+        w[x] = (w[x] + w[par[x]]) % 2;
+        par[x] = fx;
+        return fx;
+    }
+    return x;
+}
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;
+    for(int i=0;i&lt;n;i++) {
+        string str;
+        cin &gt;&gt; str;
+        mp[str] = i;
+    }
+    init();
+    for(int i=0;i&lt;m;i++) {
+        int k;
+        string s1,s2;
+        cin &gt;&gt; k &gt;&gt; s1 &gt;&gt; s2;
+        int x = mp[s1];
+        int y = mp[s2];
+        int fx = find(x);
+        int fy = find(y);
+        if(fx != fy) {
+            par[fx] = fy;
+            w[fx] = (w[x] + w[y] + k-1) % 2;
+            cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+        }
+        else {
+            if((w[x]+w[y])%2 != k-1)
+                cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+            else
+                cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+        }
+    }
+    for(int i=0;i&lt;q;i++) {
+        string s1,s2;
+        cin &gt;&gt; s1 &gt;&gt; s2;
+        int x = mp[s1];
+        int y = mp[s2];
+        int fx = find(x);
+        int fy = find(y);
+        if(fx == fy) {
+            cout &lt;&lt; (w[x] + w[y])%2 + 1 &lt;&lt; endl;
+        }
+        else {
+            cout &lt;&lt; 3 &lt;&lt; endl;
+        }
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 766D Mahmoud and a Dictionary/" data-id="cjttuf86x001be8v3n9jrcg7y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +190,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/codeforces 148D 【概率dp】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          codeforces 148D 【概率dp】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Codeforces Round #403 B. The Meeting Place Cannot Be Changed【二分】/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Codeforces Round</div>
     </a>
   
 </nav>

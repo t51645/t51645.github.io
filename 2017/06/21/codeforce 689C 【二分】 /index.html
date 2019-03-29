@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>codeforce 689C 【二分】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题意： 有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷aq，第三个偷aqq，第四个偷aqqq），每个小偷最多不能偷超过n个巧克力，现在给出他们最多的偷法m，求最小的n。 比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16 题解： 对于一个n，我们可以枚举q求解偷法m = ∑n/(iii) (i=1;iii&amp;lt;=n;i++) 所以对于某个n我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforce 689C 【二分】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforce 689C 【二分】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意： 有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷aq，第三个偷aqq，第四个偷aqqq），每个小偷最多不能偷超过n个巧克力，现在给出他们最多的偷法m，求最小的n。 比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16 题解： 对于一个n，我们可以枚举q求解偷法m = ∑n/(iii) (i=1;iii&amp;lt;=n;i++) 所以对于某个n我">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="codeforce 689C 【二分】">
+<meta name="twitter:description" content="题意： 有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷aq，第三个偷aqq，第四个偷aqqq），每个小偷最多不能偷超过n个巧克力，现在给出他们最多的偷法m，求最小的n。 比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16 题解： 对于一个n，我们可以枚举q求解偷法m = ∑n/(iii) (i=1;iii&amp;lt;=n;i++) 所以对于某个n我">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-codeforce 689C 【二分】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/codeforce 689C 【二分】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      codeforce 689C 【二分】
     </h1>
   
 
@@ -83,11 +90,65 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题意：</p>
+<p>有四个小偷偷巧克力，并且他们偷的数量成等比数列（第一个偷a，第二个偷a<em>q，第三个偷a</em>q<em>q，第四个偷a</em>q<em>q</em>q），每个小偷最多不能偷超过n个巧克力，<br>现在给出他们最多的偷法m，求最小的n。</p>
+<p>比如：m=2，两种偷法为（1,2,4,8），（2,4,8,16），所以n最小为16</p>
+<p>题解：</p>
+<p>对于一个n，我们可以枚举q求解偷法m = ∑n/(i<em>i</em>i) (i=1;i<em>i</em>i&lt;=n;i++)</p>
+<p>所以对于某个n我们可以在O(n^1/3)求解，再二分n，当某个n求解得到的偷法等于m时该n可视为符合要求</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+#define mod 1000000007
+LL INF=9e18;
+
+LL cal(LL n)
+{
+    LL sum = 0;
+    for(LL i=2;i*i*i&lt;=n;i++)
+        sum += (n/(i*i*i));
+    return sum;
+}
+int main()
+{
+    LL m;
+    cin &gt;&gt; m;
+    LL low = 0;
+    LL up = INF;
+    LL ans = INF;
+    while(low &lt; up) {
+        LL mid = (low + up) / 2;
+        LL tmp = cal(mid);
+        if(tmp &gt;= m)
+            up = mid;
+        else
+            low = mid + 1;
+        if(tmp == m)
+            ans = mid;
+    }
+    if(ans == INF)
+        cout &lt;&lt; -1 &lt;&lt; endl;
+    else
+        cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/codeforce 689C 【二分】 /" data-id="cjttuf86v0015e8v3979o8e6r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +157,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/codeforce 689B 【bfs】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          codeforce 689B 【bfs】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/codeforce 792D Paths in a Complete Binary Tree/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">codeforce 792D Paths in a Complete Binary Tree</div>
     </a>
   
 </nav>

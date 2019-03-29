@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>计蒜客第六场 微软大楼设计方案（困难） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：  https://nanti.jisuanke.com/t/15773  题解： 先对点按x排序   设Xa&amp;lt;=Xb 当k&amp;lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&amp;gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为20所以最多计算2020次（这里更正一下，应该是20m次m具体为多少我也不知道，但肯定不超过40，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计蒜客第六场 微软大楼设计方案（困难）">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：  https://nanti.jisuanke.com/t/15773  题解： 先对点按x排序   设Xa&amp;lt;=Xb 当k&amp;lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&amp;gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为20所以最多计算2020次（这里更正一下，应该是20m次m具体为多少我也不知道，但肯定不超过40，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计蒜客第六场 微软大楼设计方案（困难）">
+<meta name="twitter:description" content="题目链接：  https://nanti.jisuanke.com/t/15773  题解： 先对点按x排序   设Xa&amp;lt;=Xb 当k&amp;lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&amp;gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为20所以最多计算2020次（这里更正一下，应该是20m次m具体为多少我也不知道，但肯定不超过40，">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-计蒜客第六场 微软大楼设计方案（困难） " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计蒜客第六场 微软大楼设计方案（困难）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：</p>
+<p><a href="https://nanti.jisuanke.com/t/15773" target="_blank" rel="noopener"> https://nanti.jisuanke.com/t/15773 </a></p>
+<p>题解：</p>
+<p>先对点按x排序  </p>
+<p>设Xa&lt;=Xb</p>
+<p>当k&lt;=40时，可以用中等难度的方法枚举Xa再枚举Xb，当Xb-Xa&gt;k时不符合条件，并且更大的Xb也不符合条件，所以不接下去枚举Xb。因为楼层高度最高为2<br>0所以最多计算20<em>20次（这里更正一下，应该是20</em>m次m具体为多少我也不知道，但肯定不超过40，望dalao指教）</p>
+<p>k&gt;40时，从枚举Xa，再对Xb进行二分，找到第一个Xb-<br>Xa&gt;=k-40,则在Xa至Xb之间的核心部门到Xa的距离都是&lt;=k的，因为楼层最高为20，然后继续从Xb用开始枚举Xb，一直到Xb-<br>Xa&gt;k为止，同样最多计算20<em>20次（20</em>m次）</p>
+<p>PS：表达可能不太清楚，请见谅</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define uLL unsigned long long
+const LL mod = 1e8;
+const LL INF = 1e18;
+typedef pair&lt;int, int&gt;P;
+const double eps = 1e-6;
+
+int h[MAX_N];
+P p[MAX_N];
+int minsum[MAX_N][20];
+void init_RMQ(int n)
+{
+    for(int i=1;i&lt;=n;i++)
+        minsum[i][0] = h[i];
+    int k = log2(1.0*n);
+    for(int j=1;j&lt;=k;j++) {
+        for(int i=1;i&lt;=n;i++) {
+            if(i+(1&lt;&lt;j)-1&lt;=n) {
+                minsum[i][j] = min(minsum[i][j-1], minsum[i+(1&lt;&lt;(j-1))][j-1]);
+            }
+        }
+    }
+}
+int getMin(int i,int j)
+{
+    int k = (int)log2(1.0*(j-i+1));
+    return min(minsum[i][k], minsum[j-(1&lt;&lt;k)+1][k]);
+}
+int main()
+{
+    int n, k, m;
+    cin &gt;&gt; n &gt;&gt; k;
+    for(int i=1; i&lt;=n; i++) {
+        scanf(&quot;%d&quot;, &amp;h[i]);
+    }
+    init_RMQ(n);
+    cin &gt;&gt; m;
+    for(int i=0; i&lt;m; i++) {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        p[i] = P(x, y);
+    }
+    sort(p, p+m);
+    LL ans = 0;
+    if(k&lt;=40) {
+        for(int i=0; i&lt;m; i++) {
+            for(int j=i+1; j&lt;m; j++) {
+                if(p[j].first-p[i].first&gt;k)
+                    break;
+                int low = min(p[i].second, p[j].second);
+                low = min(low, getMin(p[i].first, p[i].second));
+                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
+                if(tmp &lt;= k)
+                    ans++;
+            }
+        }
+    }
+    else {
+        for(int i=0; i&lt;m; i++) {
+            int pos = lower_bound(p, p+m, P(p[i].first+k-40, 0)) - p;//p[i+1]-p[pos]之间的点到p[i]的距离都是小于等于k的
+            ans += (LL)(pos-i-1);
+            for(int j=pos; j&lt;m; j++) {
+                if(p[j].first-p[i].first&gt;k)
+                    break;
+                int low = min(p[i].second, p[j].second);
+                low = min(low, getMin(p[i].first, p[j].first));
+                int tmp = p[i].second + p[j].second - 2*low + abs(p[i].first - p[j].first);
+                if(tmp &lt;= k)
+                    ans++;
+            }
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" data-id="cjttuf87n002re8v3huun3fdg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/点集配对 【dp 位运算】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          点集配对 【dp 位运算】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/三个串的最长公共子序列 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">三个串的最长公共子序列</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

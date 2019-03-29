@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>UVa 10635 Prince and Princess 【LIS】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="刘汝佳训练指南 p66 这题很好的把LCS问题转化成了LIS问题 因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #inc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 10635 Prince and Princess 【LIS】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="刘汝佳训练指南 p66 这题很好的把LCS问题转化成了LIS问题 因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #inc">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="UVa 10635 Prince and Princess 【LIS】">
+<meta name="twitter:description" content="刘汝佳训练指南 p66 这题很好的把LCS问题转化成了LIS问题 因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了   #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #inc">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-UVa 10635 Prince and Princess 【LIS】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      UVa 10635 Prince and Princess 【LIS】
     </h1>
   
 
@@ -83,11 +90,72 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>刘汝佳训练指南 p66</p>
+<p>这题很好的把LCS问题转化成了LIS问题</p>
+<p>因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 250*250+5
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int pos[MAX_N];
+int b[MAX_N];
+int g[MAX_N];
+int main()
+{
+    int T;
+    int ca = 1;
+    cin &gt;&gt; T;
+    while(T--) {
+        int n, p, q;
+        cin &gt;&gt; n &gt;&gt; p &gt;&gt; q;
+        memset(pos, 0, sizeof(pos));
+        memset(g, 0, sizeof(g));
+        for(int i=1; i&lt;=p+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            pos[x] = i;
+        }
+        for(int i=1; i&lt;=q+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            b[i] = pos[x];
+        }
+        int ans = 0;
+        int len = 0;
+        g[0] = b[1];
+        for(int i=2; i&lt;=q+1; i++) {
+            if(b[i] &gt; g[len]) {
+                g[++len] = b[i];
+            }
+            else {
+                int k =  lower_bound(g, g+len, b[i]) - g;
+                g[k] = b[i];
+            }
+        }
+        printf(&quot;Case %d: %d\n&quot;, ca++, len+1);
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" data-id="cjttuf86q000ve8v3n91060ns" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +164,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/SCOI2005] 最大子矩阵 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          SCOI2005] 最大子矩阵
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/Poj 3276 Face The Right Way /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Poj 3276 Face The Right Way</div>
     </a>
   
 </nav>

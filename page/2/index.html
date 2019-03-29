@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://t51645.github.io/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Poj 2955 Brackets 【区间DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /">Poj 2955 Brackets 【区间DP】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=2955" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p>题意：</p>
+<p>最大括号匹配数</p>
+<p>题解：</p>
+<p>dp[i][j] = i~j最大括号匹配数</p>
+<p>如果s[i]==s[j]，dp[i][j] = dp[i+1][j-1]+2</p>
+<p>否则 dp[i][j] = max(dp[i][k]+dp[k+1][j])(i=&lt;k&lt;r)</p>
+<p>记忆化搜索：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 105
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+string s;
+int dp[MAX_N][MAX_N];
+void init()
+{
+    memset(dp, -1, sizeof(dp));
+}
+int cal(int l, int r)
+{
+    if(l &gt;= r)
+        return 0;
+    if(dp[l][r] != -1)
+        return dp[l][r];
+    int M = 0;
+    if((s[l]==&apos;(&apos;&amp;&amp;s[r]==&apos;)&apos;) || (s[l]==&apos;[&apos;&amp;&amp;s[r]==&apos;]&apos;))
+        M = cal(l+1, r-1) + 2;
+    for(int i=l; i&lt;r; i++)
+        M = max(M, cal(l, i)+cal(i+1, r));
+    dp[l][r] = M;
+    return dp[l][r];
+}
+int main()
+{
+    while(cin&gt;&gt;s &amp;&amp; s!=&quot;end&quot;) {
+        init();
+        printf(&quot;%d\n&quot;,cal(0, s.length()));
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 2955 Brackets 【区间DP】 /" data-id="cjttuf86g000he8v3ccah63u2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 1837 Balance【DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 1837 Balance【DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 1837 Balance【DP】 /">Poj 1837 Balance【DP】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：</p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://poj.org/problem?id=1837" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：</p>
+<p>有一个最大长度为15的天平，上面有C个挂钩（左边的坐标为负，右边的坐标为正），现在有G个砝码，问将所有砝码挂上有多少总挂法能使天平平衡。</p>
+<p>题解：</p>
+<p>我们可以拿着砝码模拟一下操作，便可以得到这么一个状态转移方程：dp【i】【j】表示前i个砝码产生平衡位置为j的种数，dp【i】【j】 +=<br>dp【i-1】【j-c【m】*g【n】】（1&lt;=m&lt;=C, 1&lt;=n&lt;=i）</p>
+<p>但是由于j可能负，所以要将未放砝码时的平衡位置右移，因为负值最大为15<em>20</em>25=7500，所以7500为一开始的平衡位置，dp【0】【7500】=1</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int C, G;
+    cin &gt;&gt; C &gt;&gt; G;
+    int c[25], g[25];
+    for(int i=1; i&lt;=C; i++)
+        cin &gt;&gt; c[i];
+    for(int i=1; i&lt;=G; i++)
+        cin &gt;&gt; g[i];
+    int dp[25][15005];
+    dp[0][7500] = 1;
+    for(int i=1; i&lt;=G; i++) {
+        for(int j=1; j&lt;=C; j++) {
+            for(int k=15000; k&gt;=0; k--) {
+                if(k-c[j]*g[i]&gt;=0 &amp;&amp; k-c[j]*g[i]&lt;=15000)
+                    dp[i][k] += dp[i-1][k-c[j]*g[i]];
+                /*if(dp[i][k])
+                    printf(&quot;%d %d %d\n&quot;,i,j,k-7500);*/
+            }
+        }
+    }
+    printf(&quot;%d\n&quot;,dp[G][7500]);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 1837 Balance【DP】 /" data-id="cjttuf86i000je8v3ey8vozo7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/">Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=3020" target="_blank" rel="noopener">http://poj.org/problem?id=3020</a></p>
+<p>题解：</p>
+<p>将每个城市看成顶点，如果一个城市四周存在另一个城市则与这个城市连一条双向边，所以这个题目就变成了求最小边覆盖</p>
+<p>无向图最小边覆盖数 = 顶点数 - 最大匹配数/2</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;double, double&gt;P;
+
+bool G[MAX_N][MAX_N];
+int city[MAX_N][MAX_N];
+int h, w;
+int total;
+int linker[MAX_N];
+bool used[MAX_N];
+int dx[4] = {0, 0, -1, 1};
+int dy[4] = {-1, 1, 0, 0};
+bool dfs(int u)
+{
+    for(int i=1;i&lt;=total;i++) {
+        if(G[u][i] &amp;&amp; !used[i]) {
+            used[i] = true;
+            if(!linker[i] || dfs(linker[i])) {
+                linker[i] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int hungary()
+{
+    int res = 0;
+    memset(linker, 0, sizeof(linker));
+    for(int i=1;i&lt;=total;i++) {
+        memset(used, false, sizeof(used));
+        if(dfs(i))
+            res++;
+    }
+    return res;
+}
+int main()
+{
+    int T;
+    cin &gt;&gt; T;
+    while(T--) {
+        cin &gt;&gt; h &gt;&gt; w;
+        memset(G, false, sizeof(G));
+        memset(city, 0, sizeof(city));
+        total = 1;
+        for(int i=1;i&lt;=h;i++) {
+            getchar();
+            for(int j=1;j&lt;=w;j++) {
+                char c = getchar();
+                if(c == &apos;*&apos;)
+                    city[i][j] = ++total;
+            }
+        }
+        for(int i=1;i&lt;=h;i++) {
+            for(int j=1;j&lt;=w;j++) {
+                if(city[i][j]) {
+                    for(int k=0;k&lt;4;k++) {
+                        int nx = i + dx[k];
+                        int ny = j + dy[k];
+                        if(city[nx][ny])
+                            G[city[i][j]][city[nx][ny]] = true;
+                    }
+                }
+            }
+        }
+        int ans = hungary();
+        cout &lt;&lt; total - 1 - ans/2 &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3020 Antenna Placement【最小边覆盖 匈牙利算法】/" data-id="cjttuf86k000le8v3cjlpw8hd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /">Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=3041" target="_blank" rel="noopener">http://poj.org/problem?id=3041</a></p>
+<p>题解：</p>
+<p>这题可以将障碍物的横坐标与纵坐标看成两个点然后连边，然后这题是要选最少条边使所有点都有边相连就是最小点覆盖数。</p>
+<p>根据König  定理  一个二分图中的最大匹配数等于这个图中的最小点覆盖数。</p>
+<p>跑一遍匈牙利算法就有答案了。  </p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;double, double&gt;P;
+
+bool G[MAX_N][MAX_N];
+int n, k;
+int linker[MAX_N];
+bool used[MAX_N];
+bool dfs(int u)
+{
+    for(int i=1;i&lt;=n;i++) {
+        if(G[u][i] &amp;&amp; !used[i]) {
+            used[i] = true;
+            if(!linker[i] || dfs(linker[i])) {
+                linker[i] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int hungary()
+{
+    int res = 0;
+    memset(linker, 0, sizeof(linker));
+    for(int i=1;i&lt;=n;i++) {
+        memset(used, false, sizeof(used));
+        if(dfs(i))
+            res++;
+    }
+    return res;
+}
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; k;
+    for(int i=0;i&lt;k;i++) {
+        int a, b;
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        G[a][b] = true;
+    }
+    int ans = hungary();
+    cout &lt;&lt; ans &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3041 Asteroids 【最小点覆盖 匈牙利算法 】 /" data-id="cjttuf86l000ne8v3hawisifs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 3311 Hie with the Pie 【TSP+floyd】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /">Poj 3311 Hie with the Pie 【TSP+floyd】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://poj.org/problem?id=3311" target="_blank" rel="noopener"> 点击打开链接 </a>  </p>
+<p>题解：</p>
+<p>先floyd算出各城市最短路径  </p>
+<p>设dp[i][j]=在第i个城市且送过了集合j（按位存城市集合，比如5表示送过了城市2、0）个城市。</p>
+<p>然后枚举从小到大枚举j dp[i][j] = min(dp[k][j^(1&lt;&lt;i)]+dis[k][j])，边界为dp[0][1] = 0</p>
+<p>最后答案就是 min(dp[i][(1&lt;&lt;n)-1])+dis[i][0]</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 110
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int n;
+    int dis[15][15];
+    int dp[15][1&lt;&lt;15];
+    int way[15];
+    while(cin &gt;&gt; n &amp;&amp; n) {
+        n++;
+        for(int i=0; i&lt;n; i++)
+            for(int j=0; j&lt;n; j++)
+                cin &gt;&gt; dis[i][j];
+        for(int k=0; k&lt;n; k++)
+            for(int i=0; i&lt;n; i++)
+                for(int j=0; j&lt;n; j++)
+                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
+        dp[0][1] = 0;
+        for(int i=2; i&lt;(1&lt;&lt;n); i++) {
+            for(int j=0; j&lt;n; j++) {
+                if(i &amp; (1&lt;&lt;j)) {
+                    dp[j][i] = inf;
+                    for(int k=0; k&lt;n; k++) {
+                        if(j == k)
+                            continue;
+                        if(i &amp; (1&lt;&lt;k))
+                            dp[j][i] = min(dp[j][i], dp[k][i^(1&lt;&lt;j)]+dis[k][j]);
+                    }
+                }
+            }
+        }
+        int ans = inf;
+        for(int i=1; i&lt;n; i++)
+            ans = min(ans, dp[i][(1&lt;&lt;n)-1]+dis[i][0]);
+        cout &lt;&lt; ans &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3311 Hie with the Pie 【TSP+floyd】 /" data-id="cjttuf86m000pe8v3tx3bt2u7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 3274 Gold Balanced Lineup 【哈希】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /">Poj 3274 Gold Balanced Lineup 【哈希】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=3274" target="_blank" rel="noopener">http://poj.org/problem?id=3274</a></p>
+<p>参考了： <a href="http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html" target="_blank" rel="noopener">http://www.cnblogs.com/lyy289065406/archive/2011/07/30/2122224.html</a></p>
+<p>题解：</p>
+<p>最重要的是问题的转换，感受到了哈希查找的省时</p>
+<p>我最后是将∑C[i][1~K-1]%大素数作为哈希值</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e6+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int N, K;
+int tot;
+struct node
+{
+    int K[35];
+    int idx;
+};
+vector&lt;node&gt;Hash[mod];
+node cow[MAX_N];
+int hashFun(int k)
+{
+    int key = 0;
+    for(int i=1; i&lt;K; i++) {
+        key += cow[k].K[i];
+    }
+    return (key+mod)%mod;
+}
+void add(int n)
+{
+    node tmp;
+    for(int i=0; i&lt;K; i++) {
+        if(n&amp;1)
+            tmp.K[i] = 1;
+        else
+            tmp.K[i] = 0;
+        n &gt;&gt;= 1;
+    }
+    tmp.idx = tot;
+    cow[tot++] = tmp;
+}
+int calDis(int k)
+{
+    int key = hashFun(k);
+    int ans = 0;
+    for(int i=0; i&lt;Hash[key].size(); i++) {
+        bool flag = true;
+        for(int j=1; j&lt;K; j++) {
+            if(cow[k].K[j] != cow[Hash[key][i].idx].K[j]) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag)
+            ans = max(ans, abs(cow[k].idx - Hash[key][i].idx));
+    }
+    return ans;
+}
+void printK()
+{
+    for(int i=0; i&lt;=N; i++) {
+        for(int j=0; j&lt;K; j++) {
+            printf(&quot;%d &quot;,cow[i].K[j]);
+        }
+        puts(&quot;&quot;);
+    }
+}
+int main()
+{
+    cin &gt;&gt; N &gt;&gt; K;
+    tot = 0;
+    add(0);
+    for(int i=1; i&lt;=N; i++) {
+        int n;
+        scanf(&quot;%d&quot;,&amp;n);
+        add(n);
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+    for(int i=1; i&lt;=N; i++) {
+        for(int j=0; j&lt;K; j++) {
+            cow[i].K[j] += cow[i-1].K[j];
+        }
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+    for(int i=1; i&lt;=N; i++) {
+        for(int j=1; j&lt;K; j++) {
+            cow[i].K[j] -= cow[i].K[0];
+        }
+    }/*
+    printK();
+    puts(&quot;&quot;);*/
+
+    for(int i=0; i&lt;=N; i++) {
+        int key = hashFun(i);
+        //printf(&quot;%d %d\n&quot;,i, key);
+        Hash[key].push_back(cow[i]);
+    }
+    int ans = 0;
+    for(int i=0; i&lt;=N; i++) {
+        ans = max(ans, calDis(i));
+    }
+    printf(&quot;%d\n&quot;,ans);
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3274 Gold Balanced Lineup 【哈希】 /" data-id="cjttuf86n000re8v3a86m0tm4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SCOI2005] 最大子矩阵 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/SCOI2005] 最大子矩阵 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/SCOI2005] 最大子矩阵 /">SCOI2005] 最大子矩阵</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="P2331-SCOI2005-最大子矩阵"><a href="#P2331-SCOI2005-最大子矩阵" class="headerlink" title="P2331 [SCOI2005] 最大子矩阵"></a>P2331 [SCOI2005] 最大子矩阵</h1><p><strong> 版权声明：  </strong></p>
+<p>本篇随笔版权归作者 <strong> shenben  ( <a href="http://www.cnblogs.com/shenben" target="_blank" rel="noopener"> www.cnblogs.com/shenben
+</a> )  </strong> 所有，转载请保留原地址!</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>这里有一个n*m的矩阵，请你选出其中k个子矩阵，使得这个k个子矩阵分值之和最大。注意：选出的k个子矩阵不能相互重叠。</p>
+<h2 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h2><p>输入格式：  </p>
+<p>第一行为n,m,k（1≤n≤100,1≤m≤2,1≤k≤10），接下来n行描述矩阵每行中的每个元素的分值(每个元素的分值的绝对值不超过32767)。</p>
+<p>输出格式：  </p>
+<p>只有一行为k个子矩阵分值之和最大为多少。</p>
+<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p>输入样例#1：  </p>
+<pre><code>3 2 2
+1 -3
+2 3
+-2 3
+</code></pre><p>输出样例#1：  </p>
+<pre><code>9
+</code></pre><p><strong> 题解：  </strong></p>
+<p>注意到m=1或者2，</p>
+<p>当m=1时，是  普通的最大连续字段和，只不过是k个  ：</p>
+<p>设dp[i][j]表示前i个数中取出j个矩形的最大和</p>
+<p>转移：</p>
+<p><strong> 选：dp[i][j]=max{dp[l][j-1]+s[i]-s[l-1]}  </strong></p>
+<p><strong> 不选：dp[i][j]=max(dp[i][j],dp[i-1][j])  </strong></p>
+<p>复杂度O(n^2*K)</p>
+<p>当m=2时，设f[i][j][k]表示第一列选到第i个数，第二列选到第j个数时，总共k个子矩形的答案</p>
+<p>转移有4种情况</p>
+<p><strong> 当这一位什么都不做的时候：f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k])  </strong></p>
+<p><strong> 当仅选取第一列的某段区间时：f[i][j][k]=max(f[l][j][k-1]+sum[i][1]-sum[l-1][1])  1&lt;=l&lt;i  </strong></p>
+<p><strong> 当仅选取第二列的某段区间时：f[i][j][k]=max(f[i][l][k-1]+sum[j][2]-sum[l-1][2])  1&lt;=l&lt;j  </strong></p>
+<p><strong> 当i==j时，可以选取两列一起的f[i][j][k]=max(f[l][l][k]+sum[i][1]+sum[i][2]-sum[l-1][1]-sum[l-1][2])  </strong></p>
+<p><strong> 最后所有情况取max  </strong></p>
+<p>复杂度O(n^3*K)</p>
+<p>Ps:这道题数据有bug，似乎没有在一开始赋值为-INF的也能过</p>
+<p><strong> AC代码：  </strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=110;
+const int M=11;
+int n,m,K,s1[N],s2[N],dp[N][M],f[N][N][M];
+int main(){
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;K);
+    if(m==1){
+        for(int i=1,x;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;x),s1[i]=s1[i-1]+x;
+        for(int k=1;k&lt;=K;k++){
+            for(int i=1;i&lt;=n;i++){
+                dp[i][k]=dp[i-1][k];
+                for(int j=0;j&lt;i;j++) dp[i][k]=max(dp[i][k],dp[j][k-1]+s1[i]-s1[j]);
+            }
+        }
+        printf(&quot;%d\n&quot;,dp[n][K]);
+    }
+    else{
+        for(int i=1,x,y;i&lt;=n;i++) scanf(&quot;%d%d&quot;,&amp;x,&amp;y),s1[i]=s1[i-1]+x,s2[i]=s2[i-1]+y;
+        for(int k=1;k&lt;=K;k++){
+            for(int i=1;i&lt;=n;i++){
+                for(int j=1;j&lt;=n;j++){
+                    f[i][j][k]=max(f[i-1][j][k],f[i][j-1][k]);
+                    for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][j][k-1]+s1[i]-s1[l]);
+                    for(int l=0;l&lt;j;l++) f[i][j][k]=max(f[i][j][k],f[i][l][k-1]+s2[j]-s2[l]);
+                    if(i==j)  for(int l=0;l&lt;i;l++) f[i][j][k]=max(f[i][j][k],f[l][l][k-1]+s1[i]-s1[l]+s2[j]-s2[l]);
+                }
+            }
+        }
+        printf(&quot;%d\n&quot;,f[n][n][K]);
+    }
+    return 0;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/SCOI2005] 最大子矩阵 /" data-id="cjttuf86o000te8v3060qxftz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-UVa 10635 Prince and Princess 【LIS】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /">UVa 10635 Prince and Princess 【LIS】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刘汝佳训练指南 p66</p>
+<p>这题很好的把LCS问题转化成了LIS问题</p>
+<p>因为两个数组保存的都是数字并且每个数组内不出现重合的数字，所以将B数组中的数字转化成在A数组中的编号然后就转化成了LIS问题了  </p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 250*250+5
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int pos[MAX_N];
+int b[MAX_N];
+int g[MAX_N];
+int main()
+{
+    int T;
+    int ca = 1;
+    cin &gt;&gt; T;
+    while(T--) {
+        int n, p, q;
+        cin &gt;&gt; n &gt;&gt; p &gt;&gt; q;
+        memset(pos, 0, sizeof(pos));
+        memset(g, 0, sizeof(g));
+        for(int i=1; i&lt;=p+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            pos[x] = i;
+        }
+        for(int i=1; i&lt;=q+1; i++) {
+            int x;
+            cin &gt;&gt; x;
+            b[i] = pos[x];
+        }
+        int ans = 0;
+        int len = 0;
+        g[0] = b[1];
+        for(int i=2; i&lt;=q+1; i++) {
+            if(b[i] &gt; g[len]) {
+                g[++len] = b[i];
+            }
+            else {
+                int k =  lower_bound(g, g+len, b[i]) - g;
+                g[k] = b[i];
+            }
+        }
+        printf(&quot;Case %d: %d\n&quot;, ca++, len+1);
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/UVa 10635 Prince and Princess 【LIS】 /" data-id="cjttuf86q000ve8v3n91060ns" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Poj 3276 Face The Right Way " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 3276 Face The Right Way /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Poj 3276 Face The Right Way /">Poj 3276 Face The Right Way</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接:</p>
+<p><a href="http://poj.org/problem?id=3276" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://poj.org/problem?id=3276" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：</p>
+<p>有N头牛朝着正面或反面，先有一个机器能够将连续的K头牛翻转，问K取多少时操作次数最少。</p>
+<p>题解：</p>
+<p>对于一个固定的K值我们可以枚举每头牛判断是否需要翻转，判断一头牛是否要翻转则需要知道它之前被翻转了几次与它初始状态，假如翻转次数为奇数初始状态为偶数或翻转次<br>数为偶数初始状态为奇数则该头牛需要翻转，判断一头牛之前翻转了几次则可以在每次枚举牛时得到，假如这头牛的前K+1头牛为翻转则这头牛之前翻转的次数减一，如果这头<br>牛需要翻转则这头牛之后的翻转次数加一，这样就可以在O（1）时间得到翻转次数，总的时间复杂度为O（N^2）</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 5005
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int main()
+{
+    int N;
+    bool cow[MAX_N];
+    bool flip[MAX_N];
+    while(cin &gt;&gt; N) {
+        for(int i=1; i&lt;=N; i++) {
+            char c;
+            getchar();
+            c = getchar();
+            if(c == &apos;B&apos;)
+                cow[i] = false;
+            else
+                cow[i] = true;
+        }
+        int K, M;
+        K = 1;
+        M = inf;
+        //枚举K
+        for(int i=1; i&lt;=N; i++) {
+            memset(flip, false, sizeof(flip));
+            int sum = 0;
+            int ope = 0;
+            for(int j=1; j+i-1&lt;=N; j++) {
+                //判断该头牛之前翻转了几次
+                if(j-i&gt;=1 &amp;&amp; flip[j-i]) {
+                    //之前翻转次数减一
+                    sum--;
+                }
+                //判断是否要翻转
+                if(sum%2==0 &amp;&amp; !cow[j]) {
+                    ope++;
+                    sum++;//之后翻转次数加一
+                    flip[j] = true;
+                }
+                else if(sum%2==1 &amp;&amp; cow[j]) {
+                    ope++;
+                    sum++;//之后翻转你次数加一
+                    flip[j] = true;
+                }
+            }
+            //检测后面i-1头牛是否都为正面
+            for(int j=N+2-i; j&lt;=N; j++) {
+                if(j-i&gt;=1 &amp;&amp; flip[j-i]) {
+                    sum--;
+                }
+                if(sum%2==0 &amp;&amp; !cow[j]) {
+                    ope = inf+1;
+                    break;
+                }
+                else if(sum%2==1 &amp;&amp; cow[j]) {
+                    ope = inf+1;
+                    break;
+                }
+            }
+            //更新答案
+            if(ope &lt; M) {
+                M = ope;
+                K = i;
+            }
+            else if(ope == M) {
+                K = min(K, i);
+            }
+        }
+        cout &lt;&lt; K &lt;&lt; &quot; &quot; &lt;&lt; M &lt;&lt; endl;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 3276 Face The Right Way /" data-id="cjttuf86r000xe8v3ooxwtqvp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-UVa 10817 Headmaster‘s Headache 【01背包 位运算】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/">UVa 10817 Headmaster‘s Headache 【01背包 位运算】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题意：刘汝佳训练指南p95</p>
+<p>题解：此题可以设dp[s2][s1] = 授课状态为s2、s1时的最小花费（s1为课程授课状态为1的集合，s2为授课状态为2的集合）</p>
+<p>然后视招募的新老师为要装进背包里的物品，授课状态s2，s1为容量，最终答案就为dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1]（S为课程数目）</p>
+<p>具体转移方程如下：</p>
+<p>设s2，s1为招募该老师前的状态，ns2，ns1为招募该老师后的状态则，ns1 = s1 | s ,ns2 = s2 | (s1 &amp; s)<br>,（s为该老师能教授的课程）</p>
+<p>dp[ns2][ns1] = min(dp[s1 | s[i]][s2 | (s1 &amp; s[i])]) +<br>v[i]，s[i]是第i个老师授课集合，v[i]是第i个老师的收费</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 505
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const int mod = 1e8+7;
+typedef pair&lt;double, int&gt;P;
+
+int S, M, N;
+int tC[25];
+int aC[105];
+int teacher[25];
+int applicant[105];
+int dp[1&lt;&lt;8][1&lt;&lt;8];
+int getT()
+{
+    char c;
+    int ans = 0;
+    int d;
+    c = getchar();
+    while(c!=&apos;\n&apos;) {
+        scanf(&quot;%d&quot;, &amp;d);
+        d--;
+        ans |= (1&lt;&lt;d);
+        c = getchar();
+    }
+    return ans;
+}
+void init()
+{
+    memset(dp, inf, sizeof(dp));
+}
+int main()
+{
+    while(cin &gt;&gt; S &gt;&gt; M &gt;&gt; N &amp;&amp; S+M+N) {
+        init();
+        int s1 = 0;
+        int s2 = 0;
+        int sum = 0;
+        for(int i=0; i&lt;M; i++) {
+            scanf(&quot;%d&quot;, &amp;tC[i]);
+            teacher[i] = getT();
+            sum += tC[i];
+            s2 |= (s1 &amp; teacher[i]);
+            s1 |= teacher[i];
+        }
+        for(int i=0; i&lt;N; i++) {
+            scanf(&quot;%d&quot;, &amp;aC[i]);
+            applicant[i] = getT();
+        }
+        dp[s2][s1] = sum;
+        for(int k=0; k&lt;N; k++) {
+            int s = applicant[k];
+            for(int i=(1&lt;&lt;S)-1; i&gt;=0; i--) {
+                for(int j=(1&lt;&lt;S)-1; j&gt;=0; j--) {
+                    int ns1 = j|s;
+                    int ns2 = i|(j&amp;s);
+                    dp[ns2][ns1] = min(dp[ns2][ns1], dp[i][j]+aC[k]);
+                }
+            }
+        }
+        /*
+       for(int i=0; i&lt;(1&lt;&lt;S); i++) {
+            for(int j=0; j&lt;(1&lt;&lt;S); j++) {
+                if(dp[i][j] == inf)
+                    printf(&quot;0 &quot;);
+                else
+                    printf(&quot;%d &quot;,dp[i][j]);
+            }
+            puts(&quot;&quot;);
+        }*/
+        cout &lt;&lt; dp[(1&lt;&lt;S)-1][(1&lt;&lt;S)-1] &lt;&lt; endl;
+    }
+    return 0;
+}
+/*
+8 4 3
+1000 1
+1000 2
+1000 3
+1000 2
+50000 1 5 7 3 4
+50000 1 6 8
+50000 1 2 3 4 5 6 7 8
+*/
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/UVa 10817 Headmaster‘s Headache 【01背包 位运算】/" data-id="cjttuf86s000ze8v3iwg1rtc5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

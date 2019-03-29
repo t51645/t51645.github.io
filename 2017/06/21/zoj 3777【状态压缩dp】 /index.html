@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>zoj 3777【状态压缩dp】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3777   题意：有n到题目，当第i到题目放在第j个位置时有p[i][j]点乐趣，问有多少种排列方法使n个题目的乐趣和大于m 题解： 一开始想用dfs，复杂度一算为 12！ 铁定超时，后来就想到用状态压缩dp，但是我一开始想到的是dp[i][j][k]表示前i行，放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zoj 3777【状态压缩dp】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/zoj 3777【状态压缩dp】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3777   题意：有n到题目，当第i到题目放在第j个位置时有p[i][j]点乐趣，问有多少种排列方法使n个题目的乐趣和大于m 题解： 一开始想用dfs，复杂度一算为 12！ 铁定超时，后来就想到用状态压缩dp，但是我一开始想到的是dp[i][j][k]表示前i行，放">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.559Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zoj 3777【状态压缩dp】">
+<meta name="twitter:description" content="题目链接：http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3777   题意：有n到题目，当第i到题目放在第j个位置时有p[i][j]点乐趣，问有多少种排列方法使n个题目的乐趣和大于m 题解： 一开始想用dfs，复杂度一算为 12！ 铁定超时，后来就想到用状态压缩dp，但是我一开始想到的是dp[i][j][k]表示前i行，放">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-zoj 3777【状态压缩dp】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/zoj 3777【状态压缩dp】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      zoj 3777【状态压缩dp】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接：<a href="http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3777" target="_blank" rel="noopener">http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3777</a>  </p>
+<p>题意：有n到题目，当第i到题目放在第j个位置时有p[i][j]点乐趣，问有多少种排列方法使n个题目的乐趣和大于m</p>
+<p>题解：</p>
+<p>一开始想用dfs，复杂度一算为 12！ 铁定超时，后来就想到用状态压缩dp，但是我一开始想到的是dp[i][j][k]<br>表示前i行，放置列状态为j，分数为k的组合数，后来一写才发现转移过程时间复杂度为 n<em>n</em>2^n*m 最大可达2e8，所以就没写了。</p>
+<p>后来看别人的题解才知道，可以降一维变成dp[i][j]表示列状态为i，分数为k的组合数。因为知道了列状态中的1的数目我们就可以知道放置了几行了，所以可以将第<br>一维舍去。</p>
+<p>最终转移方程为</p>
+<p>dp[i|(1&lt;&lt;k)][j+cnt] += dp[i][j]  (j+cnt&lt;m)</p>
+<p>dp[i|(1&lt;&lt;k)][m] += dp[i][j]  (j+cnt&gt;=m)  </p>
+<p>(cnt为状态i中放置列数目)</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long  long
+#define ull unsigned long long
+const LL INF = 1e18;
+//const int mod = 1e9+7;
+//const double pi = acos(-1);
+typedef pair&lt;int, int&gt;P;
+
+int dp[1&lt;&lt;13][505];
+int gcd(int x, int y)
+{
+    return y==0?x:gcd(y, x%y);
+}
+int main()
+{
+    int T;
+    cin &gt;&gt; T;
+    while(T--)  {
+        int n, m;
+        cin &gt;&gt; n &gt;&gt; m;
+        int p[15][15];
+        for(int i=0; i&lt;n; i++)
+            for(int j=0; j&lt;n; j++)
+                scanf(&quot;%d&quot;, &amp;p[i][j]);
+        memset(dp, 0, sizeof(dp));
+        dp[0][0] = 1;
+        for(int i=0; i&lt;(1&lt;&lt;n); i++) {
+            int cnt = 0;
+            for(int j=0; j&lt;n; j++)
+                if(i&amp;(1&lt;&lt;j))
+                    cnt++;
+            for(int j=0; j&lt;n; j++) {
+                if(i&amp;(1&lt;&lt;j))
+                    continue;
+                for(int k=0; k&lt;=m; k++) {
+                    if(k+p[cnt][j] &lt; m)
+                        dp[i|(1&lt;&lt;j)][k+p[cnt][j]] += dp[i][k];
+                    else
+                        dp[i|(1&lt;&lt;j)][m] += dp[i][k];
+                }
+            }
+        }
+        if(!dp[(1&lt;&lt;n)-1][m])
+            puts(&quot;No solution&quot;);
+        else {
+            int tmp = 1;
+            int ans = dp[(1&lt;&lt;n)-1][m];
+            for(int i=2; i&lt;=n; i++)
+                tmp *= i;
+            int g = gcd(tmp, ans);
+            printf(&quot;%d/%d\n&quot;, tmp/g, ans/g);
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/zoj 3777【状态压缩dp】 /" data-id="cjttuf87h002ee8v3zn3qdf62" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/tyvj 1089 【背包转换 容量为负】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          tyvj 1089 【背包转换 容量为负】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/Codeforces Round #403 C. Andryusha and Colored Balloons/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Codeforces Round</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

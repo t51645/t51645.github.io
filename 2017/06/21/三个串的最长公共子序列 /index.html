@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>三个串的最长公共子序列 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="直接放dsy大佬的思路： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;queue&amp;gt; #include&amp;lt;set&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三个串的最长公共子序列">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/三个串的最长公共子序列 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="直接放dsy大佬的思路： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;queue&amp;gt; #include&amp;lt;set&amp;g">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="三个串的最长公共子序列">
+<meta name="twitter:description" content="直接放dsy大佬的思路： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include&amp;lt;queue&amp;gt; #include&amp;lt;set&amp;g">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-三个串的最长公共子序列 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/三个串的最长公共子序列 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      三个串的最长公共子序列
     </h1>
   
 
@@ -83,11 +90,83 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>直接放dsy大佬的思路：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 305
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
+
+int dp[MAX_N][MAX_N][MAX_N];
+char a[MAX_N];
+char b[MAX_N];
+char c[MAX_N];
+int la;
+int lb;
+int lc;
+stack&lt;char&gt;ans;
+void print()
+{
+    int i = la;
+    int j = lb;
+    int k = lc;
+    cout &lt;&lt; dp[i][j][k] &lt;&lt; endl;
+    while(i &amp;&amp; j &amp;&amp; k &amp;&amp; dp[i][j][k]) {
+        if(dp[i][j][k] == dp[i-1][j-1][k-1]+1 &amp;&amp; a[i]==b[j] &amp;&amp; b[j]==c[k]) {
+            ans.push(a[i]), i--, j--, k--;
+        }
+        else if(dp[i][j][k] == dp[i-1][j][k])
+            i--;
+        else if(dp[i][j][k] == dp[i][j-1][k])
+            j--;
+        else if(dp[i][j][k] == dp[i][j][k-1])
+            k--;
+    }
+    while(!ans.empty()) {
+        printf(&quot;%c&quot;,ans.top());
+        ans.pop();
+    }
+    puts(&quot;&quot;);
+}
+int main()
+{
+    gets(a+1);
+    gets(b+1);
+    gets(c+1);
+    la = strlen(a+1);
+    lb = strlen(b+1);
+    lc = strlen(c+1);
+    memset(dp, 0, sizeof(dp));
+    for(int i=1; i&lt;=la; i++) {
+        for(int j=1; j&lt;=lb; j++) {
+            for(int k=1; k&lt;=lc; k++) {
+                dp[i][j][k] = max(dp[i-1][j][k],max(dp[i][j-1][k], dp[i][j][k-1]));
+                if(a[i] == b[j] &amp;&amp; b[j] == c[k])
+                    dp[i][j][k] = max(dp[i][j][k], dp[i-1][j-1][k-1]+1);
+            }
+        }
+    }
+    print();
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/三个串的最长公共子序列 /" data-id="cjttuf87l002me8v3k0h5ybjv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +175,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/计蒜客第六场 微软大楼设计方案（困难） /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          计蒜客第六场 微软大楼设计方案（困难）
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/蓝桥杯 两条直线【二分，线段树】 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">蓝桥杯 两条直线【二分，线段树】</div>
     </a>
   
 </nav>

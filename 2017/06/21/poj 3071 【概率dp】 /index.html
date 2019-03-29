@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>poj 3071 【概率dp】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：  poj 3071 Football    题意：有2^n只足球队，已知你两两足球队间的胜率p[i][j]（足球队i赢足球队j的概率），赛制为单轮淘汰制并且每轮中剩余队伍序号1与2对战，3与4对战，5与6对战…问n轮过后哪只足球队的胜率最大。 题解：设dp[i][j]为第i轮第j只队伍获胜的概率， 转移方程如下： dp[i][j] += dp[i-1][j]p[j][k]dp[i-1]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="poj 3071 【概率dp】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/poj 3071 【概率dp】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：  poj 3071 Football    题意：有2^n只足球队，已知你两两足球队间的胜率p[i][j]（足球队i赢足球队j的概率），赛制为单轮淘汰制并且每轮中剩余队伍序号1与2对战，3与4对战，5与6对战…问n轮过后哪只足球队的胜率最大。 题解：设dp[i][j]为第i轮第j只队伍获胜的概率， 转移方程如下： dp[i][j] += dp[i-1][j]p[j][k]dp[i-1]">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="poj 3071 【概率dp】">
+<meta name="twitter:description" content="题目链接：  poj 3071 Football    题意：有2^n只足球队，已知你两两足球队间的胜率p[i][j]（足球队i赢足球队j的概率），赛制为单轮淘汰制并且每轮中剩余队伍序号1与2对战，3与4对战，5与6对战…问n轮过后哪只足球队的胜率最大。 题解：设dp[i][j]为第i轮第j只队伍获胜的概率， 转移方程如下： dp[i][j] += dp[i-1][j]p[j][k]dp[i-1]">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-poj 3071 【概率dp】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/poj 3071 【概率dp】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      poj 3071 【概率dp】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://poj.org/problem?id=3071" target="_blank" rel="noopener"> poj 3071 Football </a>  </p>
+<p>题意：有2^n只足球队，已知你两两足球队间的胜率p[i][j]（足球队i赢足球队j的概率），赛制为单轮淘汰制并且每轮中剩余队伍序号1与2对战，3与4对战，5<br>与6对战…问n轮过后哪只足球队的胜率最大。</p>
+<p>题解：设dp[i][j]为第i轮第j只队伍获胜的概率，</p>
+<p>转移方程如下：</p>
+<p>dp[i][j] += dp[i-1][j]<em>p[j][k]</em>dp[i-1][k]</p>
+<p>k为第i轮可能与j对战的球队</p>
+<p>这里k与i和j是存在关系的，可以写下可能的对战序列进行观察，这里取八只队伍：</p>
+<p>第一轮 1:(2) 2:(1) 3:(4) 4:(3) 5:(6) 6:(5) 7:(8) 8:(7)  </p>
+<p>第二轮 1:(3,4) 2:(3,4) 3:(1,2) 4:(1,2) 5:(7,8) 6:(7,8) 7:(5,6) 8:(5,6)</p>
+<p>第三轮 1:(5,6,7,8) 2:(5,6,7,8) 3:(5,6,7,8) 4:(5,6,7,8) 5:(1,2,3,4) 6:(1,2,3,4)<br>7:(1,2,3,4) 8:(1,2,3,4)</p>
+<p>从上面就可以找到规律确定k的范围</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+
+using namespace std;
+#define MAX_N 100005
+#define inf 0x3f3f3f3f
+#define LL long  long
+#define ull unsigned long long
+const LL INF = 1e18;
+const double eps = 1e-8;
+//const int mod = 1e9+7;
+//const double pi = acos(-1);
+typedef pair&lt;int, int&gt;P;
+
+double p[1&lt;&lt;8][1&lt;&lt;8];
+double dp[10][1&lt;&lt;8];
+int pow2(int k)
+{
+    int ans = 1;
+    while(k) {
+        k--;
+        ans *= 2;
+    }
+    return ans;
+}
+int cal(int a, int b)
+{
+    return (b/a)+1;
+}
+int main()
+{
+    int n;
+    while(cin &gt;&gt; n &amp;&amp; n!=-1) {
+        for(int i=0; i&lt;(1&lt;&lt;n); i++)
+            for(int j=0; j&lt;(1&lt;&lt;n); j++)
+                scanf(&quot;%lf&quot;, &amp;p[i][j]);
+        memset(dp, 0, sizeof(dp));
+        for(int i=0; i&lt;(1&lt;&lt;n); i++)
+            dp[0][i] = 1;
+        for(int i=1; i&lt;=n; i++) {
+            for(int j=0; j&lt;(1&lt;&lt;n); j++) {
+                int m = pow2(i-1);
+                int pos = cal(2*m, j);
+                int mid = (2*pos-1)*m;
+                int s, e;
+                if(j &lt; mid) {
+                    s = mid;
+                    e = pos*m*2;
+                }
+                else {
+                    s = (pos-1)*m*2;
+                    e = mid;
+                }
+                //printf(&quot;%d %d %d %d\n&quot;, i, j, s, e);
+                for(int k=s; k&lt;e; k++) {
+                    dp[i][j] += dp[i-1][j]*p[j][k]*dp[i-1][k];
+                }
+            }
+            //puts(&quot;&quot;);
+        }
+        int idx = 0;
+        for(int i=0; i&lt;(1&lt;&lt;n); i++) {
+            //printf(&quot;%.3lf &quot;, dp[n][i]);
+            if(dp[n][i] &gt; dp[n][idx])
+                idx = i;
+        }
+        //puts(&quot;&quot;);
+        cout &lt;&lt; idx+1 &lt;&lt; endl;
+    }
+}
+</code></pre><p>代码写的略渣了点。。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/poj 3071 【概率dp】 /" data-id="cjttuf878001xe8v3ueuaejd1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/tyvj 1505 打砖头 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          tyvj 1505 打砖头
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/poj 3295 Tautology /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">poj 3295 Tautology</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>poj 3295 Tautology | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="链接：http://poj.org/problem?id=3295 模拟了一下： #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include">
+<meta property="og:type" content="article">
+<meta property="og:title" content="poj 3295 Tautology">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/poj 3295 Tautology /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接：http://poj.org/problem?id=3295 模拟了一下： #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="poj 3295 Tautology">
+<meta name="twitter:description" content="链接：http://poj.org/problem?id=3295 模拟了一下： #include&amp;lt;iostream&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;cmath&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-poj 3295 Tautology " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/poj 3295 Tautology /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      poj 3295 Tautology
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：<a href="http://poj.org/problem?id=3295" target="_blank" rel="noopener">http://poj.org/problem?id=3295</a></p>
+<p>模拟了一下：</p>
+<pre><code>#include&lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 105
+#define inf 0x7fffffff
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 100000000;
+typedef pair&lt;double, double&gt;P;
+
+char S[MAX_N];
+stack&lt;char&gt;ope, c;
+map&lt;char, int&gt;mp;
+int p, q, r, s, t;
+int len;
+void init()
+{
+    mp[&apos;p&apos;] = p;
+    mp[&apos;q&apos;] = q;
+    mp[&apos;r&apos;] = r;
+    mp[&apos;s&apos;] = s;
+    mp[&apos;t&apos;] = t;
+}
+int find(int left, int right)
+{
+    if(S[left]&gt;=&apos;a&apos; &amp;&amp; S[left]&lt;=&apos;z&apos;)
+        return left;
+    int sum;
+    if(S[left] == &apos;N&apos;)
+        sum = 1;
+    else
+        sum = 2;
+    for(int i=left+1;i&lt;=right;i++) {
+        if(S[i]&gt;=&apos;a&apos; &amp;&amp; S[i]&lt;=&apos;z&apos;)
+            sum--;
+        else if(S[i]!=&apos;N&apos;)
+            sum++;
+        if(!sum)
+            return i;
+    }
+    return right;
+}
+bool dfs(int left, int right)
+{
+    if(right == left) {
+        return mp[S[left]];
+    }
+    if(S[left] == &apos;N&apos;) {
+        return !dfs(left+1, right);
+    }
+    else {
+        if(S[left] &lt;= &apos;z&apos; &amp;&amp; S[left] &gt;= &apos;a&apos;) {
+            return mp[S[left]];
+        }
+        else if(S[left] == &apos;K&apos;) {
+            int mid = find(left+1, right);
+            return dfs(left+1, mid) &amp; dfs(mid+1, right);
+        }
+        else if(S[left] == &apos;A&apos;) {
+            int mid = find(left+1, right);
+            return dfs(left+1, mid) | dfs(mid+1, right);
+        }
+        else if(S[left] == &apos;C&apos;) {
+            int mid = find(left+1, right);
+            return (!dfs(left+1, mid)) | dfs(mid+1, right);
+        }
+        else if(S[left] == &apos;E&apos;) {
+            int mid = find(left+1, right);
+            return dfs(left+1, mid) == dfs(mid+1, right);
+        }
+    }
+}
+bool check()
+{
+    for(p=0;p&lt;2;p++) {
+        for(q=0;q&lt;2;q++) {
+            for(r=0;r&lt;2;r++) {
+                for(s=0;s&lt;2;s++) {
+                    for(t=0;t&lt;2;t++) {
+                        init();
+                        if(!dfs(0, len-1)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+int main()
+{
+    while(scanf(&quot;%s&quot;,S)) {
+        if(S[0] == &apos;0&apos;)
+            break;
+        len = strlen(S);
+        if(check())
+            printf(&quot;tautology\n&quot;);
+        else
+            printf(&quot;not\n&quot;);
+    }
+}
+</code></pre><p>评论区里看到的一个简洁递归：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cassert&gt;
+
+using namespace std;
+
+string s;int cur;char a[5];
+
+void Change(char i)//穷举时改变数组用的函数
+{
+    for(int j=0;j!=5;j++)
+        a[j]=((i&gt;&gt;j)&amp;00000001);
+}
+bool Cal()//递归
+{
+    char c=s[cur];bool w,x;
+    cur++;
+    switch(c){
+    case &apos;p&apos;:return a[0];
+    case &apos;q&apos;:return a[1];
+    case &apos;r&apos;:return a[2];
+    case &apos;s&apos;:return a[3];
+    case &apos;t&apos;:return a[4];
+    case &apos;N&apos;:return !Cal();
+    case &apos;K&apos;:w=Cal();x=Cal();return (w&amp;&amp;x);
+    case &apos;A&apos;:w=Cal();x=Cal();return (w||x);
+    case &apos;C&apos;:w=Cal();x=Cal();return (w&lt;=x);
+    case &apos;E&apos;:w=Cal();x=Cal();return (w==x);
+    default :return 0;
+    }
+}
+int main()
+{
+    int f;
+    while(1)
+    {
+        cin&gt;&gt;s;
+        if(s==&quot;0&quot;)  break;
+        f=1;
+        for(char i=0;i!=32;i++)
+        {
+            cur=0;Change(i);
+            if(!Cal()) {f=0;break;}
+        }
+        if(f==1) cout&lt;&lt;&quot;tautology&quot;&lt;&lt;endl;
+        else cout&lt;&lt;&quot;not&quot;&lt;&lt;endl;
+
+    }
+    return 0;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/poj 3295 Tautology /" data-id="cjttuf87a0021e8v3j6rx2lgn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/poj 3071 【概率dp】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj 3071 【概率dp】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/21位 花朵数 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">21位 花朵数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

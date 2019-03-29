@@ -5,16 +5,19 @@
   
 
   
-  <title>test | Hexo</title>
+  <title>hdu 4515 【树的直径】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://t51645.github.io/2019/03/29/test/index.html">
+  <meta name="description" content="题目链接：http://acm.hdu.edu.cn/showproblem.php?pid=4514   题解： 先用一次dfs判断是否存在环，然后再枚举树的叶子节点找最长路。 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 4515 【树的直径】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/hdu 4515 【树的直径】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：http://acm.hdu.edu.cn/showproblem.php?pid=4514   题解： 先用一次dfs判断是否存在环，然后再枚举树的叶子节点找最长路。 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;s">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T08:38:33.981Z">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
+<meta name="twitter:title" content="hdu 4515 【树的直径】">
+<meta name="twitter:description" content="题目链接：http://acm.hdu.edu.cn/showproblem.php?pid=4514   题解： 先用一次dfs判断是否存在环，然后再枚举树的叶子节点找最长路。 #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;algorithm&amp;gt; #include&amp;lt;cmath&amp;gt; #include&amp;lt;s">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hdu 4515 【树的直径】 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/29/test/" class="article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">2019-03-29</time>
+    <a href="/2017/06/21/hdu 4515 【树的直径】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      hdu 4515 【树的直径】
     </h1>
   
 
@@ -83,11 +90,97 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>题目链接：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=4514" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=4514</a>  </p>
+<p>题解：</p>
+<p>先用一次dfs判断是否存在环，然后再枚举树的叶子节点找最长路。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 100005
+#define inf 0x7f7f7f7f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+const double Pi = acos(-1);
+const int mod = 1e4+7;
+typedef pair&lt;int, int&gt;P;
+
+vector&lt;P&gt;G[MAX_N];
+bool vis[MAX_N];
+int n, m;
+int mx;
+int s;
+void init()
+{
+    memset(vis, false, sizeof(vis));
+}
+bool dfs(int u, int pre, int sum)
+{
+    if(sum &gt; mx) {
+        mx = sum;
+        s = u;
+    }
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i].first;
+        int c = G[u][i].second;
+        if(v == pre)
+            continue;
+        if(vis[v])
+            return true;
+        vis[v] = true;
+        if(dfs(v, u, sum+c))
+            return true;
+        vis[v] = false;
+    }
+    return false;
+}
+int main()
+{
+    while(~scanf(&quot;%d%d&quot;, &amp;n, &amp;m)) {
+        init();
+        for(int i=1; i&lt;=n; i++)
+            G[i].clear();
+        for(int i=0; i&lt;m; i++) {
+            int a, b, c;
+            scanf(&quot;%d%d%d&quot;, &amp;a, &amp;b, &amp;c);
+            G[a].push_back(P(b, c));
+            G[b].push_back(P(a, c));
+        }
+        mx = 0;
+        vis[1] = true;
+        if(dfs(1, 0, 0)) {
+            puts(&quot;YES&quot;);
+            continue;
+        }
+        int ans = 0;
+        init();
+        for(int i=1; i&lt;=n; i++) {
+            mx = 0;
+            if(G[i].size() &gt; 1)//如果不是叶子节点
+                continue;
+            init();
+            vis[i] = true;
+            dfs(i, 0, 0);
+            ans = max(ans, mx);
+        }
+        cout &lt;&lt; ans &lt;&lt; endl;
+    }
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://t51645.github.io/2019/03/29/test/" data-id="cjttuf87b0023e8v396hidehn" class="article-share-link">Share</a>
+      <a data-url="https://t51645.github.io/2017/06/21/hdu 4515 【树的直径】 /" data-id="cjttuf874001pe8v3ysvckyn0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +189,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/29/模拟登陆ZJJCXY/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/21/hdu 2196 【树形DP】 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          hdu 2196 【树形DP】
         
       </div>
     </a>
   
   
-    <a href="/2019/03/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/06/21/14届浙江省acm总结 /" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">14届浙江省acm总结</div>
     </a>
   
 </nav>

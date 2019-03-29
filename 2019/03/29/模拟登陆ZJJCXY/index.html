@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="python爬虫实战之实现浙江警察学院网络模拟登陆参考的是Python爬虫实战三之实现山东大学无线网络掉线自动重连  功能运行程序自动连接ZJJCXY无线网并模拟登陆 步骤一、用wireshark抓取http post包观察首先用wireshark抓取登陆的http post包然后将其保存到本地观察可以发现post包的大体格式，其中0MKKEY不知道是什么东西，等下模拟登陆的时候直接用抓到的值就行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://t51645.github.io/2019/03/29/模拟登陆ZJJCXY/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="python爬虫实战之实现浙江警察学院网络模拟登陆参考的是Python爬虫实战三之实现山东大学无线网络掉线自动重连  功能运行程序自动连接ZJJCXY无线网并模拟登陆 步骤一、用wireshark抓取http post包观察首先用wireshark抓取登陆的http post包然后将其保存到本地观察可以发现post包的大体格式，其中0MKKEY不知道是什么东西，等下模拟登陆的时候直接用抓到的值就行">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/d996e306gy1fgtbmrcs46j20zk026weq.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/d996e306gy1fgtbmrgbntj20j80b1wfg.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbmrqo8mj20r10dbq4q.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbmsstrdj20gz04zglz.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbms7c9sj20wk0catae.jpg">
+<meta property="og:updated_time" content="2017-06-22T00:33:42.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="python爬虫实战之实现浙江警察学院网络模拟登陆参考的是Python爬虫实战三之实现山东大学无线网络掉线自动重连  功能运行程序自动连接ZJJCXY无线网并模拟登陆 步骤一、用wireshark抓取http post包观察首先用wireshark抓取登陆的http post包然后将其保存到本地观察可以发现post包的大体格式，其中0MKKEY不知道是什么东西，等下模拟登陆的时候直接用抓到的值就行">
+<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/d996e306gy1fgtbmrcs46j20zk026weq.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-模拟登陆ZJJCXY" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/29/模拟登陆ZJJCXY/" class="article-date">
+  <time datetime="2019-03-29T08:48:42.826Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="python爬虫实战之实现浙江警察学院网络模拟登陆"><a href="#python爬虫实战之实现浙江警察学院网络模拟登陆" class="headerlink" title="python爬虫实战之实现浙江警察学院网络模拟登陆"></a>python爬虫实战之实现浙江警察学院网络模拟登陆</h1><p>参考的是<a href="http://cuiqingcai.com/2083.html" target="_blank" rel="noopener">Python爬虫实战三之实现山东大学无线网络掉线自动重连</a> </p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>运行程序自动连接ZJJCXY无线网并模拟登陆</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="一、用wireshark抓取http-post包观察"><a href="#一、用wireshark抓取http-post包观察" class="headerlink" title="一、用wireshark抓取http post包观察"></a>一、用wireshark抓取http post包观察</h3><p>首先用wireshark抓取登陆的http post包<br><img src="http://wx4.sinaimg.cn/mw690/d996e306gy1fgtbmrcs46j20zk026weq.jpg" alt><br>然后将其保存到本地观察<br><img src="http://wx4.sinaimg.cn/mw690/d996e306gy1fgtbmrgbntj20j80b1wfg.jpg" alt><br>可以发现post包的大体格式，其中0MKKEY不知道是什么东西，等下模拟登陆的时候直接用抓到的值就行了，有人知道的话可以评论留言（不过我的blog现在还没评论功能，过几天再加）  </p>
+<h3 id="二、编写post报文"><a href="#二、编写post报文" class="headerlink" title="二、编写post报文"></a>二、编写post报文</h3><p>直接按着第一步观察的post包内容编写请求头和form表单<br>我校post包内容是这样的<br><img src="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbmrqo8mj20r10dbq4q.jpg" alt><br>然后编码为url进行模拟登陆<br><img src="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbmsstrdj20gz04zglz.jpg" alt>  </p>
+<h3 id="三、循环检测"><a href="#三、循环检测" class="headerlink" title="三、循环检测"></a>三、循环检测</h3><p>循环检测分为两个部分<br>1.检测是否连接ZJJCXY<br>2.检测检测是否能联网<br>在1中是通过检测当前ip是否存在ip_pre前缀，ip_pre是电脑连接ZJJCXY后的ip前缀<br>在2中是通过检测是否能ping通百度<br><img src="http://wx1.sinaimg.cn/mw690/d996e306gy1fgtbms7c9sj20wk0catae.jpg" alt><br>获取ip和检测是否能联网在最终代码中看  </p>
+<h3 id="四、自动连接ZJJCXY"><a href="#四、自动连接ZJJCXY" class="headerlink" title="四、自动连接ZJJCXY"></a>四、自动连接ZJJCXY</h3><p>在Python爬虫实战三之实现山东大学无线网络掉线自动重连教程中没有这个部分，是我自己根据需求加入的<br>大概步骤就是通过os.system()进行命令行操作，输入</p>
+<blockquote>
+<p>netsh wlan connect name=ZJJCXY  </p>
+</blockquote>
+<p>不过可能会出现  </p>
+<blockquote>
+<p>没有分配给指定接口的配置文件  </p>
+</blockquote>
+<p>这样的错误，解决方法如下：<br>打开网络和共享中心–管理无线网络–添加–手动创建网络配置文件–网络名填ZJJCXY  安全类型选无身份验证<br>然后就可以了   </p>
+<h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> chardet</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, ip_pre, username, password)</span>:</span></span><br><span class="line">        <span class="comment">#ip前缀</span></span><br><span class="line">        self.ip_pre = ip_pre</span><br><span class="line">        <span class="comment">#校园网账号</span></span><br><span class="line">        self.username = username</span><br><span class="line">        <span class="comment">#校园网密码</span></span><br><span class="line">        self.password = password</span><br><span class="line">        <span class="comment">#固定值</span></span><br><span class="line">        self.Key = <span class="string">'%B5%C7+%C2%BC'</span></span><br><span class="line">        <span class="comment">#程序检测网络时间间隔10s</span></span><br><span class="line">        self.interval = <span class="number">10</span></span><br><span class="line">    <span class="comment">#获取ip</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIp</span><span class="params">(self)</span>:</span></span><br><span class="line">        local_ip = socket.gethostbyname(socket.gethostname())</span><br><span class="line">        <span class="keyword">if</span> self.ip_pre <span class="keyword">in</span> str(local_ip):</span><br><span class="line">            <span class="keyword">return</span> str(local_ip)</span><br><span class="line">        ip_lists = socket.gethostbyname_ex(socket.gethostname())</span><br><span class="line">        <span class="keyword">for</span> ip_list <span class="keyword">in</span> ip_lists:</span><br><span class="line">            <span class="keyword">if</span> isinstance(ip_list, list):</span><br><span class="line">                <span class="keyword">for</span> ip <span class="keyword">in</span> ip_list:</span><br><span class="line">                    <span class="keyword">if</span> self.ip_pre <span class="keyword">in</span> ip:</span><br><span class="line">                        <span class="keyword">return</span> ip</span><br><span class="line">    <span class="comment">#检测是否能连接网络</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canConnect</span><span class="params">(self)</span>:</span></span><br><span class="line">        fnull = open(os.devnull, <span class="string">'w'</span>)</span><br><span class="line">        <span class="comment">#ping 百度查看是否能连接网络</span></span><br><span class="line">        result = subprocess.call(<span class="string">'ping www.baidu.com'</span>, shell = <span class="literal">True</span>, stdout = fnull, stderr = fnull)</span><br><span class="line">        fnull.close()</span><br><span class="line">        <span class="keyword">if</span> result:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="comment">#获取本地时间</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getCurrentTime</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> time.strftime(<span class="string">'[%Y-%m-%d %H:%M:%S]'</span>, time.localtime(time.time()))</span><br><span class="line">    <span class="comment">#模拟登陆</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#form表单</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'DDDDD'</span>: self.username,</span><br><span class="line">            <span class="string">'upass'</span>: self.password,</span><br><span class="line">            <span class="string">'0MKKey'</span>: self.Key</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">#消息头</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">'Host'</span>: <span class="string">'10.10.200.3'</span>,</span><br><span class="line">            <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0'</span>,</span><br><span class="line">            <span class="string">'Accept'</span>: <span class="string">'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span>,</span><br><span class="line">            <span class="string">'Accept-Language'</span>: <span class="string">'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'</span>,</span><br><span class="line">            <span class="string">'Accept-Encoding'</span>: <span class="string">'gzip, deflate'</span>,</span><br><span class="line">            <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</span><br><span class="line">            <span class="string">'Content-Length'</span>: <span class="string">'41'</span>,</span><br><span class="line">            <span class="string">'Referer'</span>: <span class="string">'http://10.10.200.3/'</span>,</span><br><span class="line">            <span class="string">'Cookie'</span>: <span class="string">'myusername='</span>+self.username+<span class="string">'; username='</span>+self.username+<span class="string">'; smartdot='</span>+self.password,</span><br><span class="line">            <span class="string">'Connection'</span>: <span class="string">'keep-alive'</span>,</span><br><span class="line">            <span class="string">'Upgrade-Insecure-Requests'</span>: <span class="string">'1'</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">#编码form表单</span></span><br><span class="line">        post_data = urllib.urlencode(data)</span><br><span class="line">        <span class="comment">#校园网登陆url</span></span><br><span class="line">        login_url = <span class="string">'http://10.10.200.3/'</span></span><br><span class="line">        request = urllib2.Request(login_url, post_data, headers)</span><br><span class="line">        response = urllib2.urlopen(request)</span><br><span class="line">        result = response.read().decode(<span class="string">'latin-1'</span>).encode(<span class="string">'utf-8'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            ip = self.getIp()</span><br><span class="line">            <span class="comment">#检查是否连接ZJJCXY</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> ip:</span><br><span class="line">                <span class="keyword">print</span> self.getCurrentTime()+<span class="string">"请检查是否正常连接ZJJCXY"</span>.decode(<span class="string">'utf-8'</span>).encode(<span class="string">'gbk'</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">print</span> self.getCurrentTime()+<span class="string">"成功连接ZJJCXY"</span>.decode(<span class="string">'utf-8'</span>).encode(<span class="string">'gbk'</span>)</span><br><span class="line">                self.login()</span><br><span class="line">                <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                    connect = self.canConnect()</span><br><span class="line">                    <span class="comment">#检查是否能联网</span></span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> connect:</span><br><span class="line">                        <span class="keyword">print</span> self.getCurrentTime()+<span class="string">"当前已掉线，请检查是否正常连接ZJJCXY"</span>.decode(<span class="string">'utf-8'</span>).encode(<span class="string">'gbk'</span>)</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">print</span> self.getCurrentTime()+<span class="string">"当前网络连接正常"</span>.decode(<span class="string">'utf-8'</span>).encode(<span class="string">'gbk'</span>)</span><br><span class="line">                    time.sleep(self.interval)</span><br><span class="line">            time.sleep(self.interval)</span><br><span class="line"><span class="comment">#url = 'http://10.10.200.3'</span></span><br><span class="line"><span class="comment">#自动连接</span></span><br><span class="line">os.system(<span class="string">'netsh wlan connect name=ZJJCXY'</span>)</span><br><span class="line">login = Login(<span class="string">'ip_pre'</span>, <span class="string">'username'</span>, <span class="string">'password'</span>)</span><br><span class="line">login.main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2019/03/29/模拟登陆ZJJCXY/" data-id="cjttuf87i002ge8v3nag59eal" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/29/test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">test</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives: 2019 | Hexo</title>
+  <title>Poj 2955 Brackets 【区间DP】 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://t51645.github.io/archives/2019/index.html">
+  <meta name="description" content="链接：  点击打开链接  题意： 最大括号匹配数 题解： dp[i][j] = i~j最大括号匹配数 如果s[i]==s[j]，dp[i][j] = dp[i+1][j-1]+2 否则 dp[i][j] = max(dp[i][k]+dp[k+1][j])(i=&amp;lt;k&amp;lt;r) 记忆化搜索： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poj 2955 Brackets 【区间DP】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/Poj 2955 Brackets 【区间DP】 /index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接：  点击打开链接  题意： 最大括号匹配数 题解： dp[i][j] = i~j最大括号匹配数 如果s[i]==s[j]，dp[i][j] = dp[i+1][j-1]+2 否则 dp[i][j] = max(dp[i][k]+dp[k+1][j])(i=&amp;lt;k&amp;lt;r) 记忆化搜索： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Poj 2955 Brackets 【区间DP】">
+<meta name="twitter:description" content="链接：  点击打开链接  题意： 最大括号匹配数 题解： dp[i][j] = i~j最大括号匹配数 如果s[i]==s[j]，dp[i][j] = dp[i+1][j-1]+2 否则 dp[i][j] = max(dp[i][k]+dp[k+1][j])(i=&amp;lt;k&amp;lt;r) 记忆化搜索： #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdio.h&amp;gt; #">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,72 +64,120 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/模拟登陆ZJJCXY/" class="archive-article-date">
-  <time datetime="2019-03-29T08:48:42.826Z" itemprop="datePublished">Mar 29</time>
+        <section id="main"><article id="post-Poj 2955 Brackets 【区间DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Poj 2955 Brackets 【区间DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
 </a>
-      
-    </header>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
   </div>
-</article>
-  
+
+  </div>
+  <div class="article-inner">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/test/" class="archive-article-date">
-  <time datetime="2019-03-29T08:38:33.000Z" itemprop="datePublished">Mar 29</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/test/">test</a>
+    <h1 class="article-title" itemprop="name">
+      Poj 2955 Brackets 【区间DP】
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/29/hello-world/" class="archive-article-date">
-  <time datetime="2019-03-29T08:32:05.585Z" itemprop="datePublished">Mar 29</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/hello-world/">Hello World</a>
-    </h1>
-  
+        <p>链接：</p>
+<p><a href="http://poj.org/problem?id=2955" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p>题意：</p>
+<p>最大括号匹配数</p>
+<p>题解：</p>
+<p>dp[i][j] = i~j最大括号匹配数</p>
+<p>如果s[i]==s[j]，dp[i][j] = dp[i+1][j-1]+2</p>
+<p>否则 dp[i][j] = max(dp[i][k]+dp[k+1][j])(i=&lt;k&lt;r)</p>
+<p>记忆化搜索：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 105
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 1e8+7;
+typedef pair&lt;LL, LL&gt;P;
 
-    </header>
+string s;
+int dp[MAX_N][MAX_N];
+void init()
+{
+    memset(dp, -1, sizeof(dp));
+}
+int cal(int l, int r)
+{
+    if(l &gt;= r)
+        return 0;
+    if(dp[l][r] != -1)
+        return dp[l][r];
+    int M = 0;
+    if((s[l]==&apos;(&apos;&amp;&amp;s[r]==&apos;)&apos;) || (s[l]==&apos;[&apos;&amp;&amp;s[r]==&apos;]&apos;))
+        M = cal(l+1, r-1) + 2;
+    for(int i=l; i&lt;r; i++)
+        M = max(M, cal(l, i)+cal(i+1, r));
+    dp[l][r] = M;
+    return dp[l][r];
+}
+int main()
+{
+    while(cin&gt;&gt;s &amp;&amp; s!=&quot;end&quot;) {
+        init();
+        printf(&quot;%d\n&quot;,cal(0, s.length()));
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/Poj 2955 Brackets 【区间DP】 /" data-id="cjttuf86g000he8v3ccah63u2" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/Poj 1655 【树的重心】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Poj 1655 【树的重心】
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/06/21/Poj 1837 Balance【DP】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Poj 1837 Balance【DP】</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

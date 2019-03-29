@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>codeforces 219D 【树形DP】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目链接：  点击打开链接      题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点 题解： 设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。 可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。 #pragma comment(linker, &amp;quot;/STAC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforces 219D 【树形DP】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforces 219D 【树形DP】 /index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目链接：  点击打开链接      题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点 题解： 设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。 可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。 #pragma comment(linker, &amp;quot;/STAC">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.522Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforces 219D 【树形DP】">
+<meta name="twitter:description" content="题目链接：  点击打开链接      题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点 题解： 设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。 可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。 #pragma comment(linker, &amp;quot;/STAC">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-codeforces 219D 【树形DP】 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforces 219D 【树形DP】 /" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeforces 219D 【树形DP】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目链接： <a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener"> 点击打开链接 </a></p>
+<p><a href="http://codeforces.com/problemset/problem/219/D" target="_blank" rel="noopener">  
+</a></p>
+<p>题意：给出一个有n个结点的有向无环图，问找到一点使能够逆转最少的边到达剩下n-1个点，并且输出所有这样的点</p>
+<p>题解：</p>
+<p>设dp[i][0]为第i个结点的子树中逆转边的数目，dp[i][1]为第i个结点的除子树外剩下要逆转多少条边。</p>
+<p>可以dfs两次，第一次求子树逆转边，第二次求除子树外的逆转边。</p>
+<pre><code>#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+#include&lt;sstream&gt;
+using namespace std;
+#define MAX_N 200005
+#define inf 0x7f7f7f7f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 1e18;
+//const double Pi = acos(-1);
+const int mod = 1e4+7;
+typedef pair&lt;int, int&gt;P;
+
+vector&lt;int&gt;G[MAX_N];
+set&lt;P&gt;st;
+int dp[MAX_N][2];
+/*
+dp[i][0]该结点子树有多少条边要改，
+dp[i][1]该结点的父节点有多少条边要改
+*/
+void dfs1(int u, int pre)
+{
+    dp[u][0] = dp[u][1] = 0;
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i];
+        if(v == pre)
+            continue;
+        dfs1(v, u);
+        if(st.find(P(u, v)) == st.end())//如果u不能到v则需要逆转边
+            dp[u][0]++;
+        dp[u][0] += dp[v][0];
+    }
+}
+void dfs2(int u, int pre)
+{
+    for(int i=0; i&lt;G[u].size(); i++) {
+        int v = G[u][i];
+        if(v == pre)
+            continue;
+        dp[v][1] = dp[u][0] - dp[v][0] + dp[u][1];//(dp[u][0]-dp[v][0])就是u的除v结点外的其他子树逆转边
+        if(st.find(P(u, v)) != st.end())//还需判断u和v之间边的方向
+            dp[v][1]++;
+        else
+            dp[v][1]--;
+        dfs2(v, u);
+    }
+}
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for(int i=1; i&lt;n; i++) {
+        int a, b;
+        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+        st.insert(P(a, b));
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+    dfs1(1, 0);
+    dfs2(1, 0);
+    int mn = inf;
+    for(int i=1; i&lt;=n; i++)
+        mn = min(mn, dp[i][0]+dp[i][1]);
+    cout &lt;&lt; mn &lt;&lt; endl;
+    for(int i=1; i&lt;=n; i++) {
+        if(dp[i][0]+dp[i][1] == mn)
+            printf(&quot;%d &quot;, i);
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 219D 【树形DP】 /" data-id="cjttuf871001je8v3q3rzgsnj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          codeforces 768C Jon Snow and his Favourite Number 【思维】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/codeforces 817D Imbalanced Array /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeforces 817D Imbalanced Array</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

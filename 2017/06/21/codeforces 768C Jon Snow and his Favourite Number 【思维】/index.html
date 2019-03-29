@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>codeforces 768C Jon Snow and his Favourite Number 【思维】 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="链接： http://codeforces.com/contest/768/problem/C 题意： 现在要对一个长度为n的数组a[i]进行k次的增强。 每次增强是先对数组a进行排序再间隔的对数组a XOR x 题解： 一开始我是想先那几组数据测试一下每次操作后数组变成什么样，后来发现全部数据都出现了长度2的循环结，于是后来直接顺着这个思路写，后来一提交发现并不是所有数据都会出现长度为2的循环结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforces 768C Jon Snow and his Favourite Number 【思维】">
+<meta property="og:url" content="https://t51645.github.io/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接： http://codeforces.com/contest/768/problem/C 题意： 现在要对一个长度为n的数组a[i]进行k次的增强。 每次增强是先对数组a进行排序再间隔的对数组a XOR x 题解： 一开始我是想先那几组数据测试一下每次操作后数组变成什么样，后来发现全部数据都出现了长度2的循环结，于是后来直接顺着这个思路写，后来一提交发现并不是所有数据都会出现长度为2的循环结">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T02:09:06.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforces 768C Jon Snow and his Favourite Number 【思维】">
+<meta name="twitter:description" content="链接： http://codeforces.com/contest/768/problem/C 题意： 现在要对一个长度为n的数组a[i]进行k次的增强。 每次增强是先对数组a进行排序再间隔的对数组a XOR x 题解： 一开始我是想先那几组数据测试一下每次操作后数组变成什么样，后来发现全部数据都出现了长度2的循环结，于是后来直接顺着这个思路写，后来一提交发现并不是所有数据都会出现长度为2的循环结">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://t51645.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-codeforces 768C Jon Snow and his Favourite Number 【思维】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/" class="article-date">
+  <time datetime="2017-06-21T04:00:00.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/acm/">acm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeforces 768C Jon Snow and his Favourite Number 【思维】
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>链接：</p>
+<p><a href="http://codeforces.com/contest/768/problem/C" target="_blank" rel="noopener">http://codeforces.com/contest/768/problem/C</a></p>
+<p>题意：</p>
+<p>现在要对一个长度为n的数组a[i]进行k次的增强。</p>
+<p>每次增强是先对数组a进行排序再间隔的对数组a XOR x</p>
+<p>题解：</p>
+<p>一开始我是想先那几组数据测试一下每次操作后数组变成什么样，后来发现全部数据都出现了长度2的循环结，于是后来直接顺着这个思路写，后来一提交发现并不是所有数据都<br>会出现长度为2的循环结。</p>
+<p>后来参考了官方题解：a[i]中的数据经过操作不会超过1024，因为a[i]&lt;=1000,x&lt;=1000，并且每次操作都是先对数组进行排序再进行异或，所以可以<br>根据数【0,1024】在数组中出现的次数sum[k]来写。假如一个数【0，k-1】在数组中出现了m次，设操作后的数出现次数为new[i],如果m为偶则对数k<br>异或后，new[x^k] += (sum[k]+1)/2，new[k] += (sum[k]/2);若m为奇数new[x^k] +=<br>(sum[k]/2),new[k] += (sum[k]+1)/2</p>
+<p>所以最后复杂度为O(1024*k)</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;stack&gt;
+#include&lt;time.h&gt;
+using namespace std;
+#define MAX_N 2050
+#define inf 0x3f3f3f3f
+#define LL long long
+#define ull unsigned long long
+const LL INF = 9e18;
+const int mod = 4e4+7;
+typedef pair&lt;int, int&gt;P;
+
+int n, k, x;
+void cpy(int *a, int *b)
+{
+    for(int i=0; i&lt;=1024; i++)
+        a[i] = b[i];
+}
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; k &gt;&gt; x;
+    int a[MAX_N];
+    int b[MAX_N];
+    memset(a, 0, sizeof(a));
+    memset(b, 0, sizeof(b));
+    for(int i=0; i&lt;n; i++) {
+        int x;
+        scanf(&quot;%d&quot;,&amp;x);
+        a[x]++;
+    }
+    for(int i=0; i&lt;k; i++) {
+        int sum = 0;
+        memset(b, 0, sizeof(b));
+
+        for(int j=0; j&lt;=1024; j++) {
+            if(sum &amp; 1) {
+                b[j^x] += ((a[j]+0)/2);
+                b[j] += ((a[j]+1)/2);
+            }
+            else {
+                b[j^x] += ((a[j]+1)/2);
+                b[j] += ((a[j]+0)/2);
+            }
+            sum += a[j];
+        }
+        cpy(a, b);
+    }
+    int mn, mx;
+    for(int i=0; i&lt;=1024; i++) {
+        if(a[i]) {
+            mn = i;
+            break;
+        }
+    }
+    for(int i=1024; i&gt;=0; i--) {
+        if(a[i]) {
+            mx = i;
+            break;
+        }
+    }
+    cout &lt;&lt; mx &lt;&lt; &quot; &quot; &lt;&lt; mn &lt;&lt; endl;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://t51645.github.io/2017/06/21/codeforces 768C Jon Snow and his Favourite Number 【思维】/" data-id="cjttuf870001he8v3uy3y6h1q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/21/codeforces 767C Garland 【dfs】 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          codeforces 767C Garland 【dfs】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/21/codeforces 219D 【树形DP】 /" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeforces 219D 【树形DP】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/acm/">acm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/搭建博客/">搭建博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/教程/" style="font-size: 10px;">教程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/29/模拟登陆ZJJCXY/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/codeforces 767B The Queue【贪心】 /">codeforces 767B The Queue【贪心】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/21/Codeforces Round #418 (Div. 2) C. An impassioned circulation of affection/">Codeforces Round</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
